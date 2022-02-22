@@ -15,6 +15,7 @@ public class Exposure : MonoBehaviour
     bool b_lightOn            = true;
     public float timePause    = 1f;
 
+    public bool startKeyInput = false; 
     //key board control
     bool gameIsPaused = false;
     void PauseGame()
@@ -71,20 +72,6 @@ public class Exposure : MonoBehaviour
                 GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");     
                 b_lightOn = !b_lightOn; // flag false; 
 
-                //if (b_lightOn == false)
-                //{
-                //    GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-                //    b_lightOn = !b_lightOn;
-                //    //Debug.Log(" light on : Time parsed %f  " + timeParsed); 
-                //}
-                //else
-                //{
-                //    GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
-                //    b_lightOn = !b_lightOn;
-                //    //Debug.Log("light off - Time parsed %f " + timeParsed);
-                //}
-
-                //timeParsed = 0;
             }
             else 
             {
@@ -95,19 +82,26 @@ public class Exposure : MonoBehaviour
                 {
                     timeParsed = 0;
 
-                    //pause and get input 
-                    if (!Input.GetKey("right") && !Input.GetKey("left"))
-                    {
-                        Debug.Log(" press right or left keys");
-                        gameIsPaused = true;
-                        PauseGame();
+                    startKeyInput = true; 
+                    //pause the game 
+                    if (GetComponent<Keyboard>().gameIsPaused)
+                    { 
+                        //game is paused 
                     }
-                    else
-                    {
-                        Debug.Log(" got the input : press right or left keys");
-                        gameIsPaused = false;
-                        PauseGame();
-                    }
+
+                    ////pause and get input 
+                    //if (!Input.GetKey("right") && !Input.GetKey("left"))
+                    //{
+                    //    Debug.Log(" press right or left keys");
+                    //    gameIsPaused = true;
+                    //    PauseGame();
+                    //}
+                    //else
+                    //{
+                    //    Debug.Log(" got the input : press right or left keys");
+                    //    gameIsPaused = false;
+                    //    PauseGame();
+                    //}
 
                 }
 
