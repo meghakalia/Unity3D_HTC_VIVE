@@ -6,12 +6,21 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] InputActionAsset playerControls;
+    InputAction movement; 
+
+
     CharacterController character;
     Vector3 moveVector;
     [SerializeField] float speed = 10f; 
     private void Start()
     {
-        character = GetComponent<CharacterController>(); 
+        character = GetComponent<CharacterController>();
+        var gamePlayActionMap = playerControls.FindActionMap("Default");
+        movement = gamePlayActionMap.FindAction("Move");
+        movement.performed += OnMovementChanged;
+        movement.canceled += OnMovementChanged;
+        movement.Enable(); 
     }
 
     // Update is called once per frame
