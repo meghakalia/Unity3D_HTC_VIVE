@@ -851,6 +851,7 @@ GameObject:
   - component: {fileID: 894643695}
   - component: {fileID: 894643694}
   - component: {fileID: 894643696}
+  - component: {fileID: 894643697}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1091,6 +1092,23 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!114 &894643697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894643688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a37c24c3281c7fe4bac5f43226439709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 0}
+  hapticAction: {fileID: 0}
+  _amplitude: 1
+  _duration: 0.1
+  _frequency: 0
 --- !u!1 &1114432129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,14 +1379,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264128722}
-  m_LocalRotation: {x: -0.0002991217, y: -0.98463845, z: 0.1745864, w: -0.002592941}
-  m_LocalPosition: {x: 0, y: 2.32, z: 1.53}
+  m_LocalRotation: {x: 0.0062175645, y: -0.97843003, z: 0.20627931, w: -0.009215419}
+  m_LocalPosition: {x: 0, y: 2.7, z: 2.47}
   m_LocalScale: {x: 0.92045, y: 0.92045, z: 0.92045}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1290574821}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 20.109, y: 179.695, z: 359.981}
+  m_LocalEulerAnglesHint: {x: 23.8, y: 178.71, z: 359}
 --- !u!114 &1264128724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1376,7 +1394,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264128722}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2fadf230d1919748a9aa21d40f74619, type: 3}
   m_Name: 
@@ -1475,7 +1493,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 60
+  field of view: 26.991467
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -2476,10 +2494,6 @@ GameObject:
   - component: {fileID: 2147482443}
   - component: {fileID: 2147482442}
   - component: {fileID: 2147482446}
-  - component: {fileID: 2147482447}
-  - component: {fileID: 2147482449}
-  - component: {fileID: 2147482448}
-  - component: {fileID: 2147482450}
   - component: {fileID: 2147482451}
   m_Layer: 0
   m_Name: LEDCylinder
@@ -2588,61 +2602,6 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!114 &2147482447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147482441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac4049a5990e58419deddaefca58050, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeDelay: 0
-  timePause: 1
---- !u!114 &2147482448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147482441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d12b8d6b46a93424985ea91be3cf08ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameIsPaused: 0
---- !u!114 &2147482449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147482441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11ed15a6dc1e8414d9e7c552500da846, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeDelay: 0
-  timeParsed: 0
-  timePause: 1
-  startKeyInput: 0
---- !u!114 &2147482450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2147482441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73dd835ba6519cf4f8552b4731619b55, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2147482451
 MonoBehaviour:
   m_ObjectHideFlags: 0
