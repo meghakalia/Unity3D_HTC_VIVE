@@ -852,6 +852,7 @@ GameObject:
   - component: {fileID: 894643694}
   - component: {fileID: 894643696}
   - component: {fileID: 894643697}
+  - component: {fileID: 894643698}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1106,6 +1107,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   action: {fileID: 0}
   hapticAction: {fileID: 0}
+  _amplitude: 1
+  _duration: 0.1
+  _frequency: 0
+--- !u!114 &894643698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 894643688}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88246fc94ccae5a41b9f480d22a0f72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 6986180202050166755, guid: e0ca4504471ca124088e1e2cfe6804ae, type: 3}
+  hapticAction: {fileID: 2975796035989916654, guid: e0ca4504471ca124088e1e2cfe6804ae,
+    type: 3}
   _amplitude: 1
   _duration: 0.1
   _frequency: 0
@@ -1796,6 +1815,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1708181439 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6679423456939028638, guid: 49d80b30fd665fd409997be7991a1d70,
+    type: 3}
+  m_PrefabInstance: {fileID: 3428357694690022797}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1708181442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1708181439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88246fc94ccae5a41b9f480d22a0f72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: 3873870584620388549, guid: e0ca4504471ca124088e1e2cfe6804ae, type: 3}
+  hapticAction: {fileID: 2975796035989916654, guid: e0ca4504471ca124088e1e2cfe6804ae,
+    type: 3}
+  _amplitude: 3.75
+  _duration: 0.1
+  _frequency: 0
 --- !u!1 &1725256397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,6 +2015,7 @@ GameObject:
   - component: {fileID: 2026198349}
   - component: {fileID: 2026198348}
   - component: {fileID: 2026198347}
+  - component: {fileID: 2026198351}
   m_Layer: 0
   m_Name: RightHand Controller
   m_TagString: Untagged
@@ -2480,6 +2524,24 @@ MonoBehaviour:
     m_Reference: {fileID: 875253871413052681, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
   m_ButtonPressPoint: 0.5
+--- !u!114 &2026198351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026198345}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88246fc94ccae5a41b9f480d22a0f72d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: {fileID: -5684558904543120851, guid: e0ca4504471ca124088e1e2cfe6804ae, type: 3}
+  hapticAction: {fileID: 2975796035989916654, guid: e0ca4504471ca124088e1e2cfe6804ae,
+    type: 3}
+  _amplitude: 1
+  _duration: 0.1
+  _frequency: 0
 --- !u!1 &2147482441
 GameObject:
   m_ObjectHideFlags: 0
