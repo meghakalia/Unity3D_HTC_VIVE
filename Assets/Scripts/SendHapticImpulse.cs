@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.XR;
+//using UnityEngine.InputSystem.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class SendHapticImpulse : MonoBehaviour
 {
     [SerializeField] private XRBaseController controller;
+    
     public float timer = 2f;
     private float counter;
 
