@@ -18,6 +18,7 @@ public class ExposureCoroutine2 : MonoBehaviour
     float time_delay = 0f; 
 
     [SerializeField] private XRBaseController controller;
+    [SerializeField]  float _mEmissionPower = 3.0f; 
 
     //key board control
     bool gameIsPaused = false;
@@ -83,15 +84,26 @@ public class ExposureCoroutine2 : MonoBehaviour
         m_startCoRoutine = false; //stop coroutine from starting again
 
         int m_flashCount = 0;
-        while (m_flashCount < 4)
+        while (m_flashCount < 50)
         {
                          
             timeParsed = timeParsed + Time.deltaTime;
 
                          
             yield return new WaitForSecondsRealtime(1);
-            GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");                                                                                                
-            ActivateHaptic();   
+            GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+            if (m_flashCount % 2 == 0)
+            {
+                GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.7f)); //To get HDR intensity is pow of 2
+
+            }
+            else 
+            {
+                GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
+
+            }
+
+            //ActivateHaptic();   
             yield return new WaitForSecondsRealtime(1);
             GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
                                                                  
