@@ -672,7 +672,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.084905684, g: 0.06768425, b: 0.06768425, a: 1}
   m_Intensity: 1.16
   m_Range: 10
   m_SpotAngle: 30
@@ -2679,6 +2679,7 @@ MonoBehaviour:
   timeDelay: 0
   timePause: 1
   controller: {fileID: 2026198350}
+  _mEmissionPower: 1
 --- !u!1001 &301763373575321270
 PrefabInstance:
   m_ObjectHideFlags: 0

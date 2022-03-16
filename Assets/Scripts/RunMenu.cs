@@ -7,10 +7,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class RunMenu : MonoBehaviour
 {
-    [SerializeField] ActionBasedController controller;
+    [SerializeField] ActionBasedController controller; //if you need controller input
     [SerializeField] private Text instruction;
 
-    private int index = 0;
+    [SerializeField] public AudioClip beepsound;
+    public AudioSource beep;
+
+    public int index = 0;
     public string[] instructions = new string[]
     {
         "Place your hand above the yellow area."
@@ -21,6 +24,8 @@ public class RunMenu : MonoBehaviour
         index = 0;
         instruction.text = instructions[index];
         controller.selectAction.action.performed += gripButtonPressed;
+
+        beep.PlayOneShot(beepsound);
     }
 
     private void gripButtonPressed(InputAction.CallbackContext obj)

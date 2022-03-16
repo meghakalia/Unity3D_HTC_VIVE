@@ -11,24 +11,31 @@ using Random = System.Random;
 public class ExposureCoroutine2 : MonoBehaviour
 {
     //public Material m_Material;
-    bool firstTime = true;
-    float prevTime = 0;
-    public float timeDelay = 0;
+    bool firstTime              = true;
+    float prevTime              = 0;
+    public float timeDelay      = 0;
     [System.NonSerialized] // this won't save the timePeriod variable in between the running instances
-    public float timePeriod = 1.0f; // based on the MATLAB script
-    float timeParsed = 0;
+    public float timePeriod     = 1.0f; // based on the MATLAB script
+    float timeParsed            = 0;
     bool b_lightOn = true;
-    public float timePause = 1.0f;
-    bool m_startCoRoutine = true;
-    float time_delay = 0f;
+    public float timePause      = 1.0f;
+    bool m_startCoRoutine       = true;
+    float time_delay            = 0f;
     List<List<int>> shuffledComb;
 
     [SerializeField] private XRBaseController controller;
     [SerializeField]  float _mEmissionPower = 3.0f;
 
-  
+    public RunMenu triggerMenuMsg;
+
+    int tempListCount           = 0;
+    int tempList                = 0;
+
+    // file input output 
+    public string filePath = ""; // to give in the editor 
+
     //key board control
-    bool gameIsPaused = false;
+    bool gameIsPaused           = false;
     void PauseGame()
     {
         if (gameIsPaused)
@@ -79,7 +86,21 @@ public class ExposureCoroutine2 : MonoBehaviour
 
         return comb; 
     }
-     
+
+    void writeToFile(string str_output)
+    {
+        //do this only once 
+        //FileStream writer = File.OpenWrite(filePath);
+
+        using FileStream fileStream = File.Open(filePath, FileMode.Append);
+        using StreamWriter writer = new StreamWriter(fileStream);
+
+        writer.WriteLine(str_output);
+
+        writer.Flush();
+        writer.Close();
+
+    }
 
     //Keyboard keyPress; 
     // Start is called before the first frame update
@@ -90,7 +111,10 @@ public class ExposureCoroutine2 : MonoBehaviour
         //shuffle 
         Random rng = new Random();
         shuffledComb = comb.OrderBy(a => rng.Next()).ToList();
+        tempListCount = shuffledComb.Count;
 
+        //file input output 
+        filePath = ""; 
     }
 
 
@@ -133,41 +157,81 @@ public class ExposureCoroutine2 : MonoBehaviour
         int m_flashCount = 0;
 
         // this loop will be run 108 times in a block of 36 
-        while (m_flashCount < 8) //run 8 times 
+        if (tempList != tempListCount) // run till the list is empty
         {
-                         
-            timeParsed = timeParsed + Time.deltaTime;
+            // read the number of random stimuli from file 
+            List<int> numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
+            List<int> numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
-            yield return new WaitForSecondsRealtime(1);
-            GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-            if (m_flashCount % 2 == 0)
+            tempList++;
+
+            while (m_flashCount < 8) //run 8 times 
             {
-                GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.7f)); //To get HDR intensity is pow of 2
+
+                timeParsed = timeParsed + Time.deltaTime;
+
+                yield return new WaitForSecondsRealtime(0.50f); // time between stimulus
+
+                
+
+                //start stimulus
+                GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+
+                //if any 
+
+                if (numbersRand_T.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
+                {
+                    // ActivateHaptic(); // low intensity haptic
+                }
+                else
+                {
+                    //ActivateHaptic(); // high intensity haptic
+                }
+
+                if (numbersRand_V.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
+                {
+                    // low intensity visual
+                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.7f)); //To get HDR intensity is pow of 2
+                }
+                else
+                {
+                    // high intensity visual
+                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
+                }
+
+                //if (m_flashCount % 2 == 0)
+                //{
+                //    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.7f)); //To get HDR intensity is pow of 2
+
+                //}
+                //else 
+                //{
+                //    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
+
+                //}
+
+                //ActivateHaptic();   // time will be different from visual 
+                yield return new WaitForSecondsRealtime(0.1f); // time for which stimulus is presented
+                GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION"); // switch off stimulus
+
+                //wait is moved in the beginning of this loop
+                m_flashCount++;
 
             }
-            else 
-            {
-                GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
 
-            }
-
-            //ActivateHaptic();   
-            yield return new WaitForSecondsRealtime(1);
-            GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
-                                                                 
-            //wait is moved in the beginning of this loop
-            m_flashCount++; 
-           
+            yield return StartCoroutine(WaitForKeyDown()); //get user input 
         }
-        yield return StartCoroutine(WaitForKeyDown());
-
+       
     }
 
     IEnumerator WaitForKeyDown()
     {
         while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
+            //display the message here 
             yield return null;
 
+        //triggerMenuMsg.index += 1;
+        
         //check response and write the response to a file 
         m_startCoRoutine = true;
 

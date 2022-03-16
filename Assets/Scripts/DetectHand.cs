@@ -8,7 +8,7 @@ public class DetectHand : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            print("hand is placed at start position.");
+            Debug.Log("hand is placed at start position.");
         }
     }
 
