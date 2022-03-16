@@ -22,9 +22,15 @@ public class ExposureCoroutine2 : MonoBehaviour
     bool m_startCoRoutine       = true;
     float time_delay            = 0f;
     List<List<int>> shuffledComb;
+    int correctResponse         = 0;
+    [SerializeField] float stimulusDuration = 0.1f; // 100 ms
+    int subjectResponse         = 0; 
 
     [SerializeField] private XRBaseController controller;
     [SerializeField]  float _mEmissionPower = 3.0f;
+    [SerializeField] float _mIntensityHaptic = 1.0f;
+
+
 
     public RunMenu triggerMenuMsg;
 
@@ -34,6 +40,7 @@ public class ExposureCoroutine2 : MonoBehaviour
     // file input output 
     public string filePath = ""; // to give in the editor 
 
+    
     //key board control
     bool gameIsPaused           = false;
     void PauseGame()
@@ -114,7 +121,8 @@ public class ExposureCoroutine2 : MonoBehaviour
         tempListCount = shuffledComb.Count;
 
         //file input output 
-        filePath = ""; 
+        filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/MeghaPilotExposure.csv";
+        writeToFile("AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration");
     }
 
 
@@ -141,11 +149,11 @@ public class ExposureCoroutine2 : MonoBehaviour
 
     }
 
-    public void ActivateHaptic()
+    public void ActivateHaptic(float amplitude, float duration)
     {
         if (controller != null)
         {
-            controller.SendHapticImpulse(0.7f, 1.0f);
+            controller.SendHapticImpulse(amplitude, duration);
         }
 
     }
@@ -163,7 +171,7 @@ public class ExposureCoroutine2 : MonoBehaviour
             List<int> numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
             List<int> numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
-            tempList++;
+            
 
             while (m_flashCount < 8) //run 8 times 
             {
@@ -181,11 +189,12 @@ public class ExposureCoroutine2 : MonoBehaviour
 
                 if (numbersRand_T.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
                 {
-                    // ActivateHaptic(); // low intensity haptic
+                    ActivateHaptic(_mIntensityHaptic*0.5f, stimulusDuration); // low intensity haptic
                 }
                 else
                 {
-                    //ActivateHaptic(); // high intensity haptic
+                    ActivateHaptic(_mIntensityHaptic * 0.5f, stimulusDuration);// high intensity haptic
+                    
                 }
 
                 if (numbersRand_V.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
@@ -211,7 +220,7 @@ public class ExposureCoroutine2 : MonoBehaviour
                 //}
 
                 //ActivateHaptic();   // time will be different from visual 
-                yield return new WaitForSecondsRealtime(0.1f); // time for which stimulus is presented
+                yield return new WaitForSecondsRealtime(stimulusDuration); // time for which stimulus is presented
                 GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION"); // switch off stimulus
 
                 //wait is moved in the beginning of this loop
@@ -230,8 +239,39 @@ public class ExposureCoroutine2 : MonoBehaviour
             //display the message here 
             yield return null;
 
+        if ((Input.GetKey("right")))
+        {
+            subjectResponse = 1; 
+        }
+
+        if ((Input.GetKey("left")))
+        {
+            subjectResponse = 2;
+        }
+
+        //write the response to a file 
+        int numVisLow   = 8 - shuffledComb[tempList][0];
+        int numTactLow  = 8 - shuffledComb[tempList][1];
+
+        if (numVisLow < numTactLow)
+        {
+            correctResponse = 1; //vision has hihger number of high intensity responses
+        }
+        else 
+        {
+            correctResponse = 2; //tactile has hihger number of high intensity responses
+        }
+
+        //AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+        decimal[] arr = { 0.0m, (decimal)numVisLow, (decimal)numTactLow, (decimal)correctResponse, (decimal)subjectResponse, (decimal)stimulusDuration };
+        writeToFile(string.Join(", ", arr));
+       
+
+        // increment tempList 
+        tempList++;
+
         //triggerMenuMsg.index += 1;
-        
+
         //check response and write the response to a file 
         m_startCoRoutine = true;
 

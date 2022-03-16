@@ -25,7 +25,7 @@ public class RunMenu : MonoBehaviour
         instruction.text = instructions[index];
         controller.selectAction.action.performed += gripButtonPressed;
 
-        beep.PlayOneShot(beepsound);
+        //beep.PlayOneShot(beepsound);
     }
 
     private void gripButtonPressed(InputAction.CallbackContext obj)
