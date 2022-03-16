@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using System;
+using System.IO;
+using System.Linq;
+
+using Random = System.Random;
 
 public class ExposureCoroutine2 : MonoBehaviour
 {
@@ -15,11 +20,13 @@ public class ExposureCoroutine2 : MonoBehaviour
     bool b_lightOn = true;
     public float timePause = 1.0f;
     bool m_startCoRoutine = true;
-    float time_delay = 0f; 
+    float time_delay = 0f;
+    List<List<int>> shuffledComb;
 
     [SerializeField] private XRBaseController controller;
-    [SerializeField]  float _mEmissionPower = 3.0f; 
+    [SerializeField]  float _mEmissionPower = 3.0f;
 
+  
     //key board control
     bool gameIsPaused = false;
     void PauseGame()
@@ -34,12 +41,56 @@ public class ExposureCoroutine2 : MonoBehaviour
         }
     }
 
+    List<int> generateRand(int numCount)
+    {
+        var rand = new Random();
+        List<int> listNumbers = new List<int>();
+        int number;
+        for (int i = 0; i < numCount; i++)
+        {
+            do
+            {
+                number = rand.Next(1, 8);
+            } while (listNumbers.Contains(number));
+            listNumbers.Add(number);
+        }
+
+        return listNumbers;
+    }
+
+    List<List<int>> listFromFile(string FilePath)
+    {
+        List<List<int>> comb = new List<List<int>>();
+        using (var reader = new StreamReader(FilePath))
+        {
+            while (!reader.EndOfStream)
+            {
+                List<int> pair = new List<int>();
+
+                var line = reader.ReadLine();
+                var values = line.Split(',');
+
+                pair.Add(Convert.ToInt32(values[0]));
+                pair.Add(Convert.ToInt32(values[1]));
+                comb.Add(pair);
+
+            }
+        }
+
+        return comb; 
+    }
+     
 
     //Keyboard keyPress; 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //read file and generate list 
+        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/dataTest.csv"));
+        //shuffle 
+        Random rng = new Random();
+        shuffledComb = comb.OrderBy(a => rng.Next()).ToList();
+
     }
 
 
@@ -49,19 +100,15 @@ public class ExposureCoroutine2 : MonoBehaviour
 
         if (time_delay > 1.0f)
         {
-
             if (m_startCoRoutine)
             {
                 StartCoroutine(Example());
             }
-
         }
         else 
         {
             time_delay = time_delay + Time.deltaTime;
         }
-
-
 
         //if (m_startCoRoutine)
         //{
@@ -84,12 +131,13 @@ public class ExposureCoroutine2 : MonoBehaviour
         m_startCoRoutine = false; //stop coroutine from starting again
 
         int m_flashCount = 0;
-        while (m_flashCount < 50)
+
+        // this loop will be run 108 times in a block of 36 
+        while (m_flashCount < 8) //run 8 times 
         {
                          
             timeParsed = timeParsed + Time.deltaTime;
 
-                         
             yield return new WaitForSecondsRealtime(1);
             GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
             if (m_flashCount % 2 == 0)
@@ -119,6 +167,8 @@ public class ExposureCoroutine2 : MonoBehaviour
     {
         while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
             yield return null;
+
+        //check response and write the response to a file 
         m_startCoRoutine = true;
 
         //wait for 1 second and start again 
