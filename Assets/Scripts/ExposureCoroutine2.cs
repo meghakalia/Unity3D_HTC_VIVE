@@ -189,18 +189,18 @@ public class ExposureCoroutine2 : MonoBehaviour
 
                 if (numbersRand_T.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
                 {
-                    ActivateHaptic(_mIntensityHaptic*0.5f, stimulusDuration); // low intensity haptic
+                    ActivateHaptic(_mIntensityHaptic*0.2f, stimulusDuration); // low intensity haptic
                 }
                 else
                 {
-                    ActivateHaptic(_mIntensityHaptic * 0.5f, stimulusDuration);// high intensity haptic
+                    ActivateHaptic(_mIntensityHaptic , stimulusDuration);// high intensity haptic
                     
                 }
 
                 if (numbersRand_V.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
                 {
                     // low intensity visual
-                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.7f)); //To get HDR intensity is pow of 2
+                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
                 }
                 else
                 {

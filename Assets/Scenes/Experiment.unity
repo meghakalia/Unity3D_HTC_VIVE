@@ -177,6 +177,105 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &48721242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7817157331587241022, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2173346381420787195}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &48721244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48721242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bec3156d885bb49a5567db57f9a8ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeDelay: 0
+  timePause: 1
+  stimulusDuration: 0.1
+  controller: {fileID: 2026198350}
+  _mEmissionPower: 3
+  _mIntensityHaptic: 1
+  HapticDevice: {fileID: 0}
+  frequency: 300
+  gain: 1
+  magnitude: 0.9
+  dir:
+  - 0
+  - 1
+  - 0
+  triggerMenuMsg: {fileID: 0}
+  filePath: 
+--- !u!1001 &95180521
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1024661442070310, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1484729172163808, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1896115111616518, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_Name
+      value: HapticDeviceWithGrabber
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583424822498384, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
 --- !u!1 &123104207
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,7 +947,7 @@ PrefabInstance:
     - target: {fileID: 7817157331587240996, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7817157331587240996, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
@@ -1806,6 +1905,58 @@ LightingSettings:
   m_PVRFilteringAtrousPositionSigmaIndirect: 2
   m_PVRFilteringAtrousPositionSigmaAO: 1
   m_PVRTiledBaking: 0
+--- !u!1 &1166339120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1166339122}
+  - component: {fileID: 1166339121}
+  m_Layer: 0
+  m_Name: VibrationScriptTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1166339121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166339120}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11171da5d16fc8c4fb92f600240b484b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HapticDevice: {fileID: 0}
+  frequency: 300
+  gain: 0.33
+  magnitude: 0.33
+  dir:
+  - 0
+  - 1
+  - 0
+--- !u!4 &1166339122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1166339120}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3274454, y: 1.2927258, z: 0.91013885}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1241876873
 GameObject:
   m_ObjectHideFlags: 0
@@ -2322,6 +2473,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1653807329 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7817157331587241022, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 136285964}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1653807336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653807329}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bec3156d885bb49a5567db57f9a8ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeDelay: 0
+  timePause: 1
+  stimulusDuration: 0.1
+  controller: {fileID: 0}
+  _mEmissionPower: 3
+  _mIntensityHaptic: 1
+  HapticDevice: {fileID: 0}
+  frequency: 300
+  gain: 1
+  magnitude: 0.9
+  dir:
+  - 0
+  - 1
+  - 0
+  triggerMenuMsg: {fileID: 0}
+  filePath: 
 --- !u!1 &1659069021
 GameObject:
   m_ObjectHideFlags: 0
@@ -3193,7 +3378,7 @@ PrefabInstance:
     - target: {fileID: 7817157331587240996, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7817157331587240996, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
