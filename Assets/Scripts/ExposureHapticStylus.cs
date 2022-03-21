@@ -33,10 +33,11 @@ public class ExposureHapticStylus : MonoBehaviour
     //Touch haptic 
     public HapticPlugin HapticDevice = null;
     private int FXID = -1;
-    [SerializeField] public float frequency = 300.0f;
-    [SerializeField] public float gain = 1.0f;
-    [SerializeField] public float magnitude = 0.9f;
-    [SerializeField] public double[] dir = { 0.0, 1.0, 0.0 };
+    [NonSerialized] public float frequency = 300.0f;
+    [NonSerialized] public float gain = 1.5f;
+    [NonSerialized] public float lowGain = 0.5f;
+    [NonSerialized] public float magnitude = 1.2f;
+    [NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
 
     public RunMenu triggerMenuMsg;
 
@@ -44,8 +45,10 @@ public class ExposureHapticStylus : MonoBehaviour
     int tempList = 0;
 
     // file input output 
-    public string filePath = ""; // to give in the editor 
+    public string filePath = "MeghaData.csv"; // to give in the editor 
 
+    int blockCount  = 3;
+    int blockrun    = 0;
 
     //key board control
     bool gameIsPaused = false;
@@ -206,78 +209,90 @@ public class ExposureHapticStylus : MonoBehaviour
     {
         m_startCoRoutine = false; //stop coroutine from starting again
 
-        int m_flashCount = 0;
-
-        // this loop will be run 108 times in a block of 36 
-        if (tempList != tempListCount) // run till the list is empty
+        if (blockrun < blockCount)
         {
-            // read the number of random stimuli from file 
-            List<int> numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
-            List<int> numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
-
-
-
-            while (m_flashCount < 8) //run 8 times 
+            int m_flashCount = 0;
+            // this loop will be run 108 times in a block of 36 
+            if (tempList != tempListCount) // run till the list is empty
             {
+                // read the number of random stimuli from file 
+                List<int> numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
+                List<int> numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
-                timeParsed = timeParsed + Time.deltaTime;
-
-                yield return new WaitForSecondsRealtime(0.50f); // time between stimulus
-
-
-
-                //start stimulus
-                GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-
-                //if any 
-
-                if (numbersRand_T.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
+                while (m_flashCount < 8) //run 8 times 
                 {
-                    //ActivateHaptic(_mIntensityHaptic * 0.2f, stimulusDuration); // low intensity haptic
-                    ActivateTouchHaptic(gain, magnitude, frequency, dir);
-                }
-                else
-                {
-                    ActivateTouchHaptic( gain,  magnitude,  frequency, dir); 
-                    //ActivateHaptic(_mIntensityHaptic, stimulusDuration);// high intensity haptic
+
+                    timeParsed = timeParsed + Time.deltaTime;
+
+                    yield return new WaitForSecondsRealtime(0.50f); // time between stimulus
+
+
+
+                    //start stimulus
+                    GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+
+                    //if any 
+
+                    if (numbersRand_T.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
+                    {
+                        //ActivateHaptic(_mIntensityHaptic * 0.2f, stimulusDuration); // low intensity haptic
+                        ActivateTouchHaptic(lowGain, magnitude, frequency, dir);
+                    }
+                    else
+                    {
+                        ActivateTouchHaptic(gain, magnitude, frequency, dir);
+                        //ActivateHaptic(_mIntensityHaptic, stimulusDuration);// high intensity haptic
+
+                    }
+
+                    if (numbersRand_V.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
+                    {
+                        // low intensity visual
+                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
+                    }
+                    else
+                    {
+                        // high intensity visual
+                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
+                    }
+
+                    //if (m_flashCount % 2 == 0)
+                    //{
+                    //    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.7f)); //To get HDR intensity is pow of 2
+
+                    //}
+                    //else 
+                    //{
+                    //    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
+
+                    //}
+
+                    //ActivateHaptic();   // time will be different from visual 
+                    yield return new WaitForSecondsRealtime(stimulusDuration); // time for which stimulus is presented
+                    DeactivateTouchHaptic();
+                    GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION"); // switch off stimulus
+
+                    // Disable this keyword 
+                    //wait is moved in the beginning of this loop
+                    m_flashCount++;
 
                 }
 
-                if (numbersRand_V.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
-                {
-                    // low intensity visual
-                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
-                }
-                else
-                {
-                    // high intensity visual
-                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
-                }
-
-                //if (m_flashCount % 2 == 0)
-                //{
-                //    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.7f)); //To get HDR intensity is pow of 2
-
-                //}
-                //else 
-                //{
-                //    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
-
-                //}
-
-                //ActivateHaptic();   // time will be different from visual 
-                yield return new WaitForSecondsRealtime(stimulusDuration); // time for which stimulus is presented
-                DeactivateTouchHaptic(); 
-                GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION"); // switch off stimulus
-
-                // Disable this keyword 
-                //wait is moved in the beginning of this loop
-                m_flashCount++;
-
+                yield return StartCoroutine(WaitForKeyDown()); //get user input 
             }
+            else if (tempList == tempListCount)
+            {
+                tempList = 0;
+                blockrun++;
 
-            yield return StartCoroutine(WaitForKeyDown()); //get user input 
+                yield return StartCoroutine(WaitForKeyDown()); //get user input 
+            }
         }
+
+
+
+
+
 
     }
 
@@ -313,7 +328,6 @@ public class ExposureHapticStylus : MonoBehaviour
         //AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
         decimal[] arr = { 0.0m, (decimal)numVisLow, (decimal)numTactLow, (decimal)correctResponse, (decimal)subjectResponse, (decimal)stimulusDuration };
         writeToFile(string.Join(", ", arr));
-
 
         // increment tempList 
         tempList++;
