@@ -1526,6 +1526,33 @@ RectTransform:
   m_AnchoredPosition: {x: -0.209, y: 0.225}
   m_SizeDelta: {x: 640, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &684425947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7817157331587241022, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1062184737}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &684425954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684425947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42bec3156d885bb49a5567db57f9a8ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeDelay: 0
+  timePause: 1
+  stimulusDuration: 0.1
+  controller: {fileID: 0}
+  _mEmissionPower: 3
+  _mIntensityHaptic: 1
+  HapticDevice: {fileID: 0}
+  triggerMenuMsg: {fileID: 0}
+  filePath: MeghaData.csv
 --- !u!4 &701536457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6580871530439992059, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
@@ -2893,7 +2920,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653807329}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42bec3156d885bb49a5567db57f9a8ae, type: 3}
   m_Name: 
