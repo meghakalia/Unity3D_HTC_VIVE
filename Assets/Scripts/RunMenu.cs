@@ -13,18 +13,22 @@ public class RunMenu : MonoBehaviour
     [SerializeField] public AudioClip beepsound;
     public AudioSource beep;
 
+    public bool startExperiment = false; 
+
     public int index = 0;
     public string[] instructions = new string[]
     {
-        "Place your hand above the yellow area."
+        "Look at your finger & Press any Arrow Key to continue."
     };
-    
+
     void Start()
     {
         index = 0;
         instruction.text = instructions[index];
         controller.selectAction.action.performed += gripButtonPressed;
 
+        // coroutine to check the key press 
+        StartCoroutine(WaitForKeyDown()); 
         //beep.PlayOneShot(beepsound);
     }
 
@@ -36,5 +40,15 @@ public class RunMenu : MonoBehaviour
     void Update()
     {
         instruction.text = instructions[index];
+    }
+
+    IEnumerator WaitForKeyDown()
+    {
+        while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
+            //display the message here 
+            yield return null;
+
+        startExperiment = true; 
+        //index++; 
     }
 }

@@ -40,6 +40,9 @@ public class ExposureHapticStylus : MonoBehaviour
     [NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
 
     public RunMenu triggerMenuMsg;
+    public GameObject MenuCanvas; 
+
+    public PostExposure postExposureObj; 
 
     int tempListCount = 0;
     int tempList = 0;
@@ -112,6 +115,10 @@ public class ExposureHapticStylus : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var canvas = GameObject.Find("InstructionsMenu"); 
+
+        triggerMenuMsg = canvas.GetComponent<RunMenu>();
+
         //read file and generate list 
         List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/dataTest.csv"));
         //shuffle 
@@ -135,7 +142,13 @@ public class ExposureHapticStylus : MonoBehaviour
 
         if (time_delay > 1.0f)
         {
-            if (m_startCoRoutine)
+            //if (m_startCoRoutine)
+            //{
+            //    Console.Write(triggerMenuMsg.startExperiment); 
+            //    StartCoroutine(Example());
+            //}
+
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
             {
                 StartCoroutine(Example());
             }
@@ -332,6 +345,7 @@ public class ExposureHapticStylus : MonoBehaviour
         // increment tempList 
         tempList++;
 
+        //triggerMenuMsg.startExperiment = true; 
         //triggerMenuMsg.index += 1;
 
         //check response and write the response to a file 

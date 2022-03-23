@@ -156,6 +156,7 @@ MonoBehaviour:
   instruction: {fileID: 133534359}
   beepsound: {fileID: 0}
   beep: {fileID: 0}
+  startExperiment: 0
   index: 0
   instructions:
   - Place your hand above the yellow area.
@@ -209,7 +210,20 @@ MonoBehaviour:
   _mIntensityHaptic: 1
   HapticDevice: {fileID: 0}
   triggerMenuMsg: {fileID: 0}
+  postExposureObj: {fileID: 0}
   filePath: 
+--- !u!114 &48721251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48721242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa861ae9d96a05048a5d088b27703d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &95180521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1552,6 +1566,7 @@ MonoBehaviour:
   _mIntensityHaptic: 1
   HapticDevice: {fileID: 0}
   triggerMenuMsg: {fileID: 0}
+  postExposureObj: {fileID: 0}
   filePath: MeghaData.csv
 --- !u!4 &701536457 stripped
 Transform:
@@ -2933,6 +2948,7 @@ MonoBehaviour:
   _mIntensityHaptic: 1
   HapticDevice: {fileID: 0}
   triggerMenuMsg: {fileID: 0}
+  postExposureObj: {fileID: 0}
   filePath: 
 --- !u!1 &1659069021
 GameObject:
