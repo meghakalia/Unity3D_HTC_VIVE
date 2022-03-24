@@ -285,7 +285,9 @@ public class ExposureHapticStylus : MonoBehaviour
                     //}
 
                     //ActivateHaptic();   // time will be different from visual 
+                    //Debug.Log("testTOJ before" + " -- " + Time.realtimeSinceStartupAsDouble / 1000.0f);
                     yield return new WaitForSecondsRealtime(stimulusDuration); // time for which stimulus is presented
+                    //Debug.Log("testTOJ after" + " -- " + Time.realtimeSinceStartupAsDouble / 1000.0f);
                     DeactivateTouchHaptic();
                     GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION"); // switch off stimulus
 

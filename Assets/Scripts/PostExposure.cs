@@ -56,7 +56,8 @@ public class PostExposure : MonoBehaviour
     bool exitCoroutineLEDLoop  = false;
     bool exitCoroutineBuzzLoop = false;
 
-    bool m_activeHaptic = false; 
+    bool m_activeHaptic = false;
+    bool m_activeLED = false; 
 
     //functions
     List<int> generateRand(int numCount)
@@ -165,29 +166,29 @@ public class PostExposure : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
         //read file and generate list 
         List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJConditions.csv", 2));
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //shuffle 
         Random rng = new Random();
         shuffledComb = comb.OrderBy(a => rng.Next()).ToList();
         tempListCount = shuffledComb.Count;
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         writeToFile("AsynchronyVal,correctResponse, subjectResponse, stimulusDuration", filePath);
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //exposure object
         //var exposure = GameObject.Find("LEDCylinder");
         //ExposureScript = exposure.GetComponent<ExposureHapticStylus>();
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //haptic Touch 
         if (HapticDevice == null)
             HapticDevice = (HapticPlugin)FindObjectOfType(typeof(HapticPlugin));
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //for debugging 
         //ExposureScript.m_Start_TOJ = true;
@@ -211,7 +212,7 @@ public class PostExposure : MonoBehaviour
             {
                     //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-                    prevTime = Time.realtimeSinceStartupAsDouble / 1000; //milliseconds
+                    prevTime = Time.realtimeSinceStartupAsDouble * 1000; //milliseconds
 
                 //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
@@ -236,72 +237,59 @@ public class PostExposure : MonoBehaviour
         // this loop will be run 108 times in a block of 36 
         if (tempList != tempListCount) // run till the list is empty
         {
-            Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+            //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
             timeParsed = timeParsed + Time.deltaTime;
-            Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+            //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
             while (!exitCoroutineLEDLoop || !exitCoroutineBuzzLoop)
             {
-                if (((Time.realtimeSinceStartupAsDouble / 1000.0f) - prevTime) > LEDDelay)
+                if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > LEDDelay)
                 {
-                    Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
                     if (m_first_LED_loop) //runs only once 
                     {
-                        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-                        LEDStartMillis = Time.realtimeSinceStartupAsDouble / 1000.0f;
+                        LEDStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
                         m_first_LED_loop = false;
                     }
 
-                    //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-                    if (((Time.realtimeSinceStartupAsDouble / 1000.0f) - LEDStartMillis) <= LEDDuration) // Problem is here in this line 
+                    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis) <= LEDDuration) // Problem is here in this line 
                     {
-                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-                        //GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-                        //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
-                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
+                        GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+                        yield return null;
                     }
                     else
                     {
-                        //GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
-                        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
+                        GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
                         exitCoroutineLEDLoop = true;
+                        exitCoroutineBuzzLoop = true; // only for debug
                     }
                 }
 
-                //if (((Time.realtimeSinceStartupAsDouble / 1000.0f) - prevTime) > BuzzDelay)
+                //if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > BuzzDelay)
                 //{
-                //    Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                //    //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
                 //    if (m_first_buzz_loop) //runs only once 
                 //    {
-                //        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-                //        BuzzStartMillis = Time.realtimeSinceStartupAsDouble / 1000.0f;
-                //        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                //        BuzzStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
+                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
                 //        m_first_buzz_loop = false;
                 //    }
 
-                //    if (((Time.realtimeSinceStartupAsDouble / 1000.0f) - BuzzStartMillis) <= BuzzDuration)
+                //    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis) <= BuzzDuration)
                 //    {
-                //        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
                 //        if (!m_activeHaptic)
                 //        {
                 //            ActivateTouchHaptic(gain, magnitude, frequency, dir);
-                //            m_activeHaptic = true; 
+                //            m_activeHaptic = true;
                 //        }
-                        
-                //        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+
+                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
                 //    }
                 //    else
@@ -312,10 +300,10 @@ public class PostExposure : MonoBehaviour
                 //            m_activeHaptic = false;
                 //        }
 
-                //        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
                 //        exitCoroutineBuzzLoop = true;
-                //        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
                 //    }
                 //}
@@ -327,20 +315,23 @@ public class PostExposure : MonoBehaviour
 
     IEnumerator WaitForKeyDown()
     {
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
             //display the message here 
             yield return null;
 
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         // increment tempList 
         Debug.Log(" got input ");
         tempList++;
 
         m_startCoRoutine = true;
+        m_first_LED_loop = true; 
 
+        exitCoroutineLEDLoop = false;
+        exitCoroutineBuzzLoop = false; // only for debug
         // we can wait before giving the next stimulus 
     }
 
