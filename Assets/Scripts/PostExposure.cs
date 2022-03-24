@@ -261,52 +261,54 @@ public class PostExposure : MonoBehaviour
                     {
                         GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
                         exitCoroutineLEDLoop = true;
-                        exitCoroutineBuzzLoop = true; // only for debug
+                        //exitCoroutineBuzzLoop = true; // only for debug
                     }
                 }
 
-                //if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > BuzzDelay)
-                //{
-                //    //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > BuzzDelay)
+                {
+                    //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-                //    if (m_first_buzz_loop) //runs only once 
-                //    {
-                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                    if (m_first_buzz_loop) //runs only once 
+                    {
+                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-                //        BuzzStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
-                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                        BuzzStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
+                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-                //        m_first_buzz_loop = false;
-                //    }
+                        m_first_buzz_loop = false;
+                    }
 
-                //    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis) <= BuzzDuration)
-                //    {
-                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis) <= BuzzDuration)
+                    {
+                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-                //        if (!m_activeHaptic)
-                //        {
-                //            ActivateTouchHaptic(gain, magnitude, frequency, dir);
-                //            m_activeHaptic = true;
-                //        }
+                        if (!m_activeHaptic)
+                        {
+                            ActivateTouchHaptic(gain, magnitude, frequency, dir);
+                            m_activeHaptic = true;
+                        }
 
-                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                        yield return null;
 
-                //    }
-                //    else
-                //    {
-                //        if (m_activeHaptic)
-                //        {
-                //            DeactivateTouchHaptic();
-                //            m_activeHaptic = false;
-                //        }
+                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                    }
+                    else
+                    {
+                        if (m_activeHaptic)
+                        {
+                            DeactivateTouchHaptic();
+                            m_activeHaptic = false;
+                        }
 
-                //        exitCoroutineBuzzLoop = true;
-                //        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-                //    }
-                //}
+                        exitCoroutineBuzzLoop = true;
+                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+
+                    }
+                }
 
             }
             yield return StartCoroutine(WaitForKeyDown());
@@ -328,7 +330,9 @@ public class PostExposure : MonoBehaviour
         tempList++;
 
         m_startCoRoutine = true;
-        m_first_LED_loop = true; 
+
+        m_first_LED_loop = true;
+        m_first_buzz_loop = true; 
 
         exitCoroutineLEDLoop = false;
         exitCoroutineBuzzLoop = false; // only for debug
