@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 19164398}
   - component: {fileID: 19164397}
   m_Layer: 0
-  m_Name: Instructions Menu
+  m_Name: InstructionsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48721242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42bec3156d885bb49a5567db57f9a8ae, type: 3}
   m_Name: 
@@ -205,11 +205,13 @@ MonoBehaviour:
   timeDelay: 0
   timePause: 1
   stimulusDuration: 0.1
+  m_Start_TOJ: 0
   controller: {fileID: 2026198350}
   _mEmissionPower: 3
   _mIntensityHaptic: 1
   HapticDevice: {fileID: 0}
   triggerMenuMsg: {fileID: 0}
+  MenuCanvas: {fileID: 0}
   postExposureObj: {fileID: 0}
   filePath: 
 --- !u!114 &48721251
@@ -219,11 +221,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48721242}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa861ae9d96a05048a5d088b27703d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HapticDevice: {fileID: 0}
+  triggerMenuMsg: {fileID: 0}
+  timePeriod: 1
 --- !u!1001 &95180521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1561,13 +1566,30 @@ MonoBehaviour:
   timeDelay: 0
   timePause: 1
   stimulusDuration: 0.1
+  m_Start_TOJ: 0
   controller: {fileID: 0}
   _mEmissionPower: 3
   _mIntensityHaptic: 1
   HapticDevice: {fileID: 0}
   triggerMenuMsg: {fileID: 0}
+  MenuCanvas: {fileID: 0}
   postExposureObj: {fileID: 0}
   filePath: MeghaData.csv
+--- !u!114 &684425955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684425947}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa861ae9d96a05048a5d088b27703d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HapticDevice: {fileID: 0}
+  triggerMenuMsg: {fileID: 0}
+  timePeriod: 1
 --- !u!4 &701536457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6580871530439992059, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
@@ -2603,7 +2625,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264128722}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &1264128726
 Camera:
   m_ObjectHideFlags: 0
@@ -2943,11 +2965,13 @@ MonoBehaviour:
   timeDelay: 0
   timePause: 1
   stimulusDuration: 0.1
+  m_Start_TOJ: 0
   controller: {fileID: 0}
   _mEmissionPower: 3
   _mIntensityHaptic: 1
   HapticDevice: {fileID: 0}
   triggerMenuMsg: {fileID: 0}
+  MenuCanvas: {fileID: 0}
   postExposureObj: {fileID: 0}
   filePath: 
 --- !u!1 &1659069021

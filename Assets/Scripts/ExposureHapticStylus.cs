@@ -25,6 +25,7 @@ public class ExposureHapticStylus : MonoBehaviour
     int correctResponse = 0;
     [SerializeField] float stimulusDuration = 0.1f; // 100 ms
     int subjectResponse = 0;
+    public bool m_Start_TOJ = false; 
 
     [SerializeField] private XRBaseController controller;
     [SerializeField] float _mEmissionPower = 3.0f;
@@ -133,6 +134,9 @@ public class ExposureHapticStylus : MonoBehaviour
         //haptic Touch 
         if (HapticDevice == null)
             HapticDevice = (HapticPlugin)FindObjectOfType(typeof(HapticPlugin));
+
+
+        
     }
 
 
@@ -300,6 +304,12 @@ public class ExposureHapticStylus : MonoBehaviour
 
                 yield return StartCoroutine(WaitForKeyDown()); //get user input 
             }
+        }
+        else 
+        {
+            // After exposure phase 
+            m_Start_TOJ = true; 
+
         }
 
 
