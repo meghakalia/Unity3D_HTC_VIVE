@@ -44,11 +44,15 @@ public class RunMenu : MonoBehaviour
 
     IEnumerator WaitForKeyDown()
     {
+        
         while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
             //display the message here 
             yield return null;
 
-        startExperiment = true; 
+        //yield return new WaitForSecondsRealtime(3.0f);
+        startExperiment = true;
+
+        
         //index++; 
     }
 }

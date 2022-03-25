@@ -57,7 +57,10 @@ public class PostExposure : MonoBehaviour
     bool exitCoroutineBuzzLoop = false;
 
     bool m_activeHaptic = false;
-    bool m_activeLED = false; 
+    bool m_activeLED = false;
+
+    int subjectResponse = 0;
+    int correctResponse = 0;
 
     //functions
     List<int> generateRand(int numCount)
@@ -204,18 +207,11 @@ public class PostExposure : MonoBehaviour
 
         if (time_delay > 1.0f)
         {
-            //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
             //if (m_startCoRoutine && ExposureScript.m_Start_TOJ)
             //{
             if (m_startCoRoutine)
             {
-                    //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-                    prevTime = Time.realtimeSinceStartupAsDouble * 1000; //milliseconds
-
-                //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
+                prevTime = Time.realtimeSinceStartupAsDouble * 1000; //milliseconds
                 StartCoroutine(TOJCoroutine());
             }
         }
@@ -229,7 +225,6 @@ public class PostExposure : MonoBehaviour
     IEnumerator TOJCoroutine()
     {
         m_startCoRoutine = false; //stop coroutine from starting again
-        Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //if (blockrun < blockCount)
         //{
@@ -237,10 +232,20 @@ public class PostExposure : MonoBehaviour
         // this loop will be run 108 times in a block of 36 
         if (tempList != tempListCount) // run till the list is empty
         {
-            //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+            //timeParsed = timeParsed + Time.deltaTime;
 
-            timeParsed = timeParsed + Time.deltaTime;
-            //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+            // read the delay value 
+            if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
+            {
+                LEDDelay = shuffledComb[tempList];
+                correctResponse = 1; //tactile first 
+            }
+            else 
+            {
+                BuzzDelay = shuffledComb[tempList];
+                correctResponse = 2; //vision first
+            }
+
 
             while (!exitCoroutineLEDLoop || !exitCoroutineBuzzLoop)
             {
@@ -291,8 +296,6 @@ public class PostExposure : MonoBehaviour
 
                         yield return null;
 
-                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
                     }
                     else
                     {
@@ -302,32 +305,45 @@ public class PostExposure : MonoBehaviour
                             m_activeHaptic = false;
                         }
 
-                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
                         exitCoroutineBuzzLoop = true;
-                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
                     }
                 }
-
             }
+
             yield return StartCoroutine(WaitForKeyDown());
         }
     }
 
     IEnumerator WaitForKeyDown()
     {
-        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
         while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
             //display the message here 
             yield return null;
 
-        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
+        if ((Input.GetKey("right")))
+        {
+            subjectResponse = 1; //tactile was first
+        }
+
+        if ((Input.GetKey("left")))
+        {
+            subjectResponse = 2; //vision was first
+        }
+
+        //write to file 
+        decimal[] arr = { (decimal)shuffledComb[tempList], (decimal)correctResponse, (decimal)subjectResponse, (decimal)BuzzDuration };
+        writeToFile(string.Join(", ", arr), filePath);
+        //writeToFile("AsynchronyVal,correctResponse, subjectResponse, stimulusDuration", filePath);
 
         // increment tempList 
         Debug.Log(" got input ");
         tempList++;
+
+        Debug.Log("before waitSeconds ");
+
+        //somehow make the loop to wait for a few seconds before moving again
+        yield return new WaitForSecondsRealtime(0.5f); // wait before starting the next stimulus
+        Debug.Log("After waitSeconds ");
 
         m_startCoRoutine = true;
 
@@ -337,6 +353,9 @@ public class PostExposure : MonoBehaviour
         exitCoroutineLEDLoop = false;
         exitCoroutineBuzzLoop = false; // only for debug
         // we can wait before giving the next stimulus 
+
+        
+
     }
 
     //IEnumerator WaitForKeyDown()
