@@ -224,6 +224,7 @@ public class PostExposure2 : MonoBehaviour
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
 
+          
             if (m_startCoRoutine)
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
@@ -308,10 +309,8 @@ public class PostExposure2 : MonoBehaviour
             //display the message here 
             yield return null;
 
-        yield return new WaitForSecondsRealtime(0.7f);
-
         //record response
-        if ((Input.GetKey("right")))
+        if (Input.GetKey("right"))
         {
             subjectResponse = 1; //tactile was first
         }
@@ -325,6 +324,10 @@ public class PostExposure2 : MonoBehaviour
         writeToFile(string.Join(", ", arr), filePath);
         //update the delay values 
         //update tempList
+
+        subjectResponse = 0;
+
+        yield return new WaitForSecondsRealtime(0.7f);
 
         if (tempList < tempListCount-1)
         {
