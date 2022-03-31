@@ -187,7 +187,7 @@ public class PostExposure2 : MonoBehaviour
         tempListCount = shuffledComb.Count;
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-        writeToFile("AsynchronyVal,correctResponse, subjectResponse, stimulusDuration", filePath);
+        writeToFile("AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration", filePath);
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //exposure object
@@ -201,9 +201,19 @@ public class PostExposure2 : MonoBehaviour
 
         Application.targetFrameRate = -1;
 
-        prevTime = Time.realtimeSinceStartupAsDouble * 1000.0f; 
+        prevTime = Time.realtimeSinceStartupAsDouble * 1000.0f;
 
-
+        //read first value from the list shuffled list
+        if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
+        {
+            LEDDelay = Mathf.Abs(shuffledComb[tempList]); // check this value
+            correctResponse = 1; //tactile first 
+        }
+        else
+        {
+            BuzzDelay = shuffledComb[tempList];
+            correctResponse = 2; //vision first
+        }
     }
 
     // Update is called once per frame
@@ -213,6 +223,15 @@ public class PostExposure2 : MonoBehaviour
 
         if (timeLapsed > 1.0f)
         {
+            //read values from the list only once 
+
+            //read the first value in the start 
+            //update values of delay in the coroutine 
+            //record reponses in coroutine 
+
+            //run the coroutine till the list is empty 
+
+
             if (m_startCoRoutine)
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
@@ -285,20 +304,75 @@ public class PostExposure2 : MonoBehaviour
 
         }
     }
-        IEnumerator WaitForKeyDown()
-        {
-            while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
-                //display the message here 
-                yield return null;
+    IEnumerator WaitForKeyDown()
+    {
+        while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
+            //display the message here 
+            yield return null;
 
-            yield return new WaitForSecondsRealtime(0.7f);
+        yield return new WaitForSecondsRealtime(0.7f);
+
+        //record response
+        if ((Input.GetKey("right")))
+        {
+            subjectResponse = 1; //tactile was first
+        }
+
+        if ((Input.GetKey("left")))
+        {
+            subjectResponse = 2; //vision was first
+        }
+
+        decimal[] arr = { (decimal)shuffledComb[tempList], (decimal)LEDDelay, (decimal)BuzzDelay, (decimal)correctResponse, (decimal)subjectResponse, (decimal)BuzzDuration };
+        writeToFile(string.Join(", ", arr), filePath);
+        //update the delay values 
+        //update tempList
+
+        if (tempList < tempListCount-1)
+        {
+            tempList++;
+
+            //reset values
+            LEDDelay    = 0;
+            BuzzDelay   = 0; 
+
+            //check if tempList is the end of hte list 
+            if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
+            {
+                LEDDelay = Mathf.Abs(shuffledComb[tempList]);
+                correctResponse = 1; //tactile first 
+            }
+            else
+            {
+                BuzzDelay = shuffledComb[tempList];
+                correctResponse = 2; //vision first
+            }
 
             m_startCoRoutine = true;
             exitCoroutineLEDLoop = false;
-            exitCoroutineBuzzLoop = false; 
-
+            exitCoroutineBuzzLoop = false;
         }
+        else 
+        {
+            
+            blockrun++;
+            if (blockrun != blockCount)
+            {
+                //reshuffle and restart the list 
+                Random rng = new Random();
+                shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
+
+                tempList = 0;
+                m_startCoRoutine = true;
+
+                exitCoroutineLEDLoop = false;
+                exitCoroutineBuzzLoop = false;
+            }
+        }
+
+       
     }
+}
 
         //IEnumerator TOJCoroutine()
         //{
