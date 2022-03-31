@@ -215,38 +215,33 @@ public class PostExposure2 : MonoBehaviour
         {
             if (m_startCoRoutine)
             {
-                //if (timeLapsed > LEDDelay) // problem in timing 
-                //{
-                //    if (m_first_LED_loop) //runs only once 
-                //    {
-                //        LEDStartMillis = timeLapsed;
-                //        m_first_LED_loop = false;
+                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
+                {
+                    if (m_first_LED_loop) //runs only once 
+                    {
+                        LEDStartMillis = timeLapsed;
+                        m_first_LED_loop = false;
+                    }
 
-                //    }
+                    double checkTime = timeLapsed - LEDStartMillis;
+                    //Debug.Log("checkTime " + " -- " + checkTime);
+                    if (checkTime <= (LEDDuration - Time.deltaTime * 1000))
+                    {
+                        Debug.Log("LEDflag enter " + " -- " + checkTime);
+                        GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+                    }
+                    else
+                    {
+                        Debug.Log("LEDflag finish " + " -- " + checkTime);
+                        GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
 
-                //    double checkTime = timeLapsed - LEDStartMillis;
-                //    //Debug.Log("checkTime " + " -- " + checkTime);
-                //    if (checkTime <= (LEDDuration - Time.deltaTime * 1000))
-                //    {
-                //        Debug.Log("LEDflag enter " + " -- " + checkTime);
-                //        GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-                //    }
-                //    else
-                //    {
-                //        Debug.Log("LEDflag finish " + " -- " + checkTime);
-                //        GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
+                        m_first_LED_loop = true;
+                        exitCoroutineLEDLoop = true;
+                    }
 
-                //        m_startCoRoutine = false;
-                //        m_first_LED_loop = true;
-                //        //StartCoroutine(WaitForKeyDown());
-                //    }
+                }
 
-                //}
-                //else
-                //{
-                //}
-
-                if (timeLapsed > BuzzDelay) // problem in timing 
+                if (timeLapsed > BuzzDelay && !exitCoroutineBuzzLoop) // problem in timing 
                 {
                     if (m_first_buzz_loop) //runs only once 
                     {
@@ -274,16 +269,18 @@ public class PostExposure2 : MonoBehaviour
                             m_activeHaptic = false;
                         }
 
-                        m_startCoRoutine = false;
+                        //m_startCoRoutine = false;
                         m_first_buzz_loop = true;
+                        exitCoroutineBuzzLoop = true;
 
-                        StartCoroutine(WaitForKeyDown());
                     }
                 }
-                else
-                {
-                }
 
+                if (exitCoroutineLEDLoop && exitCoroutineBuzzLoop)
+                {
+                    m_startCoRoutine = false; 
+                    StartCoroutine(WaitForKeyDown());
+                }
             }
 
         }
@@ -297,6 +294,8 @@ public class PostExposure2 : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.7f);
 
             m_startCoRoutine = true;
+            exitCoroutineLEDLoop = false;
+            exitCoroutineBuzzLoop = false; 
 
         }
     }
