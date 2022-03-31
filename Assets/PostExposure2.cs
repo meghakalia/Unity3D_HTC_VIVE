@@ -67,7 +67,7 @@ public class PostExposure2 : MonoBehaviour
 
     double timeLapsed = 0.0f;
 
-    double startTimeTest = 0.0f; 
+    double startTime = 0.0f; 
 
     //functions
     List<int> generateRand(int numCount)
@@ -219,18 +219,12 @@ public class PostExposure2 : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
-
-        if (timeLapsed > 1.0f)
+        if (startTime > 1.0f)
         {
-            //read values from the list only once 
+            timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
 
-            //read the first value in the start 
-            //update values of delay in the coroutine 
-            //record reponses in coroutine 
-
-            //run the coroutine till the list is empty 
-
+            LEDDelay = 0;
+            BuzzDelay = 0;
 
             if (m_startCoRoutine)
             {
@@ -297,11 +291,15 @@ public class PostExposure2 : MonoBehaviour
 
                 if (exitCoroutineLEDLoop && exitCoroutineBuzzLoop)
                 {
-                    m_startCoRoutine = false; 
+                    m_startCoRoutine = false;
                     StartCoroutine(WaitForKeyDown());
                 }
             }
 
+        }
+        else 
+        { 
+           startTime = startTime + Time.deltaTime; 
         }
     }
     IEnumerator WaitForKeyDown()
