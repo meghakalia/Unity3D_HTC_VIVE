@@ -194,6 +194,8 @@ public class PostExposure : MonoBehaviour
         //haptic Touch 
         if (HapticDevice == null)
             HapticDevice = (HapticPlugin)FindObjectOfType(typeof(HapticPlugin));
+
+        Application.targetFrameRate = -1; 
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //for debugging 
@@ -204,10 +206,12 @@ public class PostExposure : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        //Debug.Log("timeDelta " + " -- " + (Time.deltaTime*1000));
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
+        Debug.Log("timeDelta" + " -- " + (Time.realtimeSinceStartupAsDouble * 1000.0f));
         if (time_delay > 1.0f)
         {
             //if (m_startCoRoutine && ExposureScript.m_Start_TOJ)
@@ -227,10 +231,13 @@ public class PostExposure : MonoBehaviour
 
     IEnumerator TOJCoroutine()
     {
+        //Debug.Log("timeDelta " + " -- " + Time.deltaTime * 1000.0f);
         m_startCoRoutine = false; //stop coroutine from starting again
 
         if (blockrun < blockCount)
         {
+            //Debug.Log("Delta time " + " -- " + Time.deltaTime * 1000.0f);
+
             //    int m_flashCount = 0;
             // this loop will be run 108 times in a block of 36 
             if (tempList != tempListCount) // run till the list is empty
@@ -240,7 +247,7 @@ public class PostExposure : MonoBehaviour
                 // read the delay value 
                 if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
                 {
-                    LEDDelay = shuffledComb[tempList];
+                    LEDDelay = shuffledComb[tempList]; // check this value
                     correctResponse = 1; //tactile first 
                 }
                 else
@@ -249,11 +256,17 @@ public class PostExposure : MonoBehaviour
                     correctResponse = 2; //vision first
                 }
 
+                //for debugging
+                LEDDelay = 240;
+                BuzzDelay = 0; 
 
                 while (!exitCoroutineLEDLoop || !exitCoroutineBuzzLoop)
                 {
-                    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > LEDDelay)
+                    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > LEDDelay) // problem in timing 
                     {
+                        
+                        //Debug.Log("start LED Delay " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime)); 
+
                         if (m_first_LED_loop) //runs only once 
                         {
                             LEDStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
@@ -262,21 +275,37 @@ public class PostExposure : MonoBehaviour
 
                         if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis) <= LEDDuration) // Problem is here in this line 
                         {
+                            //Debug.Log("start LED 1" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
                             GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-                            yield return null;
+                            //Debug.Log("timeDelta start" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
+                            //Debug.Log("start LED 1 finish" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
+                            //yield return null; // this line is adding a lot of delay
+                            yield return new WaitForFixedUpdate();
+                            //Debug.Log("timeDelta end" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
+                            //Debug.Log("start LED 1 finish after yield" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
+
                         }
                         else
                         {
+                            //Debug.Log("timeDelta finish " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
+                            //Debug.Log("finish start LED 1" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
                             GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
                             exitCoroutineLEDLoop = true;
                             //exitCoroutineBuzzLoop = true; // only for debug
                         }
+
+                    }
+                    else 
+                    {
+                        // for debugging
+                        //Debug.Log("finish start LED Delay " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime));
+
                     }
 
                     if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > BuzzDelay)
                     {
                         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
+                        //Debug.Log("start Buzz Delay " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime)); // 2ms with 0 delay
                         if (m_first_buzz_loop) //runs only once 
                         {
                             //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
@@ -290,26 +319,37 @@ public class PostExposure : MonoBehaviour
                         if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis) <= BuzzDuration)
                         {
                             //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
+                            //Debug.Log("start Buzz 1" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
+                            //Debug.Log("start Buzz 1 haptic" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
                             if (!m_activeHaptic)
                             {
                                 ActivateTouchHaptic(gain, magnitude, frequency, dir);
                                 m_activeHaptic = true;
                             }
-
+                            //Debug.Log("start Buzz 1 haptic finish" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
                             yield return null;
 
                         }
                         else
                         {
+                            // this loop is taking 10-20 ms to run : crazy 
+                            //Debug.Log("finish start Buzz 1" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
+                            //Debug.Log("finish start Buzz 1 haptic" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
                             if (m_activeHaptic)
                             {
                                 DeactivateTouchHaptic();
                                 m_activeHaptic = false;
                             }
 
+                            //Debug.Log("finish start Buzz 1 haptic finish" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
                             exitCoroutineBuzzLoop = true;
                         }
+                    }
+                    else
+                    {
+                        // for debugging
+                        //Debug.Log("finish start buzz Delay " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime));
+
                     }
                 }
 

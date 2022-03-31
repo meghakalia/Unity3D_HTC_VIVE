@@ -210,3 +210,17 @@ AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulus
 AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
 AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
 AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+0.0, 2, 0, 2, 1, 0.1
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+0.0, 0, 3, 1, 1, 0.1
+0.0, 0, 1, 1, 2, 0.1
+0.0, 1, 2, 1, 1, 0.1
+AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
+0.0, 1, 0, 2, 1, 0.1
