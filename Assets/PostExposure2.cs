@@ -19,7 +19,8 @@ public class PostExposure2 : MonoBehaviour
     [NonSerialized] public float gain = 1.5f;
     [NonSerialized] public float lowGain = 0.5f;
     [NonSerialized] public float magnitude = 1.2f;
-    [NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
+    //[NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
+    double[] dir = { 1.0, 1.0, 1.0 };
 
     public RunMenu triggerMenuMsg;
 
@@ -223,9 +224,6 @@ public class PostExposure2 : MonoBehaviour
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
 
-            LEDDelay = 0;
-            BuzzDelay = 0;
-
             if (m_startCoRoutine)
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
@@ -251,7 +249,6 @@ public class PostExposure2 : MonoBehaviour
                         m_first_LED_loop = true;
                         exitCoroutineLEDLoop = true;
                     }
-
                 }
 
                 if (timeLapsed > BuzzDelay && !exitCoroutineBuzzLoop) // problem in timing 
@@ -268,6 +265,10 @@ public class PostExposure2 : MonoBehaviour
                         //activate haptic once 
                         if (!m_activeHaptic)
                         {
+                            for (int k = 0; k < 3; k++)
+                                dir[k] = 1.0f; 
+                           
+                            Debug.Log("Buzzflag enter " + " -- " + gain + " " + magnitude + " " + frequency +  " " + dir[0] + " " + dir[1] + " " + dir[2]);
                             ActivateTouchHaptic(gain, magnitude, frequency, dir);
                             m_activeHaptic = true;
                         }
@@ -285,7 +286,6 @@ public class PostExposure2 : MonoBehaviour
                         //m_startCoRoutine = false;
                         m_first_buzz_loop = true;
                         exitCoroutineBuzzLoop = true;
-
                     }
                 }
 

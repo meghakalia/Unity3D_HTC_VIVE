@@ -50,7 +50,7 @@ public class RunMenu : MonoBehaviour
             yield return null;
 
         //yield return new WaitForSecondsRealtime(3.0f);
-        startExperiment = true;
+        //startExperiment = true;
 
         
         //index++; 
