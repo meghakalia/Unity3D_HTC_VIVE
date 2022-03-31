@@ -48,7 +48,7 @@ public class PostExposure2 : MonoBehaviour
     double BuzzStartMillis = 0.0f;
 
     double LEDDuration = 80f; //even numbers 
-    double BuzzDuration = 70f;
+    double BuzzDuration = 80f;
 
     bool m_first_LED_loop = true;
     bool m_first_buzz_loop = true;
@@ -196,10 +196,10 @@ public class PostExposure2 : MonoBehaviour
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //haptic Touch 
-        //if (HapticDevice == null)
-        //    HapticDevice = (HapticPlugin)FindObjectOfType(typeof(HapticPlugin));
+        if (HapticDevice == null)
+            HapticDevice = (HapticPlugin)FindObjectOfType(typeof(HapticPlugin));
 
-        //Application.targetFrameRate = -1;
+        Application.targetFrameRate = -1;
 
         prevTime = Time.realtimeSinceStartupAsDouble * 1000.0f; 
 
@@ -215,41 +215,79 @@ public class PostExposure2 : MonoBehaviour
         {
             if (m_startCoRoutine)
             {
-                if (timeLapsed > LEDDelay) // problem in timing 
+                //if (timeLapsed > LEDDelay) // problem in timing 
+                //{
+                //    if (m_first_LED_loop) //runs only once 
+                //    {
+                //        LEDStartMillis = timeLapsed;
+                //        m_first_LED_loop = false;
+
+                //    }
+
+                //    double checkTime = timeLapsed - LEDStartMillis;
+                //    //Debug.Log("checkTime " + " -- " + checkTime);
+                //    if (checkTime <= (LEDDuration - Time.deltaTime * 1000))
+                //    {
+                //        Debug.Log("LEDflag enter " + " -- " + checkTime);
+                //        GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+                //    }
+                //    else
+                //    {
+                //        Debug.Log("LEDflag finish " + " -- " + checkTime);
+                //        GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
+
+                //        m_startCoRoutine = false;
+                //        m_first_LED_loop = true;
+                //        //StartCoroutine(WaitForKeyDown());
+                //    }
+
+                //}
+                //else
+                //{
+                //}
+
+                if (timeLapsed > BuzzDelay) // problem in timing 
                 {
-                    if (m_first_LED_loop) //runs only once 
+                    if (m_first_buzz_loop) //runs only once 
                     {
-                        LEDStartMillis = timeLapsed;
-                        m_first_LED_loop = false;
-                        startTimeTest = Time.realtimeSinceStartupAsDouble * 1000.0f; 
-                        //Debug.Log("LEDflag start " + " -- " + Time.realtimeSinceStartupAsDouble * 1000.0f);
+                        BuzzStartMillis = timeLapsed;
+                        m_first_buzz_loop = false;
                     }
 
-                    double checkTime = timeLapsed - LEDStartMillis;
-                    //Debug.Log("checkTime " + " -- " + checkTime);
-                    if (checkTime <= (LEDDuration-Time.deltaTime * 1000))
+                    double buzz_currentTime = timeLapsed - BuzzStartMillis;
+                    if (buzz_currentTime <= (BuzzDuration - Time.deltaTime * 1000))
                     {
-                        Debug.Log("LEDflag enter " + " -- " + checkTime);
-                        GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+                        //activate haptic once 
+                        if (!m_activeHaptic)
+                        {
+                            ActivateTouchHaptic(gain, magnitude, frequency, dir);
+                            m_activeHaptic = true;
+                        }
+
                     }
                     else
                     {
-                        Debug.Log("LEDflag finish " + " -- " + checkTime);
-                        GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
+                        //deactivate haptic 
+                        if (m_activeHaptic)
+                        {
+                            DeactivateTouchHaptic();
+                            m_activeHaptic = false;
+                        }
 
                         m_startCoRoutine = false;
-                        m_first_LED_loop = true; 
+                        m_first_buzz_loop = true;
+
                         StartCoroutine(WaitForKeyDown());
                     }
-
                 }
                 else
                 {
                 }
-            }
-            
-        }
 
+            }
+
+        }
+    }
         IEnumerator WaitForKeyDown()
         {
             while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
@@ -259,9 +297,9 @@ public class PostExposure2 : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.7f);
 
             m_startCoRoutine = true;
-            
-        }
 
+        }
+    }
 
         //IEnumerator TOJCoroutine()
         //{
@@ -524,7 +562,7 @@ public class PostExposure2 : MonoBehaviour
 
 
 
-    }
+    
 
 
-}
+
