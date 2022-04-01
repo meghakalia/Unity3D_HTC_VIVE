@@ -42,6 +42,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     [NonSerialized] public float magnitude = 1.2f;
     [NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
 
+    public bool m_start_TOJ = false; 
+
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
 
@@ -53,7 +55,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     // file input output 
     public string filePath = "MeghaData.csv"; // to give in the editor 
 
-    int blockCount = 3;
+    int blockCount = 2; // could be 3 in original experiment
     int blockrun = 0;
 
     //key board control
@@ -443,11 +445,17 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                 numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
                 loopCounter = 0; //reset loop counter
-                tempList    = 0; 
-                timeLapsed  = 0; //reset clock 
-                m_startCoRoutine       = true;
-                exitCoroutineLEDLoop   = false;
-                exitCoroutineBuzzLoop  = false;
+                tempList = 0;
+                timeLapsed = 0; //reset clock 
+                m_startCoRoutine = true;
+                exitCoroutineLEDLoop = false;
+                exitCoroutineBuzzLoop = false;
+
+            }
+            else 
+            {
+                //start TOJ
+                m_start_TOJ = true; 
 
             }
                 //block logic 
@@ -537,6 +545,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         else
         {
             // After exposure phase 
+            //add some condition or display msg 
+            //also add some wait before starting TOJ 
             m_Start_TOJ = true;
 
         }

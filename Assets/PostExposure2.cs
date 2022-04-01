@@ -19,10 +19,12 @@ public class PostExposure2 : MonoBehaviour
     [NonSerialized] public float gain = 1.5f;
     [NonSerialized] public float lowGain = 0.5f;
     [NonSerialized] public float magnitude = 1.2f;
+   
     //[NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
     double[] dir = { 1.0, 1.0, 1.0 };
 
     public RunMenu triggerMenuMsg;
+    public ExposureHapticStylusDeltaTime exposureObject;
 
     //public ExposureHapticStylus ExposureScript; 
 
@@ -69,6 +71,8 @@ public class PostExposure2 : MonoBehaviour
     double timeLapsed = 0.0f;
 
     double startTime = 0.0f; 
+
+
 
     //functions
     List<int> generateRand(int numCount)
@@ -215,6 +219,11 @@ public class PostExposure2 : MonoBehaviour
             BuzzDelay = shuffledComb[tempList];
             correctResponse = 2; //vision first
         }
+
+        //get exposure script 
+        //var exposure = GameObject.Find("LEDCylinder");
+        exposureObject = GetComponent<ExposureHapticStylusDeltaTime>();
+
     }
 
     // Update is called once per frame
@@ -224,7 +233,7 @@ public class PostExposure2 : MonoBehaviour
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
           
-            if (m_startCoRoutine)
+            if (m_startCoRoutine && exposureObject.m_start_TOJ) // if exposure script gives nod to run TOJ
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
                 {
@@ -357,7 +366,6 @@ public class PostExposure2 : MonoBehaviour
         }
         else 
         {
-            
             blockrun++;
             if (blockrun != blockCount)
             {
@@ -374,7 +382,6 @@ public class PostExposure2 : MonoBehaviour
                 exitCoroutineBuzzLoop = false;
             }
         }
-
        
     }
 }
