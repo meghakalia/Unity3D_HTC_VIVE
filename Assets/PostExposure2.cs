@@ -223,15 +223,12 @@ public class PostExposure2 : MonoBehaviour
         if (startTime > 1.0f)
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
-
           
             if (m_startCoRoutine)
             {
-                LEDDelay = 240;
-                BuzzDelay = 0; 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
                 {
-                    Debug.Log("Timelapsed LED " + timeLapsed);
+                    //Debug.Log("Timelapsed LED " + timeLapsed);
                     if (m_first_LED_loop) //runs only once 
                     {
                         LEDStartMillis = timeLapsed;
@@ -257,7 +254,7 @@ public class PostExposure2 : MonoBehaviour
 
                 if (timeLapsed > BuzzDelay && !exitCoroutineBuzzLoop) // problem in timing 
                 {
-                    Debug.Log("Timelapsed buzz " + timeLapsed);
+                    //Debug.Log("Timelapsed buzz " + timeLapsed);
                     if (m_first_buzz_loop) //runs only once 
                     {
                         BuzzStartMillis = timeLapsed;
@@ -273,7 +270,7 @@ public class PostExposure2 : MonoBehaviour
                             for (int k = 0; k < 3; k++)
                                 dir[k] = 1.0f; 
                            
-                            Debug.Log("Buzzflag enter " + " -- " + gain + " " + magnitude + " " + frequency +  " " + dir[0] + " " + dir[1] + " " + dir[2]);
+                            //Debug.Log("Buzzflag enter " + " -- " + gain + " " + magnitude + " " + frequency +  " " + dir[0] + " " + dir[1] + " " + dir[2]);
                             ActivateTouchHaptic(gain, magnitude, frequency, dir);
                             m_activeHaptic = true;
                         }
@@ -316,15 +313,14 @@ public class PostExposure2 : MonoBehaviour
         //record response
         if (Input.GetKey("right"))
         {
-            subjectResponse = 1; //tactile was first
+            subjectResponse = 2; //light was first
         }
 
         if ((Input.GetKey("left")))
         {
-            subjectResponse = 2; //vision was first
+            subjectResponse = 1; //tactile was first
         }
 
-    
         decimal[] arr = { (decimal)shuffledComb[tempList], (decimal)LEDDelay, (decimal)BuzzDelay, (decimal)correctResponse, (decimal)subjectResponse, (decimal)BuzzDuration };
         writeToFile(string.Join(", ", arr), filePath);
         //update the delay values 
@@ -339,20 +335,20 @@ public class PostExposure2 : MonoBehaviour
             tempList++;
 
             //reset values
-            //LEDDelay    = 0; // commented for debugging
-            //BuzzDelay   = 0; 
+            LEDDelay = 0; // commented for debugging
+            BuzzDelay = 0;
 
-            //check if tempList is the end of hte list 
-            //if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
-            //{
-            //    LEDDelay = Mathf.Abs(shuffledComb[tempList]);
-            //    correctResponse = 1; //tactile first 
-            //}
-            //else
-            //{
-            //    BuzzDelay = shuffledComb[tempList];
-            //    correctResponse = 2; //vision first
-            //}
+            //check if tempList is the end of hte list
+            if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
+            {
+                LEDDelay = Mathf.Abs(shuffledComb[tempList]);
+                correctResponse = 1; //tactile first 
+            }
+            else
+            {
+                BuzzDelay = shuffledComb[tempList];
+                correctResponse = 2; //vision first
+            }
 
             timeLapsed = 0; //reset clock 
             m_startCoRoutine = true;
