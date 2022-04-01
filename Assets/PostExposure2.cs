@@ -227,8 +227,11 @@ public class PostExposure2 : MonoBehaviour
           
             if (m_startCoRoutine)
             {
+                LEDDelay = 240;
+                BuzzDelay = 0; 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
                 {
+                    Debug.Log("Timelapsed LED " + timeLapsed);
                     if (m_first_LED_loop) //runs only once 
                     {
                         LEDStartMillis = timeLapsed;
@@ -239,12 +242,12 @@ public class PostExposure2 : MonoBehaviour
                     //Debug.Log("checkTime " + " -- " + checkTime);
                     if (checkTime <= (LEDDuration - Time.deltaTime * 1000))
                     {
-                        Debug.Log("LEDflag enter " + " -- " + checkTime);
+                        //Debug.Log("LEDflag enter " + " -- " + checkTime);
                         GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
                     }
                     else
                     {
-                        Debug.Log("LEDflag finish " + " -- " + checkTime);
+                        //Debug.Log("LEDflag finish " + " -- " + checkTime);
                         GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
 
                         m_first_LED_loop = true;
@@ -254,6 +257,7 @@ public class PostExposure2 : MonoBehaviour
 
                 if (timeLapsed > BuzzDelay && !exitCoroutineBuzzLoop) // problem in timing 
                 {
+                    Debug.Log("Timelapsed buzz " + timeLapsed);
                     if (m_first_buzz_loop) //runs only once 
                     {
                         BuzzStartMillis = timeLapsed;
@@ -320,6 +324,7 @@ public class PostExposure2 : MonoBehaviour
             subjectResponse = 2; //vision was first
         }
 
+    
         decimal[] arr = { (decimal)shuffledComb[tempList], (decimal)LEDDelay, (decimal)BuzzDelay, (decimal)correctResponse, (decimal)subjectResponse, (decimal)BuzzDuration };
         writeToFile(string.Join(", ", arr), filePath);
         //update the delay values 
@@ -334,21 +339,22 @@ public class PostExposure2 : MonoBehaviour
             tempList++;
 
             //reset values
-            LEDDelay    = 0;
-            BuzzDelay   = 0; 
+            //LEDDelay    = 0; // commented for debugging
+            //BuzzDelay   = 0; 
 
             //check if tempList is the end of hte list 
-            if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
-            {
-                LEDDelay = Mathf.Abs(shuffledComb[tempList]);
-                correctResponse = 1; //tactile first 
-            }
-            else
-            {
-                BuzzDelay = shuffledComb[tempList];
-                correctResponse = 2; //vision first
-            }
+            //if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
+            //{
+            //    LEDDelay = Mathf.Abs(shuffledComb[tempList]);
+            //    correctResponse = 1; //tactile first 
+            //}
+            //else
+            //{
+            //    BuzzDelay = shuffledComb[tempList];
+            //    correctResponse = 2; //vision first
+            //}
 
+            timeLapsed = 0; //reset clock 
             m_startCoRoutine = true;
             exitCoroutineLEDLoop = false;
             exitCoroutineBuzzLoop = false;
@@ -364,6 +370,8 @@ public class PostExposure2 : MonoBehaviour
                 shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
 
                 tempList = 0;
+
+                timeLapsed = 0; //reset clock 
                 m_startCoRoutine = true;
 
                 exitCoroutineLEDLoop = false;
@@ -374,266 +382,6 @@ public class PostExposure2 : MonoBehaviour
        
     }
 }
-
-        //IEnumerator TOJCoroutine()
-        //{
-        //    //Debug.Log("timeDelta " + " -- " + Time.deltaTime * 1000.0f);
-        //    m_startCoRoutine = false; //stop coroutine from starting again
-
-        //    if (blockrun < blockCount)
-        //    {
-        //        //Debug.Log("Delta time " + " -- " + Time.deltaTime * 1000.0f);
-
-        //        //    int m_flashCount = 0;
-        //        // this loop will be run 108 times in a block of 36 
-        //        if (tempList != tempListCount) // run till the list is empty
-        //        {
-        //            //timeParsed = timeParsed + Time.deltaTime;
-
-        //            // read the delay value 
-        //            if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
-        //            {
-        //                LEDDelay = shuffledComb[tempList]; // check this value
-        //                correctResponse = 1; //tactile first 
-        //            }
-        //            else
-        //            {
-        //                BuzzDelay = shuffledComb[tempList];
-        //                correctResponse = 2; //vision first
-        //            }
-
-        //            //for debugging
-        //            LEDDelay = 240;
-        //            BuzzDelay = 0;
-
-        //            while (!exitCoroutineLEDLoop || !exitCoroutineBuzzLoop)
-        //            {
-        //                if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > LEDDelay) // problem in timing 
-        //                {
-
-        //                    //Debug.Log("start LED Delay " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime)); 
-
-        //                    if (m_first_LED_loop) //runs only once 
-        //                    {
-        //                        LEDStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
-        //                        m_first_LED_loop = false;
-        //                    }
-
-        //                    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis) <= LEDDuration) // Problem is here in this line 
-        //                    {
-        //                        //Debug.Log("start LED 1" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
-        //                        GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-        //                        //Debug.Log("timeDelta start" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
-        //                        //Debug.Log("start LED 1 finish" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
-        //                        //yield return null; // this line is adding a lot of delay
-        //                        yield return new WaitForFixedUpdate();
-        //                        //Debug.Log("timeDelta end" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
-        //                        //Debug.Log("start LED 1 finish after yield" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
-
-        //                    }
-        //                    else
-        //                    {
-        //                        //Debug.Log("timeDelta finish " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
-        //                        //Debug.Log("finish start LED 1" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis));
-        //                        GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
-        //                        exitCoroutineLEDLoop = true;
-        //                        //exitCoroutineBuzzLoop = true; // only for debug
-        //                    }
-
-        //                }
-        //                else
-        //                {
-        //                    // for debugging
-        //                    //Debug.Log("finish start LED Delay " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime));
-
-        //                }
-
-        //                if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > BuzzDelay)
-        //                {
-        //                    //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-        //                    //Debug.Log("start Buzz Delay " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime)); // 2ms with 0 delay
-        //                    if (m_first_buzz_loop) //runs only once 
-        //                    {
-        //                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-        //                        BuzzStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
-        //                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-        //                        m_first_buzz_loop = false;
-        //                    }
-
-        //                    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis) <= BuzzDuration)
-        //                    {
-        //                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-        //                        //Debug.Log("start Buzz 1" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
-        //                        //Debug.Log("start Buzz 1 haptic" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
-        //                        if (!m_activeHaptic)
-        //                        {
-        //                            ActivateTouchHaptic(gain, magnitude, frequency, dir);
-        //                            m_activeHaptic = true;
-        //                        }
-        //                        //Debug.Log("start Buzz 1 haptic finish" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
-        //                        yield return null;
-
-        //                    }
-        //                    else
-        //                    {
-        //                        // this loop is taking 10-20 ms to run : crazy 
-        //                        //Debug.Log("finish start Buzz 1" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
-        //                        //Debug.Log("finish start Buzz 1 haptic" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
-        //                        if (m_activeHaptic)
-        //                        {
-        //                            DeactivateTouchHaptic();
-        //                            m_activeHaptic = false;
-        //                        }
-
-        //                        //Debug.Log("finish start Buzz 1 haptic finish" + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis));
-        //                        exitCoroutineBuzzLoop = true;
-        //                    }
-        //                }
-        //                else
-        //                {
-        //                    // for debugging
-        //                    //Debug.Log("finish start buzz Delay " + " -- " + ((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime));
-
-        //                }
-        //            }
-
-        //            yield return StartCoroutine(WaitForKeyDown());
-        //        }
-        //        else if (tempList == tempListCount)
-        //        {
-        //            // reset tempList variable and also reshuffle the list
-        //            tempList = 0;
-
-        //            Random rng = new Random();
-        //            shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
-
-        //            //run the stimulus
-        //            // read the delay value 
-        //            if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
-        //            {
-        //                LEDDelay = shuffledComb[tempList];
-        //                correctResponse = 1; //tactile first 
-        //            }
-        //            else
-        //            {
-        //                BuzzDelay = shuffledComb[tempList];
-        //                correctResponse = 2; //vision first
-        //            }
-
-
-        //            while (!exitCoroutineLEDLoop || !exitCoroutineBuzzLoop)
-        //            {
-        //                if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > LEDDelay)
-        //                {
-        //                    if (m_first_LED_loop) //runs only once 
-        //                    {
-        //                        LEDStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
-        //                        m_first_LED_loop = false;
-        //                    }
-
-        //                    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - LEDStartMillis) <= LEDDuration) // Problem is here in this line 
-        //                    {
-        //                        GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-        //                        yield return null;
-        //                    }
-        //                    else
-        //                    {
-        //                        GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
-        //                        exitCoroutineLEDLoop = true;
-        //                        //exitCoroutineBuzzLoop = true; // only for debug
-        //                    }
-        //                }
-
-        //                if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - prevTime) > BuzzDelay)
-        //                {
-        //                    //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-        //                    if (m_first_buzz_loop) //runs only once 
-        //                    {
-        //                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-        //                        BuzzStartMillis = Time.realtimeSinceStartupAsDouble * 1000.0f;
-        //                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-        //                        m_first_buzz_loop = false;
-        //                    }
-
-        //                    if (((Time.realtimeSinceStartupAsDouble * 1000.0f) - BuzzStartMillis) <= BuzzDuration)
-        //                    {
-        //                        //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
-
-        //                        if (!m_activeHaptic)
-        //                        {
-        //                            ActivateTouchHaptic(gain, magnitude, frequency, dir);
-        //                            m_activeHaptic = true;
-        //                        }
-
-        //                        yield return null;
-
-        //                    }
-        //                    else
-        //                    {
-        //                        if (m_activeHaptic)
-        //                        {
-        //                            DeactivateTouchHaptic();
-        //                            m_activeHaptic = false;
-        //                        }
-
-        //                        exitCoroutineBuzzLoop = true;
-        //                    }
-        //                }
-        //            }
-
-        //            blockrun++;
-
-        //            // At the end of the script stimlus will run but will not be recorded 
-        //            yield return StartCoroutine(WaitForKeyDown()); //get user input 
-        //        }
-        //    }
-
-        //}
-
-
-        //IEnumerator WaitForKeyDown()
-        //{
-        //    while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
-        //        //display the message here 
-        //        yield return null;
-
-        //    if ((Input.GetKey("right")))
-        //    {
-        //        subjectResponse = 1; //tactile was first
-        //    }
-
-        //    if ((Input.GetKey("left")))
-        //    {
-        //        subjectResponse = 2; //vision was first
-        //    }
-
-        //    //write to file 
-        //    if (blockrun < blockCount)
-        //    {
-        //        decimal[] arr = { (decimal)shuffledComb[tempList], (decimal)correctResponse, (decimal)subjectResponse, (decimal)BuzzDuration };
-        //        writeToFile(string.Join(", ", arr), filePath);
-        //    }
-        //    //writeToFile("AsynchronyVal,correctResponse, subjectResponse, stimulusDuration", filePath);
-
-        //    // increment tempList 
-        //    tempList++;
-
-        //    yield return new WaitForSecondsRealtime(0.5f); // wait before starting the next stimulus
-
-        //    m_startCoRoutine = true;
-
-        //    m_first_LED_loop = true;
-        //    m_first_buzz_loop = true;
-
-        //    exitCoroutineLEDLoop = false;
-        //    exitCoroutineBuzzLoop = false; // only for debug
-        //                                   // we can wait before giving the next stimulus 
-
 
 
     
