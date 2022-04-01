@@ -10,6 +10,9 @@ using Random = System.Random;
 
 public class ExposureHapticStylusDeltaTime : MonoBehaviour
 {
+    public int m_repeatitionsExposureTOJ = 2;
+    public int m_CounterRepeatitionsExposureTOJ = 0;
+
     bool m_ExperimentLEDDelay = true; // true, buzz first, false: LEd first
     
     //public Material m_Material;
@@ -88,6 +91,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
     List<int> numbersRand_V;
     List<int> numbersRand_T;
+
+    PostExposure2 TOJObject_post; 
 
     int m_flashCount = 0 ; 
     List<int> generateRand(int numCount)
@@ -183,6 +188,13 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             LEDDelay = 0.0f;
             BuzzDelay = 160f;
         }
+
+        //for debug 
+        LEDDelay = 0.0f;
+        BuzzDelay = 0f ;
+
+        //get postExposure2 object 
+        TOJObject_post = GetComponent<PostExposure2>(); 
     }
 
 
@@ -197,7 +209,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            if (m_startCoRoutine)
+            if (m_startCoRoutine && TOJObject_post)
             {
                 timeLapsed = timeLapsed + Time.deltaTime*1000; 
 
@@ -455,7 +467,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             else 
             {
                 //start TOJ
-                m_start_TOJ = true; 
+                m_start_TOJ = true;
 
             }
                 //block logic 
@@ -471,8 +483,35 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         Debug.Log(" got input ");
     }
 
-    
-       
+    public void ResetBlockExposure()
+    {
+        blockrun = 0;
+
+        //test this 
+        Random rng = new Random();
+        shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
+
+        //print debug 
+        //untested
+        for (int k = 0; k < shuffledComb.Count; k++)
+        {
+            Debug.Log("shuffledComb 1" + " -- " + shuffledComb[k][0]);
+            Debug.Log("shuffledComb 2" + " -- " + shuffledComb[k][1]);
+        }
+
+        //reset values 
+        numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
+        numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
+
+        loopCounter = 0; //reset loop counter
+        tempList = 0;
+        timeLapsed = 0; //reset clock 
+        m_startCoRoutine = true;
+        exitCoroutineLEDLoop = false;
+        exitCoroutineBuzzLoop = false;
+
+    }
+
     IEnumerator Example()
     {
         m_startCoRoutine = false; //stop coroutine from starting again

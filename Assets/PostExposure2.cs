@@ -19,6 +19,7 @@ public class PostExposure2 : MonoBehaviour
     [NonSerialized] public float gain = 1.5f;
     [NonSerialized] public float lowGain = 0.5f;
     [NonSerialized] public float magnitude = 1.2f;
+    public bool m_startExposure = true; 
    
     //[NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
     double[] dir = { 1.0, 1.0, 1.0 };
@@ -381,8 +382,38 @@ public class PostExposure2 : MonoBehaviour
                 exitCoroutineLEDLoop = false;
                 exitCoroutineBuzzLoop = false;
             }
+            else 
+            {
+                //restart the exposure 
+                exposureObject.m_start_TOJ = false;
+                
+                if (exposureObject.m_CounterRepeatitionsExposureTOJ < exposureObject.m_repeatitionsExposureTOJ-1)
+                {
+                    exposureObject.m_CounterRepeatitionsExposureTOJ++;
+                    exposureObject.ResetBlockExposure();
+                    ResetBlockTOJ(); // to run after exposure 
+                    
+                }
+            }
         }
        
+    }
+
+    private void ResetBlockTOJ()
+    {
+        //reshuffle and restart the list 
+        blockrun = 0; 
+
+        Random rng = new Random();
+        shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
+
+        tempList = 0;
+
+        timeLapsed = 0; //reset clock 
+        m_startCoRoutine = true;
+
+        exitCoroutineLEDLoop = false;
+        exitCoroutineBuzzLoop = false;
     }
 }
 
