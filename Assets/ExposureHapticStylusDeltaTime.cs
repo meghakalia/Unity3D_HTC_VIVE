@@ -58,7 +58,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     // file input output 
     public string filePath = "MeghaData.csv"; // to give in the editor 
 
-    int blockCount = 2; // could be 3 in original experiment
+    int blockCount = 1; // could be 3 in original experiment
     int blockrun = 0;
 
     //key board control
@@ -209,7 +209,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            if (m_startCoRoutine && TOJObject_post)
+            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment)
             {
                 timeLapsed = timeLapsed + Time.deltaTime*1000; 
 
@@ -468,6 +468,12 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             {
                 //start TOJ
                 m_start_TOJ = true;
+                triggerMenuMsg.startExperiment = false; // error is here 
+                triggerMenuMsg.index = 2 ;//error seems to be here
+                triggerMenuMsg.runCoRoutine = true;
+
+                //yield return new WaitForSecondsRealtime(0.7f);
+                //wait for button press 
 
             }
                 //block logic 

@@ -67,7 +67,7 @@ public class PostExposure2 : MonoBehaviour
     int correctResponse = 0;
 
     int blockrun = 0;
-    int blockCount = 2;
+    int blockCount = 1;
 
     double timeLapsed = 0.0f;
 
@@ -236,7 +236,7 @@ public class PostExposure2 : MonoBehaviour
           
             if (m_startCoRoutine && exposureObject.m_start_TOJ) // if exposure script gives nod to run TOJ
             {
-                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
+                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
                 {
                     //Debug.Log("Timelapsed LED " + timeLapsed);
                     if (m_first_LED_loop) //runs only once 
@@ -389,10 +389,13 @@ public class PostExposure2 : MonoBehaviour
                 
                 if (exposureObject.m_CounterRepeatitionsExposureTOJ < exposureObject.m_repeatitionsExposureTOJ-1)
                 {
+                    triggerMenuMsg.index = 1;
+                    triggerMenuMsg.runCoRoutine = true;
                     exposureObject.m_CounterRepeatitionsExposureTOJ++;
                     exposureObject.ResetBlockExposure();
                     ResetBlockTOJ(); // to run after exposure 
-                    
+                    //yield return new WaitForSecondsRealtime(0.7f);
+
                 }
             }
         }

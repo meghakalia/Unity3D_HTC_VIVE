@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using System; 
 
 public class RunMenu : MonoBehaviour
 {
@@ -16,9 +17,23 @@ public class RunMenu : MonoBehaviour
     public bool startExperiment = false; 
 
     public int index = 0;
-    public string[] instructions = new string[]
+
+    public bool runCoRoutine = false; 
+    //public string[] instructions = new string[]
+    //{
+
+    //    "Which has greater number of low intensity trials ?\n Buzzer (Left Arrow Key)      LED (Right Arrow Key)\n\nPress any arrow button to continue"
+
+    //};
+
+    [NonSerialized]
+     public string[] instructions = new string[]
     {
-        "Look at your finger & Press any Arrow Key to continue."
+        "Which has greater number of low intensity trials ?\n Buzzer (Left Key)      LED (Right Key)\n\nPress any arrow key to continue",
+        "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
+        "Which comes first ?\n\n\n\n Buzz (Left Key)    Light (Right Key)\n\n\n Press any arrow key to continue",
+        "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
+        " \n\nLook at your Finger "
     };
 
     void Start()
@@ -40,6 +55,14 @@ public class RunMenu : MonoBehaviour
     void Update()
     {
         instruction.text = instructions[index];
+
+        if (runCoRoutine)
+        {
+            StartCoroutine(WaitForKeyDown());
+            runCoRoutine = false; 
+        }
+
+        //
     }
 
     IEnumerator WaitForKeyDown()
@@ -50,9 +73,23 @@ public class RunMenu : MonoBehaviour
             yield return null;
 
         //yield return new WaitForSecondsRealtime(3.0f);
-        //startExperiment = true;
+        switch (index)
+        {
+            case 0:
+                index =1; //1
+                runCoRoutine = true; 
+                break;
+            case 1:
+                yield return new WaitForSecondsRealtime(1.0f);
+                startExperiment = true;
+                break;
+            case 2:
+                index = 1;
+                break;
+            
+            default:
+                break;
+        }
 
-        
-        //index++; 
     }
 }
