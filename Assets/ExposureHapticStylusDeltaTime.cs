@@ -424,8 +424,34 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         }
         else
         {
-            //block logic 
-            //m_startCoRoutine = true;
+            blockrun++;
+            if (blockrun != blockCount)
+            {
+                //test this 
+                Random rng = new Random();
+                shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
+
+                //print debug 
+                for (int k = 0; k < shuffledComb.Count; k++)
+                {
+                    Debug.Log("shuffledComb 1" + " -- " + shuffledComb[tempList][0]);
+                    Debug.Log("shuffledComb 2" + " -- " + shuffledComb[tempList][1]);
+                }
+
+                //reset values 
+                numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
+                numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
+
+                loopCounter = 0; //reset loop counter
+                tempList    = 0; 
+                timeLapsed  = 0; //reset clock 
+                m_startCoRoutine       = true;
+                exitCoroutineLEDLoop   = false;
+                exitCoroutineBuzzLoop  = false;
+
+            }
+                //block logic 
+                //m_startCoRoutine = true;
         }
 
         //triggerMenuMsg.startExperiment = true; 
