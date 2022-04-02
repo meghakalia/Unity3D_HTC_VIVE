@@ -154,7 +154,6 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     void Start()
     {
         var canvas = GameObject.Find("InstructionsMenu");
-
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
         //read file and generate list 
@@ -468,8 +467,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             {
                 //start TOJ
                 m_start_TOJ = true;
-                triggerMenuMsg.startExperiment = false; // error is here 
-                triggerMenuMsg.index = 2 ;//error seems to be here
+                triggerMenuMsg.startExperiment = false;
+                triggerMenuMsg.index = 2 ;
                 triggerMenuMsg.runCoRoutine = true;
 
                 //yield return new WaitForSecondsRealtime(0.7f);
@@ -482,8 +481,6 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
         //triggerMenuMsg.startExperiment = true; 
         //triggerMenuMsg.index += 1;
-
-       
 
         //wait for 1 second and start again 
         Debug.Log(" got input ");

@@ -158,15 +158,7 @@ MonoBehaviour:
   beep: {fileID: 0}
   startExperiment: 0
   index: 0
-  instructions:
-  - Which has greater number of low intensity trials \n Tactile (Left Arrow Key) 
-    or Vision (Right Arrow Key) \n Press Any button to continue)
-  - 
-  - Press any arrow key to continue
-  - Press any arrow key to continue
-  - Press any arrow key to continue
-  - Press any arrow key to continue
-  - Press any arrow key to continue
+  runCoRoutine: 0
 --- !u!4 &19164398
 Transform:
   m_ObjectHideFlags: 0
@@ -921,7 +913,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\nWhich has greater number of low intensity trials ?\n\nBuzzer (Left Arrow
-    Key)      LED (Right Arrow Key) \n\nPress Any button to continue)"
+    Key)      LED (Right Arrow Key) \n\nPress any arrow button to continue"
 --- !u!222 &133534360
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1761,7 +1753,7 @@ PrefabInstance:
     - target: {fileID: 7856716547787428072, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9001862098026964122, guid: 22c63b3e3aa351946a7a26cb28f7ce6c, type: 3}
@@ -2383,7 +2375,7 @@ PrefabInstance:
     - target: {fileID: 7856716547787428072, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9001862098026964122, guid: 22c63b3e3aa351946a7a26cb28f7ce6c, type: 3}

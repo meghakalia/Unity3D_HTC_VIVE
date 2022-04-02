@@ -182,6 +182,9 @@ public class PostExposure2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        var canvas = GameObject.Find("InstructionsMenu");
+        triggerMenuMsg = canvas.GetComponent<RunMenu>();
+
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
         //read file and generate list 
         List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJConditions.csv", 1));
@@ -234,7 +237,7 @@ public class PostExposure2 : MonoBehaviour
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
           
-            if (m_startCoRoutine && exposureObject.m_start_TOJ) // if exposure script gives nod to run TOJ
+            if (m_startCoRoutine && exposureObject.m_start_TOJ && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
                 {
@@ -389,11 +392,15 @@ public class PostExposure2 : MonoBehaviour
                 
                 if (exposureObject.m_CounterRepeatitionsExposureTOJ < exposureObject.m_repeatitionsExposureTOJ-1)
                 {
-                    triggerMenuMsg.index = 1;
-                    triggerMenuMsg.runCoRoutine = true;
                     exposureObject.m_CounterRepeatitionsExposureTOJ++;
                     exposureObject.ResetBlockExposure();
                     ResetBlockTOJ(); // to run after exposure 
+
+                    triggerMenuMsg.startExperiment = false;
+                    triggerMenuMsg.index = 4;
+                    triggerMenuMsg.runCoRoutine = true;
+                    
+                    
                     //yield return new WaitForSecondsRealtime(0.7f);
 
                 }

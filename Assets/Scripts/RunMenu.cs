@@ -33,6 +33,7 @@ public class RunMenu : MonoBehaviour
         "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
         "Which comes first ?\n\n\n\n Buzz (Left Key)    Light (Right Key)\n\n\n Press any arrow key to continue",
         "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
+        "End of Block. \n You can take break \n \n Press any arrow key to continue",
         " \n\nLook at your Finger "
     };
 
@@ -62,12 +63,10 @@ public class RunMenu : MonoBehaviour
             runCoRoutine = false; 
         }
 
-        //
     }
 
     IEnumerator WaitForKeyDown()
     {
-        
         while (!(Input.GetKey("right")) && !(Input.GetKey("left")))
             //display the message here 
             yield return null;
@@ -80,12 +79,17 @@ public class RunMenu : MonoBehaviour
                 runCoRoutine = true; 
                 break;
             case 1:
-                yield return new WaitForSecondsRealtime(1.0f);
+                yield return new WaitForSecondsRealtime(5.0f);
                 startExperiment = true;
                 break;
             case 2:
                 index = 1;
+                runCoRoutine = true;
                 break;
+            case 4:
+                index = 0;
+                runCoRoutine = true;
+                break; 
             
             default:
                 break;
