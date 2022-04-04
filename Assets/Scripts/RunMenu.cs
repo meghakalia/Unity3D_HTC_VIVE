@@ -75,11 +75,13 @@ public class RunMenu : MonoBehaviour
         switch (index)
         {
             case 0:
-                index =1; //1
-                runCoRoutine = true; 
+                index = 1; //1
+                yield return new WaitForSecondsRealtime(2.0f);
+                runCoRoutine = true;
+                
                 break;
             case 1:
-                yield return new WaitForSecondsRealtime(5.0f);
+                yield return new WaitForSecondsRealtime(2.0f);
                 startExperiment = true;
                 break;
             case 2:
@@ -88,6 +90,7 @@ public class RunMenu : MonoBehaviour
                 break;
             case 4:
                 index = 0;
+                yield return new WaitForSecondsRealtime(2.0f);
                 runCoRoutine = true;
                 break; 
             

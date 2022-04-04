@@ -456,7 +456,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                 numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
                 loopCounter = 0; //reset loop counter
-                tempList = 0;
+                tempList = 0;   
                 timeLapsed = 0; //reset clock 
                 m_startCoRoutine = true;
                 exitCoroutineLEDLoop = false;
