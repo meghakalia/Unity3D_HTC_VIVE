@@ -58,7 +58,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     // file input output 
     public string filePath = "MeghaData.csv"; // to give in the editor 
 
-    int blockCount = 1; // could be 3 in original experiment
+    int blockCount = 1; // could be 3 in original experiment (list has 6x6)
     int blockrun = 0;
 
     //key board control
@@ -92,7 +92,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     List<int> numbersRand_V;
     List<int> numbersRand_T;
 
-    PostExposure2 TOJObject_post; 
+    PostExposure2 TOJObject_post;
+    PreExposureTOJ TOJObject_pre;
 
     int m_flashCount = 0 ; 
     List<int> generateRand(int numCount)
@@ -189,11 +190,12 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         }
 
         //for debug 
-        LEDDelay = 0.0f;
-        BuzzDelay = 0f ;
+        //LEDDelay = 0.0f;
+        //BuzzDelay = 0f ;
 
         //get postExposure2 object 
-        TOJObject_post = GetComponent<PostExposure2>(); 
+        TOJObject_post = GetComponent<PostExposure2>();
+        TOJObject_pre = GetComponent<PreExposureTOJ>();
     }
 
 
@@ -208,7 +210,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment)
+            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
             {
                 timeLapsed = timeLapsed + Time.deltaTime*1000; 
 
@@ -234,7 +236,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                         else
                         {
                             // high intensity visual
-                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
+                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
                         }
 
                     }

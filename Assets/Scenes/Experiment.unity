@@ -23,9 +23,9 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 0.89
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.18578678, g: 0.19995534, b: 0.23584908, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 661e86b75dd13f94b881c762ed58714e, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -166,15 +166,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19164396}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.18658543, y: 1.274044, z: -0.758}
+  m_LocalRotation: {x: -0, y: -0.20891649, z: -0, w: 0.9779335}
+  m_LocalPosition: {x: 0.506, y: 1.068, z: -0.456}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 681059051}
   m_Father: {fileID: 0}
   m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -24.118, z: 0}
 --- !u!1 &34206607 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7856716547787428072, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7735849, g: 0.73344606, b: 0.73344606, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1540,7 +1540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0.209, y: 0.396}
+  m_AnchoredPosition: {x: -0.22, y: 0.396}
   m_SizeDelta: {x: 640, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &684425947 stripped
@@ -1617,7 +1617,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HapticDevice: {fileID: 0}
-  m_startExposure: 1
   triggerMenuMsg: {fileID: 0}
   exposureObject: {fileID: 0}
   timePeriod: 1
@@ -1648,6 +1647,23 @@ MonoBehaviour:
   MenuCanvas: {fileID: 0}
   postExposureObj: {fileID: 0}
   filePath: MeghaData.csv
+--- !u!114 &684425976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684425947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3375f7e4b5538e4995904a4a7cde354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HapticDevice: {fileID: 0}
+  m_startExposure: 0
+  triggerMenuMsg: {fileID: 0}
+  exposureObject: {fileID: 0}
+  timePeriod: 1
 --- !u!4 &701536457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6580871530439992059, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
@@ -1753,7 +1769,7 @@ PrefabInstance:
     - target: {fileID: 7856716547787428072, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9001862098026964122, guid: 22c63b3e3aa351946a7a26cb28f7ce6c, type: 3}
@@ -2282,6 +2298,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 991665061727755129, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc5eb3549c8f0f04fafb9bb010b72bfb, type: 2}
     - target: {fileID: 1117778053445692282, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_Enabled
@@ -2375,7 +2396,7 @@ PrefabInstance:
     - target: {fileID: 7856716547787428072, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9001862098026964122, guid: 22c63b3e3aa351946a7a26cb28f7ce6c, type: 3}

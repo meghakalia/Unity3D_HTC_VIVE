@@ -10,7 +10,7 @@ using Random = System.Random;
 public class PreExposureTOJ : MonoBehaviour
 {
     List<int> shuffledComb;
-    string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/TestingTOJ.csv";
+    string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/PreExposureTOJ.csv";
 
     //Touch haptic 
     public HapticPlugin HapticDevice = null;
@@ -19,7 +19,7 @@ public class PreExposureTOJ : MonoBehaviour
     [NonSerialized] public float gain = 1.5f;
     [NonSerialized] public float lowGain = 0.5f;
     [NonSerialized] public float magnitude = 1.2f;
-    public bool m_startExposure = true;
+    public bool m_startExposure = false;
 
     //[NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
     double[] dir = { 1.0, 1.0, 1.0 };
@@ -73,6 +73,8 @@ public class PreExposureTOJ : MonoBehaviour
 
     double startTime = 0.0f;
 
+    int m_repeatPreExposure = 2;
+    int m_repeatCounter = 0; 
 
 
     //functions
@@ -237,7 +239,7 @@ public class PreExposureTOJ : MonoBehaviour
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
 
-            if (m_startCoRoutine && exposureObject.m_start_TOJ && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
                 {
@@ -387,23 +389,46 @@ public class PreExposureTOJ : MonoBehaviour
             }
             else
             {
-                //restart the exposure 
-                exposureObject.m_start_TOJ = false;
+                m_repeatCounter++;
 
-                if (exposureObject.m_CounterRepeatitionsExposureTOJ < exposureObject.m_repeatitionsExposureTOJ - 1)
+                if (m_repeatCounter < m_repeatPreExposure)
                 {
-                    exposureObject.m_CounterRepeatitionsExposureTOJ++;
-                    exposureObject.ResetBlockExposure();
+                    
+                    //display RunMenu Message 
+                    // reset TOJ after button press 
+                    triggerMenuMsg.startExperiment = false;
+                    triggerMenuMsg.index = 2;
+                    triggerMenuMsg.runCoRoutine = true;
                     ResetBlockTOJ(); // to run after exposure 
-
+                }
+                else 
+                {
+                    //end of experiment msg 
                     triggerMenuMsg.startExperiment = false;
                     triggerMenuMsg.index = 4;
                     triggerMenuMsg.runCoRoutine = true;
 
-
-                    //yield return new WaitForSecondsRealtime(0.7f);
-
+                    m_startExposure = true;
+                    // set exposure flag to run 
                 }
+
+                ////restart the exposure 
+                //exposureObject.m_start_TOJ = false;
+
+                //if (exposureObject.m_CounterRepeatitionsExposureTOJ < exposureObject.m_repeatitionsExposureTOJ - 1)
+                //{
+                //    exposureObject.m_CounterRepeatitionsExposureTOJ++;
+                //    exposureObject.ResetBlockExposure();
+                //    ResetBlockTOJ(); // to run after exposure 
+
+                //    triggerMenuMsg.startExperiment = false;
+                //    triggerMenuMsg.index = 4;
+                //    triggerMenuMsg.runCoRoutine = true;
+
+
+                //    //yield return new WaitForSecondsRealtime(0.7f);
+
+                //}
             }
         }
 

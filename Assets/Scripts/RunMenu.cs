@@ -39,7 +39,7 @@ public class RunMenu : MonoBehaviour
 
     void Start()
     {
-        index = 0;
+        index = 2;
         instruction.text = instructions[index];
         controller.selectAction.action.performed += gripButtonPressed;
 

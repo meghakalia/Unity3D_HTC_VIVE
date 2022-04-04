@@ -19,7 +19,7 @@ public class PostExposure2 : MonoBehaviour
     [NonSerialized] public float gain = 1.5f;
     [NonSerialized] public float lowGain = 0.5f;
     [NonSerialized] public float magnitude = 1.2f;
-    public bool m_startExposure = true; 
+    //public bool m_startExposure = true; 
    
     //[NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
     double[] dir = { 1.0, 1.0, 1.0 };
@@ -67,7 +67,7 @@ public class PostExposure2 : MonoBehaviour
     int correctResponse = 0;
 
     int blockrun = 0;
-    int blockCount = 1;
+    int blockCount = 1;// make it 36 x 3 
 
     double timeLapsed = 0.0f;
 
