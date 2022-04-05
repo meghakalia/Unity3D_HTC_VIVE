@@ -167,7 +167,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19164396}
   m_LocalRotation: {x: -0, y: -0.20891649, z: -0, w: 0.9779335}
-  m_LocalPosition: {x: 0.506, y: 1.068, z: -0.456}
+  m_LocalPosition: {x: 0.45, y: 1.068, z: -0.33}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7735849, g: 0.73344606, b: 0.73344606, a: 1}
+  m_Color: {r: 0.8773585, g: 0.84011215, b: 0.84011215, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1681,6 +1681,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 991665061727755129, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 34ed3d4a3ad5e154786638b6ba2551d5, type: 2}
     - target: {fileID: 1117778053445692282, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_Enabled
@@ -2302,7 +2307,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dc5eb3549c8f0f04fafb9bb010b72bfb, type: 2}
+      objectReference: {fileID: 2100000, guid: 34ed3d4a3ad5e154786638b6ba2551d5, type: 2}
     - target: {fileID: 1117778053445692282, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_Enabled

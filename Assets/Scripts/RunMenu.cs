@@ -86,7 +86,9 @@ public class RunMenu : MonoBehaviour
                 break;
             case 2:
                 index = 1;
+                yield return new WaitForSecondsRealtime(0.2f);
                 runCoRoutine = true;
+                
                 break;
             case 4:
                 index = 0;
