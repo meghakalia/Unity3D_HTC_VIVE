@@ -67,7 +67,7 @@ public class PostExposure2 : MonoBehaviour
     int correctResponse = 0;
 
     int blockrun = 0;
-    int blockCount = 1;// make it 36 x 3 
+    int blockCount = 8;// make it 36 x 3 
 
     double timeLapsed = 0.0f;
 

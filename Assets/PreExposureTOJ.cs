@@ -67,7 +67,7 @@ public class PreExposureTOJ : MonoBehaviour
     int correctResponse = 0;
 
     int blockrun = 0;
-    int blockCount = 1;
+    int blockCount = 8;
 
     double timeLapsed = 0.0f;
 

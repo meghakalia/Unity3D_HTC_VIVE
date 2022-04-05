@@ -19,6 +19,7 @@ public class RunMenu : MonoBehaviour
     public int index = 0;
 
     public bool runCoRoutine = false; 
+   
     //public string[] instructions = new string[]
     //{
 
@@ -33,8 +34,10 @@ public class RunMenu : MonoBehaviour
         "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
         "Which comes first ?\n\n\n\n Buzz (Left Key)    Light (Right Key)\n\n\n Press any arrow key to continue",
         "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
-        "End of Block. \n You can take break \n \n Press any arrow key to continue",
-        " \n\nLook at your Finger "
+        "End of Block. \n You can take break \n \n Press any arrow key to continue" ,
+        " \n\nLook at your Finger ",
+        "Score is less than 80%. Try Again \n  Press any arrow key to continue",
+        "Good Job!  \n Press any arrow key to continue "
     };
 
     void Start()
@@ -77,8 +80,7 @@ public class RunMenu : MonoBehaviour
             case 0:
                 index = 1; //1
                 yield return new WaitForSecondsRealtime(2.0f);
-                runCoRoutine = true;
-                
+                runCoRoutine = true;                
                 break;
             case 1:
                 yield return new WaitForSecondsRealtime(2.0f);
@@ -88,14 +90,21 @@ public class RunMenu : MonoBehaviour
                 index = 1;
                 yield return new WaitForSecondsRealtime(0.2f);
                 runCoRoutine = true;
-                
                 break;
             case 4:
                 index = 0;
                 yield return new WaitForSecondsRealtime(2.0f);
                 runCoRoutine = true;
+                break;
+            case 6:
+                yield return new WaitForSecondsRealtime(2.0f);
+                startExperiment = true;
+                break;
+            case 7:
+                yield return new WaitForSecondsRealtime(2.0f);
                 break; 
-            
+
+
             default:
                 break;
         }

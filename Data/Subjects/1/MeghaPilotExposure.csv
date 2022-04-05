@@ -216,5 +216,3 @@ AsynchronyVal, numVisLow, numTactLow, LEDDelay, BuzzDelay, correctResponse, subj
 0.0, 0, 1, 160, 0, 1, 2, 0.1
 0.0, 2, 1, 160, 0, 2, 2, 0.1
 0.0, 3, 0, 160, 0, 2, 1, 0.1
-AsynchronyVal, numVisLow, numTactLow, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration
-AsynchronyVal, numVisLow, numTactLow, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration

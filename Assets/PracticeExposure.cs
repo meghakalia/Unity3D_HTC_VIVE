@@ -8,13 +8,12 @@ using System.Linq;
 
 using Random = System.Random;
 
-public class ExposureHapticStylusDeltaTime : MonoBehaviour
+public class PracticeExposure : MonoBehaviour
 {
-    public int m_repeatitionsExposureTOJ = 2;
-    public int m_CounterRepeatitionsExposureTOJ = 0;
+    
 
     bool m_ExperimentLEDDelay = true; // true, buzz first, false: LEd first
-    
+
     //public Material m_Material;
     bool firstTime = true;
     float prevTime = 0;
@@ -45,7 +44,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     [NonSerialized] public float magnitude = 1.2f;
     [NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
 
-    public bool m_start_TOJ = false; 
+    public bool m_start_TOJ = false;
 
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
@@ -58,9 +57,10 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     // file input output 
     public string filePath = "MeghaData.csv"; // to give in the editor 
 
-    int blockCount = 3; // could be 3 in original experiment (list has 6x6)
+    int blockCount = 1; // could be 3 in original experiment (list has 6x6)
     int blockrun = 0;
 
+    int score = 0; 
     //key board control
     bool gameIsPaused = false;
 
@@ -95,7 +95,13 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     PostExposure2 TOJObject_post;
     PreExposureTOJ TOJObject_pre;
 
-    int m_flashCount = 0 ; 
+    int m_flashCount = 0;
+
+    //audio 
+    [SerializeField] public AudioClip beepsoundCorrect;
+    [SerializeField] public AudioClip beepsoundWrong;
+    public AudioSource beep;
+
     List<int> generateRand(int numCount)
     {
         var rand = new Random();
@@ -158,14 +164,14 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
         //read file and generate list 
-        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/dataTest.csv")); //predetermined pattern 
+        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/dataExposurePractice.csv")); //predetermined pattern 
         //shuffle 
         Random rng = new Random();
         shuffledComb = comb.OrderBy(a => rng.Next()).ToList();
         tempListCount = shuffledComb.Count;
 
         //file input output 
-        filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/MeghaPilotExposure.csv";
+        filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/PracticeExposure.csv";
         writeToFile("AsynchronyVal, numVisLow, numTactLow, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration");
 
         //haptic Touch 
@@ -181,21 +187,25 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         if (m_ExperimentLEDDelay)
         {
             LEDDelay = 160.0f;
-            BuzzDelay = 0f; 
+            BuzzDelay = 0f;
         }
-        else 
+        else
         {
             LEDDelay = 0.0f;
             BuzzDelay = 160f;
         }
 
-        //for debug 
-        //LEDDelay = 0.0f;
-        //BuzzDelay = 0f;
+        //for practice 0  
+        LEDDelay = 0.0f;
+        BuzzDelay = 0f;
 
         //get postExposure2 object 
         TOJObject_post = GetComponent<PostExposure2>();
         TOJObject_pre = GetComponent<PreExposureTOJ>();
+
+        //audio 
+        //beep = GetComponent<AudioSource>();
+
     }
 
 
@@ -210,11 +220,11 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
             {
-                timeLapsed = timeLapsed + Time.deltaTime*1000; 
+                timeLapsed = timeLapsed + Time.deltaTime * 1000;
 
-                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) 
+                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop)
                 {
                     Debug.Log("Timelapsed LED " + timeLapsed);
                     if (m_first_LED_loop) //runs only once 
@@ -299,18 +309,18 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                 // run it 8 times and add 
                 if (exitCoroutineLEDLoop && exitCoroutineBuzzLoop)
                 {
-                    if (loopCounter < loopNum-1)
+                    if (loopCounter < loopNum - 1)
                     {
                         m_startCoRoutine = false;
 
-                        StartCoroutine(waitForSecondsAndReset(0.4f)); 
-                        
+                        StartCoroutine(waitForSecondsAndReset(0.4f));
+
                     }
                     else
                     {
                         m_startCoRoutine = false;
                         StartCoroutine(WaitForKeyDown());
-                        
+
                     }
                 }
             }
@@ -384,7 +394,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         m_startCoRoutine = true;
         exitCoroutineLEDLoop = false;
         exitCoroutineBuzzLoop = false;
-        
+
         loopCounter++;
     }
 
@@ -419,6 +429,22 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             correctResponse = 2; //tactile has hihger number of high intensity responses
         }
 
+
+        if (correctResponse == subjectResponse)
+        {
+            //single beep 
+            beep.PlayOneShot(beepsoundCorrect);
+            score++;
+        }
+        else
+        {
+            // double beep 
+            //increase score as well
+            //single beep 
+            beep.PlayOneShot(beepsoundCorrect);
+            
+        }
+
         //AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
         decimal[] arr = { 0.0m, (decimal)numVisLow, (decimal)numTactLow, (decimal)LEDDelay, (decimal)BuzzDelay, (decimal)correctResponse, (decimal)subjectResponse, (decimal)stimulusDuration };
         writeToFile(string.Join(", ", arr));
@@ -446,39 +472,51 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                 Random rng = new Random();
                 shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
 
-                //print debug 
-                for (int k = 0; k < shuffledComb.Count; k++)
-                {
-                    Debug.Log("shuffledComb 1" + " -- " + shuffledComb[tempList][0]);
-                    Debug.Log("shuffledComb 2" + " -- " + shuffledComb[tempList][1]);
-                }
-
                 //reset values 
                 numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
                 numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
                 loopCounter = 0; //reset loop counter
-                tempList = 0;   
+                tempList = 0;
                 timeLapsed = 0; //reset clock 
                 m_startCoRoutine = true;
                 exitCoroutineLEDLoop = false;
                 exitCoroutineBuzzLoop = false;
 
             }
-            else 
+            else
             {
-                //start TOJ
-                m_start_TOJ = true;
-                triggerMenuMsg.startExperiment = false;
-                triggerMenuMsg.index = 2 ;
-                triggerMenuMsg.runCoRoutine = true;
+                //display total score 
+
+                if (score < 9)
+                {
+                    ResetBlockExposure();
+                    score = 0;
+                    triggerMenuMsg.startExperiment = false;
+                    triggerMenuMsg.index =6;
+                    triggerMenuMsg.runCoRoutine = true;
+                }
+                else 
+                {
+                    triggerMenuMsg.startExperiment = false;
+                    triggerMenuMsg.index = 7;
+                    triggerMenuMsg.runCoRoutine = true;
+                }
+                // if score is less than 9 
+                //then repeat 
+
+                
+
+                    ////start TOJ
+                    //m_start_TOJ = true;
+                
 
                 //yield return new WaitForSecondsRealtime(0.7f);
                 //wait for button press 
 
             }
-                //block logic 
-                //m_startCoRoutine = true;
+            //block logic 
+            //m_startCoRoutine = true;
         }
 
         //triggerMenuMsg.startExperiment = true; 
@@ -515,85 +553,6 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         exitCoroutineLEDLoop = false;
         exitCoroutineBuzzLoop = false;
 
-    }
-
-    IEnumerator Example()
-    {
-        m_startCoRoutine = false; //stop coroutine from starting again
-
-        if (blockrun < blockCount)
-        {
-            int m_flashCount = 0;
-            // this loop will be run 108 times in a block of 36 
-            if (tempList != tempListCount) // run till the list is empty
-            {
-                // read the number of random stimuli from file 
-                List<int> numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
-                List<int> numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
-
-                while (m_flashCount < 8) //run 8 times 
-                {
-
-                    timeParsed = timeParsed + Time.deltaTime;
-
-                    yield return new WaitForSecondsRealtime(0.50f); // time between stimulus
-
-                    //start stimulus
-                    GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-
-                    //if any 
-
-                    if (numbersRand_T.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
-                    {
-                        //ActivateHaptic(_mIntensityHaptic * 0.2f, stimulusDuration); // low intensity haptic
-                        ActivateTouchHaptic(lowGain, magnitude, frequency, dir);
-                    }
-                    else
-                    {
-                        ActivateTouchHaptic(gain, magnitude, frequency, dir);
-                        //ActivateHaptic(_mIntensityHaptic, stimulusDuration);// high intensity haptic
-
-                    }
-
-                    if (numbersRand_V.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
-                    {
-                        // low intensity visual
-                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
-                    }
-                    else
-                    {
-                        // high intensity visual
-                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
-                    }
-
-                    yield return new WaitForSecondsRealtime(stimulusDuration); // time for which stimulus is presented
-                    DeactivateTouchHaptic();
-                    GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION"); // switch off stimulus
-
-                    // Disable this keyword 
-                    //wait is moved in the beginning of this loop
-                    m_flashCount++;
-
-                }
-
-                yield return StartCoroutine(WaitForKeyDown()); //get user input 
-            }
-            else if (tempList == tempListCount)
-            {
-                tempList = 0;
-                blockrun++;
-
-                yield return StartCoroutine(WaitForKeyDown()); //get user input 
-            }
-        }
-        else
-        {
-            // After exposure phase 
-            //add some condition or display msg 
-            //also add some wait before starting TOJ 
-            m_Start_TOJ = true;
-
-        }
 
     }
 
