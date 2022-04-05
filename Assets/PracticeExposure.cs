@@ -100,7 +100,7 @@ public class PracticeExposure : MonoBehaviour
     //audio 
     [SerializeField] public AudioClip beepsoundCorrect;
     [SerializeField] public AudioClip beepsoundWrong;
-    public AudioSource beep;
+    [SerializeField] public AudioSource beep;
 
     List<int> generateRand(int numCount)
     {
@@ -441,7 +441,7 @@ public class PracticeExposure : MonoBehaviour
             // double beep 
             //increase score as well
             //single beep 
-            beep.PlayOneShot(beepsoundCorrect);
+            beep.PlayOneShot(beepsoundWrong);
             
         }
 

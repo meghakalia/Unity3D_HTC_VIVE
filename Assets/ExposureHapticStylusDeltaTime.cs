@@ -210,8 +210,9 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
-            {
+            //if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
+                {
                 timeLapsed = timeLapsed + Time.deltaTime*1000; 
 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) 
@@ -303,7 +304,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                     {
                         m_startCoRoutine = false;
 
-                        StartCoroutine(waitForSecondsAndReset(0.4f)); 
+                        StartCoroutine(waitForSecondsAndReset(1f)); //original was 0.4
                         
                     }
                     else
@@ -514,86 +515,6 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         m_startCoRoutine = true;
         exitCoroutineLEDLoop = false;
         exitCoroutineBuzzLoop = false;
-
-    }
-
-    IEnumerator Example()
-    {
-        m_startCoRoutine = false; //stop coroutine from starting again
-
-        if (blockrun < blockCount)
-        {
-            int m_flashCount = 0;
-            // this loop will be run 108 times in a block of 36 
-            if (tempList != tempListCount) // run till the list is empty
-            {
-                // read the number of random stimuli from file 
-                List<int> numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
-                List<int> numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
-
-                while (m_flashCount < 8) //run 8 times 
-                {
-
-                    timeParsed = timeParsed + Time.deltaTime;
-
-                    yield return new WaitForSecondsRealtime(0.50f); // time between stimulus
-
-                    //start stimulus
-                    GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-
-                    //if any 
-
-                    if (numbersRand_T.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
-                    {
-                        //ActivateHaptic(_mIntensityHaptic * 0.2f, stimulusDuration); // low intensity haptic
-                        ActivateTouchHaptic(lowGain, magnitude, frequency, dir);
-                    }
-                    else
-                    {
-                        ActivateTouchHaptic(gain, magnitude, frequency, dir);
-                        //ActivateHaptic(_mIntensityHaptic, stimulusDuration);// high intensity haptic
-
-                    }
-
-                    if (numbersRand_V.Any(x => x == m_flashCount)) // check whether current trial shoudl be low intensity
-                    {
-                        // low intensity visual
-                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
-                    }
-                    else
-                    {
-                        // high intensity visual
-                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
-                    }
-
-                    yield return new WaitForSecondsRealtime(stimulusDuration); // time for which stimulus is presented
-                    DeactivateTouchHaptic();
-                    GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION"); // switch off stimulus
-
-                    // Disable this keyword 
-                    //wait is moved in the beginning of this loop
-                    m_flashCount++;
-
-                }
-
-                yield return StartCoroutine(WaitForKeyDown()); //get user input 
-            }
-            else if (tempList == tempListCount)
-            {
-                tempList = 0;
-                blockrun++;
-
-                yield return StartCoroutine(WaitForKeyDown()); //get user input 
-            }
-        }
-        else
-        {
-            // After exposure phase 
-            //add some condition or display msg 
-            //also add some wait before starting TOJ 
-            m_Start_TOJ = true;
-
-        }
 
     }
 
