@@ -304,7 +304,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                     {
                         m_startCoRoutine = false;
 
-                        StartCoroutine(waitForSecondsAndReset(1f)); //original was 0.4
+                        StartCoroutine(waitForSecondsAndReset(0.6f)); //original was 0.4
                         
                     }
                     else

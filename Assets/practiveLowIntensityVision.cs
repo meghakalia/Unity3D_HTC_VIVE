@@ -20,8 +20,13 @@ public class practiveLowIntensityVision : MonoBehaviour
     int blockrun = 0;
 
     int requiredScore = 8;
-    int subjectResponse; 
+    int subjectResponse;
 
+
+    //audio 
+    [SerializeField] public AudioClip beepsoundCorrect;
+    [SerializeField] public AudioClip beepsoundWrong;
+    [SerializeField] public AudioSource beep;
 
     // Start is called before the first frame update
     void Start()
@@ -144,11 +149,15 @@ public class practiveLowIntensityVision : MonoBehaviour
         if (subjectResponse == correctReponse)
         {
             //single beep 
+            beep.PlayOneShot(beepsoundCorrect);
             score++; 
         }
         else 
         {
-             //double high pitch beeps
+            //double high pitch beeps
+            beep.PlayOneShot(beepsoundWrong);
+            yield return new WaitForSecondsRealtime(0.3f);
+            beep.PlayOneShot(beepsoundWrong);
         }
 
         blockrun++; 

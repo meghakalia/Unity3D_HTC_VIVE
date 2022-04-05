@@ -32,6 +32,11 @@ public class PracticeLowIntensityTactile : MonoBehaviour
     [NonSerialized] public float magnitude = 1.2f;
     [NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
 
+    //audio 
+    [SerializeField] public AudioClip beepsoundCorrect;
+    [SerializeField] public AudioClip beepsoundWrong;
+    [SerializeField] public AudioSource beep;
+
     void DeactivateTouchHaptic()
     {
         if (HapticDevice == null) return;       //If there is no device, bail out early.
@@ -191,16 +196,21 @@ public class PracticeLowIntensityTactile : MonoBehaviour
 
         if ((Input.GetKey("left")))
         {
+
             subjectResponse = 0; //first
         }
 
         if (subjectResponse == correctReponse)
         {
             //single beep 
+            beep.PlayOneShot(beepsoundCorrect);
             score++;
         }
         else
         {
+            beep.PlayOneShot(beepsoundWrong);
+            yield return new WaitForSecondsRealtime(0.3f);
+            beep.PlayOneShot(beepsoundWrong);
             //double high pitch beeps
         }
 
