@@ -16,10 +16,12 @@ public class practiveLowIntensityVision : MonoBehaviour
 
     int score = 0;
 
-    int blockCount = 5;
+    int blockCount = 10;
     int blockrun = 0;
 
-    int requiredScore = 4; 
+    int requiredScore = 8;
+    int subjectResponse; 
+
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +41,7 @@ public class practiveLowIntensityVision : MonoBehaviour
             //}
             if (m_startCoRoutine && triggerMenuMsg.startExperiment)
             {
-                //StartCoroutine(Example());
+                StartCoroutine(Example());
             }
 
         }
@@ -53,7 +55,7 @@ public class practiveLowIntensityVision : MonoBehaviour
     {
         m_startCoRoutine = false;
         var rand = new Random();
-        int number = rand.Next(0, 1);
+        int number = rand.Next(0, 2);
 
         if (number ==0)
         {
@@ -87,7 +89,7 @@ public class practiveLowIntensityVision : MonoBehaviour
 
                 GetComponent<MeshRenderer>().material.DisableKeyword("_EMISSION");
 
-                number = Math.abs(number - 1); // next will be different 
+                number = Mathf.Abs(number - 1); // next will be different 
 
                 count++;
             }

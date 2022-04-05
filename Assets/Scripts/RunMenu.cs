@@ -36,8 +36,8 @@ public class RunMenu : MonoBehaviour
         "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
         "End of Block. \n You can take break \n \n Press any arrow key to continue" ,
         " \n\nLook at your Finger ",
-        "Score is less than 80%. Try Again \n  Press any arrow key to continue",
-        "Good Job!  \n Press any arrow key to continue "
+        "Score is less than 80%. Try Again \n\n\n  Press any arrow key to continue",
+        "Good Job!  \n\n\n Press any arrow key to continue "
     };
 
     void Start()
