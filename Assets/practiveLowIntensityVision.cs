@@ -124,8 +124,6 @@ public class practiveLowIntensityVision : MonoBehaviour
                 triggerMenuMsg.runCoRoutine = true;
 
                 m_startCoRoutine = false;
-                
-
             }
         }
     }

@@ -439,9 +439,8 @@ public class PracticeExposure : MonoBehaviour
         else
         {
             // double beep 
-            //increase score as well
-            //single beep 
             beep.PlayOneShot(beepsoundWrong);
+            
             
         }
 

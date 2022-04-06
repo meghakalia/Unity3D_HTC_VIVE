@@ -73,8 +73,6 @@ public class PostExposure2 : MonoBehaviour
 
     double startTime = 0.0f; 
 
-
-
     //functions
     List<int> generateRand(int numCount)
     {

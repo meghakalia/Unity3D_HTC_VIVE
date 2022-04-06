@@ -1679,11 +1679,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684425947}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c36e0a4507710a844afc31a1e0b66f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HapticDevice: {fileID: 0}
+  triggerMenuMsg: {fileID: 0}
+  exposureObject: {fileID: 0}
+  timePeriod: 1
+  beepsoundCorrect: {fileID: 8300000, guid: 00ad2591a7a46084abed2dde57e80f79, type: 3}
+  beepsoundWrong: {fileID: 8300000, guid: f4af1a6cd846f2d4793ac669d3eceb03, type: 3}
+  beep: {fileID: 1217360997}
 --- !u!114 &684425984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1691,7 +1698,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684425947}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2f25d6c6ab53fb499584fa1fc1c8166, type: 3}
   m_Name: 
