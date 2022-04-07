@@ -74,6 +74,10 @@ public class PracticeTOJ : MonoBehaviour
     double timeLapsed = 0.0f;
     double startTime = 0.0f;
 
+    PracticeExposure taskPracticeExposure;
+
+    public bool m_startPreExposureTOJ = false; 
+
     //audio 
     [SerializeField] public AudioClip beepsoundCorrect;
     [SerializeField] public AudioClip beepsoundWrong;
@@ -198,6 +202,7 @@ public class PracticeTOJ : MonoBehaviour
         }
 
         //get exposure script 
+        taskPracticeExposure = GetComponent<PracticeExposure>(); 
     }
 
     // Update is called once per frame
@@ -207,7 +212,7 @@ public class PracticeTOJ : MonoBehaviour
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
 
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskPracticeExposure.m_startPracticeTOJ) // if exposure script gives nod to run TOJ
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
                 {
@@ -223,6 +228,7 @@ public class PracticeTOJ : MonoBehaviour
                     if (checkTime <= (LEDDuration - Time.deltaTime * 1000))
                     {
                         GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
                     }
                     else
                     {
@@ -375,8 +381,11 @@ public class PracticeTOJ : MonoBehaviour
                 else 
                 {
                     triggerMenuMsg.startExperiment = false;
-                    triggerMenuMsg.index = 7;
+                    triggerMenuMsg.index = 10; // Megha change index
                     triggerMenuMsg.runCoRoutine = true;
+
+                    taskPracticeExposure.m_startPracticeTOJ = false;
+                    m_startPreExposureTOJ = true; 
                 }
 
             }

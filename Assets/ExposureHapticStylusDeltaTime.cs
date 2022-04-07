@@ -13,7 +13,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     public int m_repeatitionsExposureTOJ = 2;
     public int m_CounterRepeatitionsExposureTOJ = 0;
 
-    bool m_ExperimentLEDDelay = true; // true, buzz first, false: LEd first
+    bool m_ExperimentLEDDelay = false; // true, buzz first, false: LEd first
     
     //public Material m_Material;
     bool firstTime = true;
@@ -94,6 +94,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
     PostExposure2 TOJObject_post;
     PreExposureTOJ TOJObject_pre;
+
 
     int m_flashCount = 0 ; 
     List<int> generateRand(int numCount)
@@ -180,13 +181,13 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
         if (m_ExperimentLEDDelay)
         {
-            LEDDelay = 160.0f;
+            LEDDelay = 140.0f;
             BuzzDelay = 0f; 
         }
         else 
         {
             LEDDelay = 0.0f;
-            BuzzDelay = 160f;
+            BuzzDelay = 140.0f;
         }
 
         //for debug 
@@ -210,9 +211,10 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            //if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
-                {
+
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment)
+            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
+            {
                 timeLapsed = timeLapsed + Time.deltaTime*1000; 
 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) 

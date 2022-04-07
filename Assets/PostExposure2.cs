@@ -38,8 +38,6 @@ public class PostExposure2 : MonoBehaviour
     int tempListCount = 0;
     int tempList = 0;
 
-    int stimulusDuration = 70;
-
     double prevTime = 0.0f;
     double currentTime = 0.0f;
 
@@ -252,6 +250,9 @@ public class PostExposure2 : MonoBehaviour
                     {
                         //Debug.Log("LEDflag enter " + " -- " + checkTime);
                         GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
+
+
                     }
                     else
                     {

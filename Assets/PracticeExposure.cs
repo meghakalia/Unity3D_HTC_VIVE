@@ -10,8 +10,6 @@ using Random = System.Random;
 
 public class PracticeExposure : MonoBehaviour
 {
-    
-
     bool m_ExperimentLEDDelay = true; // true, buzz first, false: LEd first
 
     //public Material m_Material;
@@ -92,8 +90,8 @@ public class PracticeExposure : MonoBehaviour
     List<int> numbersRand_V;
     List<int> numbersRand_T;
 
-    PostExposure2 TOJObject_post;
-    PreExposureTOJ TOJObject_pre;
+    PracticeLowIntensityTactile taskLowIntensityTactile;
+    public bool m_startPracticeTOJ = false; 
 
     int m_flashCount = 0;
 
@@ -200,8 +198,10 @@ public class PracticeExposure : MonoBehaviour
         BuzzDelay = 0f;
 
         //get postExposure2 object 
-        TOJObject_post = GetComponent<PostExposure2>();
-        TOJObject_pre = GetComponent<PreExposureTOJ>();
+        //TOJObject_post = GetComponent<PostExposure2>();
+        //TOJObject_pre = GetComponent<PreExposureTOJ>();
+
+        taskLowIntensityTactile = GetComponent<PracticeLowIntensityTactile>(); 
 
         //audio 
         //beep = GetComponent<AudioSource>();
@@ -220,7 +220,7 @@ public class PracticeExposure : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskLowIntensityTactile.m_startPracticeExposure)
             {
                 timeLapsed = timeLapsed + Time.deltaTime * 1000;
 
@@ -492,14 +492,17 @@ public class PracticeExposure : MonoBehaviour
                     ResetBlockExposure();
                     score = 0;
                     triggerMenuMsg.startExperiment = false;
-                    triggerMenuMsg.index =6;
+                    triggerMenuMsg.index = 6;
                     triggerMenuMsg.runCoRoutine = true;
                 }
                 else 
                 {
                     triggerMenuMsg.startExperiment = false;
-                    triggerMenuMsg.index = 7;
+                    triggerMenuMsg.index = 10; // will lead to TOJ practice
                     triggerMenuMsg.runCoRoutine = true;
+
+                    taskLowIntensityTactile.m_startPracticeExposure = false;
+                    m_startPracticeTOJ = true; 
                 }
                 // if score is less than 9 
                 //then repeat 

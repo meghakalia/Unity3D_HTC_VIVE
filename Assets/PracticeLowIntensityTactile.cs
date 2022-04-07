@@ -8,6 +8,9 @@ public class PracticeLowIntensityTactile : MonoBehaviour
 {
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
+    public practiveLowIntensityVision TaskLowIntensityVision;
+
+    public bool m_startPracticeExposure = false; 
     bool m_startCoRoutine = true;
     float time_delay = 0f;
 
@@ -85,6 +88,9 @@ public class PracticeLowIntensityTactile : MonoBehaviour
         var canvas = GameObject.Find("InstructionsMenu");
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
+        TaskLowIntensityVision = GetComponent<practiveLowIntensityVision>();
+        
+
         //haptic Touch 
         if (HapticDevice == null)
             HapticDevice = (HapticPlugin)FindObjectOfType(typeof(HapticPlugin));
@@ -95,7 +101,7 @@ public class PracticeLowIntensityTactile : MonoBehaviour
     {
         if (time_delay > 1.0f)
         {
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment && TaskLowIntensityVision.m_startPracticeLowIntensityTactile)
             {
                 StartCoroutine(Example());
             }
@@ -173,10 +179,12 @@ public class PracticeLowIntensityTactile : MonoBehaviour
             else
             {
                 //display msg 
+                TaskLowIntensityVision.m_startPracticeLowIntensityTactile = false; 
                 triggerMenuMsg.startExperiment = false;
-                triggerMenuMsg.index = 7;
+                triggerMenuMsg.index = 9; //will lead to practice exposure
                 triggerMenuMsg.runCoRoutine = true;
 
+                m_startPracticeExposure = true; 
                 m_startCoRoutine = false;
 
             }

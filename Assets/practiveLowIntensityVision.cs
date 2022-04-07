@@ -22,6 +22,8 @@ public class practiveLowIntensityVision : MonoBehaviour
     int requiredScore = 8;
     int subjectResponse;
 
+    bool m_startPracticeLowIntensityVision = true; 
+    public bool m_startPracticeLowIntensityTactile = false; 
 
     //audio 
     [SerializeField] public AudioClip beepsoundCorrect;
@@ -44,7 +46,7 @@ public class practiveLowIntensityVision : MonoBehaviour
             //{
             //    //StartCoroutine(Example());
             //}
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment && m_startPracticeLowIntensityVision)
             {
                 StartCoroutine(Example());
             }
@@ -119,11 +121,14 @@ public class practiveLowIntensityVision : MonoBehaviour
             else 
             {
                 //display msg 
+                m_startPracticeLowIntensityVision = false;
                 triggerMenuMsg.startExperiment = false;
                 triggerMenuMsg.index = 7;
                 triggerMenuMsg.runCoRoutine = true;
 
                 m_startCoRoutine = false;
+                m_startPracticeLowIntensityTactile = true;
+                
             }
         }
     }

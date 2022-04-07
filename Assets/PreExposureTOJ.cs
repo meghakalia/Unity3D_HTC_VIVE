@@ -26,6 +26,7 @@ public class PreExposureTOJ : MonoBehaviour
 
     public RunMenu triggerMenuMsg;
     public ExposureHapticStylusDeltaTime exposureObject;
+    public PracticeTOJ taskPracticeTOJ;
 
     //public ExposureHapticStylus ExposureScript; 
 
@@ -37,8 +38,6 @@ public class PreExposureTOJ : MonoBehaviour
 
     int tempListCount = 0;
     int tempList = 0;
-
-    int stimulusDuration = 70;
 
     double prevTime = 0.0f;
     double currentTime = 0.0f;
@@ -74,8 +73,9 @@ public class PreExposureTOJ : MonoBehaviour
     double startTime = 0.0f;
 
     int m_repeatPreExposure = 2;
-    int m_repeatCounter = 0; 
+    int m_repeatCounter = 0;
 
+    
 
     //functions
     List<int> generateRand(int numCount)
@@ -229,6 +229,7 @@ public class PreExposureTOJ : MonoBehaviour
         //get exposure script 
         //var exposure = GameObject.Find("LEDCylinder");
         exposureObject = GetComponent<ExposureHapticStylusDeltaTime>();
+        taskPracticeTOJ = GetComponent<PracticeTOJ>(); 
 
     }
 
@@ -239,9 +240,10 @@ public class PreExposureTOJ : MonoBehaviour
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
 
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskPracticeTOJ.m_startPreExposureTOJ) // if exposure script gives nod to run TOJ
             {
-                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
+                //if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
+                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
                 {
                     //Debug.Log("Timelapsed LED " + timeLapsed);
                     if (m_first_LED_loop) //runs only once 
@@ -256,6 +258,7 @@ public class PreExposureTOJ : MonoBehaviour
                     {
                         //Debug.Log("LEDflag enter " + " -- " + checkTime);
                         GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
+                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
                     }
                     else
                     {
@@ -409,6 +412,7 @@ public class PreExposureTOJ : MonoBehaviour
                     triggerMenuMsg.runCoRoutine = true;
 
                     m_startExposure = true;
+                    taskPracticeTOJ.m_startPreExposureTOJ = false; 
                     // set exposure flag to run 
                 }
 
