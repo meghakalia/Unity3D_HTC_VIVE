@@ -56,7 +56,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     int tempList = 0;
 
     // file input output 
-    public string filePath = "MeghaData.csv"; // to give in the editor 
+    public string filePath; 
+    string fileName = "Exposure.csv"; 
 
     int blockCount = 3; // could be 3 in original experiment (list has 6x6)
     int blockrun = 0;
@@ -165,8 +166,13 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         shuffledComb = comb.OrderBy(a => rng.Next()).ToList();
         tempListCount = shuffledComb.Count;
 
+        //get postExposure2 object 
+        TOJObject_post = GetComponent<PostExposure2>();
+        TOJObject_pre = GetComponent<PreExposureTOJ>();
+
         //file input output 
-        filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/MeghaPilotExposure.csv";
+        filePath = TOJObject_pre.FullFilePath + fileName; 
+        //filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/MeghaPilotExposure.csv";
         writeToFile("AsynchronyVal, numVisLow, numTactLow, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration");
 
         //haptic Touch 
@@ -194,9 +200,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         //LEDDelay = 0.0f;
         //BuzzDelay = 0f;
 
-        //get postExposure2 object 
-        TOJObject_post = GetComponent<PostExposure2>();
-        TOJObject_pre = GetComponent<PreExposureTOJ>();
+        
     }
 
 

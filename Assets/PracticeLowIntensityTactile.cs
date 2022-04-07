@@ -6,6 +6,9 @@ using Random = System.Random;
 
 public class PracticeLowIntensityTactile : MonoBehaviour
 {
+    public int subjectNum = 1;
+    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
+    public string FullFilePath; 
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
     public practiveLowIntensityVision TaskLowIntensityVision;
@@ -89,7 +92,8 @@ public class PracticeLowIntensityTactile : MonoBehaviour
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
         TaskLowIntensityVision = GetComponent<practiveLowIntensityVision>();
-        
+
+        FullFilePath = PathFolder + subjectNum + "/"; 
 
         //haptic Touch 
         if (HapticDevice == null)

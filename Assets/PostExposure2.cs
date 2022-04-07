@@ -10,7 +10,9 @@ using Random = System.Random;
 public class PostExposure2 : MonoBehaviour
 {
     List<int> shuffledComb;
-    string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/TestingTOJ.csv";
+    //string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/TestingTOJ.csv";
+    string filePath = "";
+    string fileName = "PostExposureTOJ.csv"; 
 
     //Touch haptic 
     public HapticPlugin HapticDevice = null;
@@ -26,7 +28,7 @@ public class PostExposure2 : MonoBehaviour
 
     public RunMenu triggerMenuMsg;
     public ExposureHapticStylusDeltaTime exposureObject;
-
+    public PreExposureTOJ taskPreExposure; 
     //public ExposureHapticStylus ExposureScript; 
 
     bool m_startCoRoutine = true;
@@ -181,6 +183,8 @@ public class PostExposure2 : MonoBehaviour
         var canvas = GameObject.Find("InstructionsMenu");
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
+        taskPreExposure = GetComponent<PreExposureTOJ>(); 
+
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
         //read file and generate list 
         List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJConditions.csv", 1));
@@ -192,6 +196,7 @@ public class PostExposure2 : MonoBehaviour
         tempListCount = shuffledComb.Count;
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
+        filePath = taskPreExposure.FullFilePath + fileName; 
         writeToFile("AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration", filePath);
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 

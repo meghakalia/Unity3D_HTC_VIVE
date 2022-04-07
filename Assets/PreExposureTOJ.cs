@@ -9,8 +9,16 @@ using Random = System.Random;
 
 public class PreExposureTOJ : MonoBehaviour
 {
+    public int subjectNum = 1;
+    string seq = "a";
+    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
+    public string FullFilePath;
+
     List<int> shuffledComb;
-    string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/PreExposureTOJ.csv";
+    string filename = "PreExposureTOJ.csv";
+    string filePath; 
+
+    //string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/PreExposureTOJ.csv";
 
     //Touch haptic 
     public HapticPlugin HapticDevice = null;
@@ -198,6 +206,8 @@ public class PreExposureTOJ : MonoBehaviour
         tempListCount = shuffledComb.Count;
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
+        FullFilePath = PathFolder + subjectNum + "/" + seq + "/"; 
+        filePath = FullFilePath + filename;
         writeToFile("AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration", filePath);
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 

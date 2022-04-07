@@ -5,6 +5,10 @@ using UnityEngine;
 using Random = System.Random;
 public class practiveLowIntensityVision : MonoBehaviour
 {
+    public int subjectNum = 1;
+    string seq = "a"; 
+    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
+    public string FullFilePath;
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
     bool m_startCoRoutine = true;
@@ -35,6 +39,8 @@ public class practiveLowIntensityVision : MonoBehaviour
     {
         var canvas = GameObject.Find("InstructionsMenu");
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
+
+        FullFilePath = PathFolder + subjectNum + "/" + seq + "/"; 
     }
 
     // Update is called once per frame
