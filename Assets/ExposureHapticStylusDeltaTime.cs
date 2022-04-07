@@ -10,6 +10,11 @@ using Random = System.Random;
 
 public class ExposureHapticStylusDeltaTime : MonoBehaviour
 {
+    int subjectNum = 34;
+    string seq = "a";
+    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
+    public string FullFilePath;
+
     public int m_repeatitionsExposureTOJ = 2;
     public int m_CounterRepeatitionsExposureTOJ = 0;
 
@@ -171,7 +176,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         TOJObject_pre = GetComponent<PreExposureTOJ>();
 
         //file input output 
-        filePath = TOJObject_pre.FullFilePath + fileName; 
+        FullFilePath = PathFolder + subjectNum + "_" + seq + "_";
+        filePath = FullFilePath + fileName; 
         //filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/MeghaPilotExposure.csv";
         writeToFile("AsynchronyVal, numVisLow, numTactLow, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration");
 
@@ -223,7 +229,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) 
                 {
-                    Debug.Log("Timelapsed LED " + timeLapsed);
+                    //Debug.Log("Timelapsed LED " + timeLapsed);
                     if (m_first_LED_loop) //runs only once 
                     {
                         LEDStartMillis = timeLapsed;
@@ -260,7 +266,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
                 if (timeLapsed > BuzzDelay && !exitCoroutineBuzzLoop) // problem in timing 
                 {
-                    Debug.Log("Timelapsed buzz " + timeLapsed);
+                    //Debug.Log("Timelapsed buzz " + timeLapsed);
                     if (m_first_buzz_loop) //runs only once 
                     {
                         BuzzStartMillis = timeLapsed;
@@ -405,7 +411,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
         if ((Input.GetKey("right")))
         {
-            subjectResponse = 1;
+            subjectResponse = 1; // vision has hihger number of low intensity trials 
         }
 
         if ((Input.GetKey("left")))
@@ -417,7 +423,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         int numVisLow = 8 - shuffledComb[tempList][0];
         int numTactLow = 8 - shuffledComb[tempList][1];
 
-        if (numVisLow < numTactLow)
+        if (numVisLow > numTactLow)
         {
             correctResponse = 1; //vision has hihger number of high intensity responses
         }
@@ -434,11 +440,13 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
         if (tempList < tempListCount - 1) // for some reason this is run multiple times
         {
+            tempList++;
+
             numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
             numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
             loopCounter = 0; //reset loop counter
-            tempList++;
+            
             timeLapsed = 0; //reset clock 
             m_startCoRoutine = true;
             exitCoroutineLEDLoop = false;
@@ -453,12 +461,12 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                 Random rng = new Random();
                 shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
 
-                //print debug 
-                for (int k = 0; k < shuffledComb.Count; k++)
-                {
-                    Debug.Log("shuffledComb 1" + " -- " + shuffledComb[tempList][0]);
-                    Debug.Log("shuffledComb 2" + " -- " + shuffledComb[tempList][1]);
-                }
+                ////print debug 
+                //for (int k = 0; k < shuffledComb.Count; k++)
+                //{
+                //    Debug.Log("shuffledComb 1" + " -- " + shuffledComb[tempList][0]);
+                //    Debug.Log("shuffledComb 2" + " -- " + shuffledComb[tempList][1]);
+                //}
 
                 //reset values 
                 numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
@@ -492,7 +500,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         //triggerMenuMsg.index += 1;
 
         //wait for 1 second and start again 
-        Debug.Log(" got input ");
+        //Debug.Log(" got input ");
     }
 
     public void ResetBlockExposure()
@@ -505,11 +513,11 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
         //print debug 
         //untested
-        for (int k = 0; k < shuffledComb.Count; k++)
-        {
-            Debug.Log("shuffledComb 1" + " -- " + shuffledComb[k][0]);
-            Debug.Log("shuffledComb 2" + " -- " + shuffledComb[k][1]);
-        }
+        //for (int k = 0; k < shuffledComb.Count; k++)
+        //{
+        //    Debug.Log("shuffledComb 1" + " -- " + shuffledComb[k][0]);
+        //    Debug.Log("shuffledComb 2" + " -- " + shuffledComb[k][1]);
+        //}
 
         //reset values 
         numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials

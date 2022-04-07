@@ -6,9 +6,7 @@ using Random = System.Random;
 
 public class PracticeLowIntensityTactile : MonoBehaviour
 {
-    public int subjectNum = 1;
-    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
-    public string FullFilePath; 
+   
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
     public practiveLowIntensityVision TaskLowIntensityVision;
@@ -23,10 +21,10 @@ public class PracticeLowIntensityTactile : MonoBehaviour
 
     int score = 0;
 
-    int blockCount = 10;
+    int blockCount = 8;// change to 4
     int blockrun = 0;
 
-    int requiredScore = 8;
+    int requiredScore = 7;
     int subjectResponse;
 
     //Touch haptic 
@@ -93,7 +91,7 @@ public class PracticeLowIntensityTactile : MonoBehaviour
 
         TaskLowIntensityVision = GetComponent<practiveLowIntensityVision>();
 
-        FullFilePath = PathFolder + subjectNum + "/"; 
+        
 
         //haptic Touch 
         if (HapticDevice == null)
@@ -106,8 +104,9 @@ public class PracticeLowIntensityTactile : MonoBehaviour
         if (time_delay > 1.0f)
         {
             if (m_startCoRoutine && triggerMenuMsg.startExperiment && TaskLowIntensityVision.m_startPracticeLowIntensityTactile)
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment) // debug
             {
-                StartCoroutine(Example());
+               StartCoroutine(Example());
             }
 
         }

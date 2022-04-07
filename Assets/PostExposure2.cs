@@ -9,6 +9,11 @@ using Random = System.Random;
 
 public class PostExposure2 : MonoBehaviour
 {
+    int subjectNum = 34;
+    string seq = "a";
+    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
+    public string FullFilePath;
+
     List<int> shuffledComb;
     //string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/TestingTOJ.csv";
     string filePath = "";
@@ -196,7 +201,8 @@ public class PostExposure2 : MonoBehaviour
         tempListCount = shuffledComb.Count;
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-        filePath = taskPreExposure.FullFilePath + fileName; 
+        FullFilePath = PathFolder + subjectNum + "_" + seq + "_";
+        filePath = FullFilePath + fileName;
         writeToFile("AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration", filePath);
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
@@ -256,7 +262,6 @@ public class PostExposure2 : MonoBehaviour
                         //Debug.Log("LEDflag enter " + " -- " + checkTime);
                         GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
                         GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
-
 
                     }
                     else
@@ -403,7 +408,6 @@ public class PostExposure2 : MonoBehaviour
                     triggerMenuMsg.startExperiment = false;
                     triggerMenuMsg.index = 4;
                     triggerMenuMsg.runCoRoutine = true;
-                    
                     
                     //yield return new WaitForSecondsRealtime(0.7f);
 

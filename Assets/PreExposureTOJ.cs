@@ -9,7 +9,7 @@ using Random = System.Random;
 
 public class PreExposureTOJ : MonoBehaviour
 {
-    public int subjectNum = 1;
+    int subjectNum = 34;
     string seq = "a";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
@@ -206,7 +206,8 @@ public class PreExposureTOJ : MonoBehaviour
         tempListCount = shuffledComb.Count;
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
-        FullFilePath = PathFolder + subjectNum + "/" + seq + "/"; 
+        //FullFilePath = PathFolder + subjectNum + "/" + seq + "/"; 
+        FullFilePath = PathFolder + subjectNum + "_" + seq + "_"; 
         filePath = FullFilePath + filename;
         writeToFile("AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration", filePath);
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
@@ -251,7 +252,8 @@ public class PreExposureTOJ : MonoBehaviour
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
 
             if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskPracticeTOJ.m_startPreExposureTOJ) // if exposure script gives nod to run TOJ
-            {
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
+                {
                 //if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
                 {

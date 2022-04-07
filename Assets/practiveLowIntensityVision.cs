@@ -5,13 +5,13 @@ using UnityEngine;
 using Random = System.Random;
 public class practiveLowIntensityVision : MonoBehaviour
 {
-    public int subjectNum = 1;
+    public int subjectNum = 34;
     string seq = "a"; 
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
-    bool m_startCoRoutine = true;
+    bool m_startCoRoutine = true; // debug
     float time_delay = 0f;
 
     int correctReponse;
@@ -20,10 +20,10 @@ public class practiveLowIntensityVision : MonoBehaviour
 
     int score = 0;
 
-    int blockCount = 10;
+    int blockCount = 8;
     int blockrun = 0;
 
-    int requiredScore = 8;
+    int requiredScore = 7;
     int subjectResponse;
 
     bool m_startPracticeLowIntensityVision = true; 

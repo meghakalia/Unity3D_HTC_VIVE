@@ -21,7 +21,7 @@ public class PracticeExposure : MonoBehaviour
     float timeParsed = 0;
     bool b_lightOn = true;
     public float timePause = 1.0f;
-    bool m_startCoRoutine = true;
+    bool m_startCoRoutine = false;
     float time_delay = 0f;
     List<List<int>> shuffledComb;
     int correctResponse = 0;
@@ -182,6 +182,22 @@ public class PracticeExposure : MonoBehaviour
         numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
         numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
+        //for (int i = 0; i < shuffledComb.Count; i++)
+        //{
+        //    Debug.Log("ValueList start--" + shuffledComb[i][0] + " " + shuffledComb[i][1]);
+        //}
+
+        //for (int i = 0; i < numbersRand_V.Count; i++)
+        //{
+        //    Debug.Log("ValueList randInt start V--" + numbersRand_V[i] );
+        //}
+
+        //for (int i = 0; i < numbersRand_T.Count; i++)
+        //{
+        //    Debug.Log("ValueList randInt start T--" + numbersRand_T[i]);
+        //}
+
+
         if (m_ExperimentLEDDelay)
         {
             LEDDelay = 160.0f;
@@ -220,13 +236,14 @@ public class PracticeExposure : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskLowIntensityTactile.m_startPracticeExposure)
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskLowIntensityTactile.m_startPracticeExposure)
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
             {
                 timeLapsed = timeLapsed + Time.deltaTime * 1000;
 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop)
                 {
-                    Debug.Log("Timelapsed LED " + timeLapsed);
+                    //Debug.Log("Timelapsed LED " + timeLapsed);
                     if (m_first_LED_loop) //runs only once 
                     {
                         LEDStartMillis = timeLapsed;
@@ -263,7 +280,7 @@ public class PracticeExposure : MonoBehaviour
 
                 if (timeLapsed > BuzzDelay && !exitCoroutineBuzzLoop) // problem in timing 
                 {
-                    Debug.Log("Timelapsed buzz " + timeLapsed);
+                    //Debug.Log("Timelapsed buzz " + timeLapsed);
                     if (m_first_buzz_loop) //runs only once 
                     {
                         BuzzStartMillis = timeLapsed;
@@ -313,7 +330,7 @@ public class PracticeExposure : MonoBehaviour
                     {
                         m_startCoRoutine = false;
 
-                        StartCoroutine(waitForSecondsAndReset(0.4f));
+                        StartCoroutine(waitForSecondsAndReset(0.6f));
 
                     }
                     else
@@ -416,11 +433,33 @@ public class PracticeExposure : MonoBehaviour
             subjectResponse = 2;
         }
 
+        //Debug.Log("ValueList wait4Keydown templist--" + tempList);
+
+        //for (int i = 0; i < shuffledComb.Count; i++)
+        //{
+        //    Debug.Log("ValueList wait4Keydown--" + shuffledComb[i][0] + " " + shuffledComb[i][1]);
+        //}
+
+        //for (int i = 0; i < numbersRand_V.Count; i++)
+        //{
+        //    Debug.Log("ValueList randInt wait4Keydown V--" + numbersRand_V[i]);
+        //}
+
+        //for (int i = 0; i < numbersRand_T.Count; i++)
+        //{
+        //    Debug.Log("ValueList randInt wait4Keydown T--" + numbersRand_T[i]);
+        //}
+
         //write the response to a file 
         int numVisLow = 8 - shuffledComb[tempList][0];
         int numTactLow = 8 - shuffledComb[tempList][1];
 
-        if (numVisLow < numTactLow)
+        //Debug.Log("ValueList numVisLow wait4Keydown V--" + numVisLow);
+        //Debug.Log("ValueList numTactLow wait4Keydown T--" + numTactLow);
+
+       
+
+        if (numVisLow > numTactLow)
         {
             correctResponse = 1; //vision has hihger number of high intensity responses
         }
@@ -429,6 +468,8 @@ public class PracticeExposure : MonoBehaviour
             correctResponse = 2; //tactile has hihger number of high intensity responses
         }
 
+        //Debug.Log("ValueList wait4Keydown correctResponse--" + correctResponse);
+        //Debug.Log("ValueList wait4Keydown subResposne--" + subjectResponse);
 
         if (correctResponse == subjectResponse)
         {
@@ -438,10 +479,11 @@ public class PracticeExposure : MonoBehaviour
         }
         else
         {
-            // double beep 
             beep.PlayOneShot(beepsoundWrong);
-            
-            
+            yield return new WaitForSecondsRealtime(0.3f);
+            beep.PlayOneShot(beepsoundWrong);
+
+
         }
 
         //AsynchronyVal, numVisLow, numTactLow, correctResponse, subjectResponse, stimulusDuration
@@ -452,11 +494,30 @@ public class PracticeExposure : MonoBehaviour
 
         if (tempList < tempListCount - 1) // for some reason this is run multiple times
         {
+
+            tempList++;
+            int checkV = shuffledComb[tempList][0]; 
+            int checkT = shuffledComb[tempList][1]; 
             numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
             numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
+            //for (int i = 0; i < shuffledComb.Count; i++)
+            //{
+            //    Debug.Log("ValueList tempList--" + shuffledComb[i][0] + " " + shuffledComb[i][1]);
+            //}
+
+            //for (int i = 0; i < numbersRand_V.Count; i++)
+            //{
+            //    Debug.Log("ValueList randInt tempList V--" + numbersRand_V[i]);
+            //}
+
+            //for (int i = 0; i < numbersRand_T.Count; i++)
+            //{
+            //    Debug.Log("ValueList randInt tempList T--" + numbersRand_T[i]);
+            //}
+
             loopCounter = 0; //reset loop counter
-            tempList++;
+           
             timeLapsed = 0; //reset clock 
             m_startCoRoutine = true;
             exitCoroutineLEDLoop = false;
@@ -538,13 +599,16 @@ public class PracticeExposure : MonoBehaviour
 
         //print debug 
         //untested
-        for (int k = 0; k < shuffledComb.Count; k++)
-        {
-            Debug.Log("shuffledComb 1" + " -- " + shuffledComb[k][0]);
-            Debug.Log("shuffledComb 2" + " -- " + shuffledComb[k][1]);
-        }
+        //for (int k = 0; k < shuffledComb.Count; k++)
+        //{
+        //    Debug.Log("shuffledComb 1" + " -- " + shuffledComb[k][0]);
+        //    Debug.Log("shuffledComb 2" + " -- " + shuffledComb[k][1]);
+        //}
 
         //reset values 
+        int checkV = shuffledComb[tempList][0];
+        int checkT = shuffledComb[tempList][1]; 
+
         numbersRand_V = new List<int>(generateRand(8 - shuffledComb[tempList][0])); // idx of low intensity trials
         numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 

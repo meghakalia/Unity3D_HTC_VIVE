@@ -69,7 +69,7 @@ public class PracticeTOJ : MonoBehaviour
     int blockrun = 0;
     int blockCount = 1;// make it 36 x 3 
 
-    int expectedScore = 6; 
+    int expectedScore = 8; 
 
     double timeLapsed = 0.0f;
     double startTime = 0.0f;
