@@ -62,6 +62,9 @@ public class PracticeExposure : MonoBehaviour
     //key board control
     bool gameIsPaused = false;
 
+    float _mIntensityLED = 1.8f;
+    float _mIntensityLEDLow = 0.5f;
+
     double LEDDelay = 0.0f;
     double BuzzDelay = 0.0f;
 
@@ -258,12 +261,16 @@ public class PracticeExposure : MonoBehaviour
                         if (numbersRand_V.Any(x => x == loopCounter)) // check whether current trial shoudl be low intensity
                         {
                             // low intensity visual
-                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
+                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLEDLow)); //To get HDR intensity is pow of 2
+
+                            //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
                         }
                         else
                         {
                             // high intensity visual
-                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
+                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLED)); //To get HDR intensity is pow of 2
+
+                            //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
                         }
 
                     }

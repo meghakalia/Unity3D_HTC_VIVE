@@ -106,3 +106,8 @@ AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDu
 -300, 300, 0, 1, 2, 80
 -300, 300, 0, 1, 2, 80
 -300, 300, 0, 1, 2, 80
+AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration
+AsynchronyVal, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration

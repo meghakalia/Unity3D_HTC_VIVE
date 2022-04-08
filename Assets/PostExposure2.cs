@@ -74,8 +74,11 @@ public class PostExposure2 : MonoBehaviour
     int correctResponse = 0;
 
     int blockrun = 0;
-    //int blockCount = 8;// make it 36 x 3 
-    int blockCount = 2; 
+    int blockCount = 2;// make it 36 x 3 
+                       //int blockCount = 2;  //debug
+
+    float _mIntensityLED = 1.8f;
+    float _mIntensityLEDLow = 0.5f;
 
     double timeLapsed = 0.0f;
 
@@ -195,7 +198,7 @@ public class PostExposure2 : MonoBehaviour
 
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
         //read file and generate list 
-        List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJPracticeConditions.csv", 1));
+        List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJConditions.csv", 1));
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //shuffle 
@@ -266,7 +269,8 @@ public class PostExposure2 : MonoBehaviour
                     {
                         //Debug.Log("LEDflag enter " + " -- " + checkTime);
                         GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
+                        //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
+                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLED)); //To get HDR intensity is pow of 2
 
                     }
                     else

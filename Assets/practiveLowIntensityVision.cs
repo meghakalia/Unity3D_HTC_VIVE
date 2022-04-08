@@ -11,7 +11,8 @@ public class practiveLowIntensityVision : MonoBehaviour
     public string FullFilePath;
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
-    bool m_startCoRoutine = false; // debug
+    //bool m_startCoRoutine = false; // debug
+    bool m_startCoRoutine = true; // debug
     float time_delay = 0f;
 
     int correctReponse;
@@ -27,7 +28,11 @@ public class practiveLowIntensityVision : MonoBehaviour
     int subjectResponse;
 
     bool m_startPracticeLowIntensityVision = true; 
-    public bool m_startPracticeLowIntensityTactile = false; 
+    public bool m_startPracticeLowIntensityTactile = false;
+
+    //LED 
+    float _mIntensityLED = 1.8f;
+    float _mIntensityLEDLow = 0.5f;
 
     //audio 
     [SerializeField] public AudioClip beepsoundCorrect;
@@ -90,12 +95,16 @@ public class practiveLowIntensityVision : MonoBehaviour
                 if (number == 0)
                 {
                     //low intensity
-                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
+                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLEDLow)); //To get HDR intensity is pow of 2
+
+                    //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
                 }
                 else
                 {
                     //high intensity LED
-                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
+                    GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLED)); //To get HDR intensity is pow of 2
+
+                    //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.9f)); //To get HDR intensity is pow of 2
                 }
 
                 yield return new WaitForSecondsRealtime(stimulusDuration);

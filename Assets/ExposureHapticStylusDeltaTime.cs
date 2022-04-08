@@ -41,6 +41,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     [SerializeField] private XRBaseController controller;
     [SerializeField] float _mEmissionPower = 3.0f;
     [SerializeField] float _mIntensityHaptic = 1.0f;
+    float _mIntensityLED = 1.8f;
+    float _mIntensityLEDLow = 0.5f; 
 
     //Touch haptic 
     public HapticPlugin HapticDevice = null;
@@ -65,7 +67,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     public string filePath; 
     string fileName = "Exposure.csv"; 
 
-    int blockCount = 1; // could be 3 in original experiment (list has 6x6)
+    int blockCount = 3; // could be 3 in original experiment (list has 6x6)
     int blockrun = 0;
 
     //key board control
@@ -166,7 +168,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
         //read file and generate list 
-        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/ExposureTest.csv")); //predetermined pattern 
+        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/dataTest.csv")); //predetermined pattern 
         //shuffle 
         Random rng = new Random();
         shuffledComb = comb.OrderBy(a => rng.Next()).ToList();
@@ -223,9 +225,9 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //}
 
 
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
-            //if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
-                {
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment) // debug
+            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
+            {
                 timeLapsed = timeLapsed + Time.deltaTime*1000; 
 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) 
@@ -245,12 +247,12 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                         if (numbersRand_V.Any(x => x == loopCounter)) // check whether current trial shoudl be low intensity
                         {
                             // low intensity visual
-                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2
+                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLEDLow)); //To get HDR intensity is pow of 2
                         }
                         else
                         {
                             // high intensity visual
-                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
+                            GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLED)); //To get HDR intensity is pow of 2
                         }
 
                     }

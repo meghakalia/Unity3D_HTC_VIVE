@@ -74,6 +74,9 @@ public class PracticeTOJ : MonoBehaviour
     double timeLapsed = 0.0f;
     double startTime = 0.0f;
 
+    float _mIntensityLED = 1.8f;
+    float _mIntensityLEDLow = 0.5f;
+
     PracticeExposure taskPracticeExposure;
 
     public bool m_startPreExposureTOJ = false; 
@@ -228,7 +231,9 @@ public class PracticeTOJ : MonoBehaviour
                     if (checkTime <= (LEDDuration - Time.deltaTime * 1000))
                     {
                         GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
+                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLED)); //To get HDR intensity is pow of 2
+
+                        //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
                     }
                     else
                     {

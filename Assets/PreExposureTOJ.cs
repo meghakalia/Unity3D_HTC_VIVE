@@ -36,6 +36,10 @@ public class PreExposureTOJ : MonoBehaviour
     public ExposureHapticStylusDeltaTime exposureObject;
     public PracticeTOJ taskPracticeTOJ;
 
+    //LED
+    float _mIntensityLED = 1.8f;
+    float _mIntensityLEDLow = 0.5f;
+
     //public ExposureHapticStylus ExposureScript; 
 
     bool m_startCoRoutine = true;
@@ -270,7 +274,9 @@ public class PreExposureTOJ : MonoBehaviour
                     {
                         //Debug.Log("LEDflag enter " + " -- " + checkTime);
                         GetComponent<MeshRenderer>().material.EnableKeyword("_EMISSION");
-                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
+                        GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLED)); //To get HDR intensity is pow of 2
+
+                        //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 2.4f)); //To get HDR intensity is pow of 2
                     }
                     else
                     {
