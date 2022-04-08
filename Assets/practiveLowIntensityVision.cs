@@ -11,7 +11,7 @@ public class practiveLowIntensityVision : MonoBehaviour
     public string FullFilePath;
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
-    bool m_startCoRoutine = true; // debug
+    bool m_startCoRoutine = false; // debug
     float time_delay = 0f;
 
     int correctReponse;

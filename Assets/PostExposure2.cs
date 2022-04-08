@@ -32,7 +32,9 @@ public class PostExposure2 : MonoBehaviour
     double[] dir = { 1.0, 1.0, 1.0 };
 
     public RunMenu triggerMenuMsg;
+    public TopUpExposure TopUpexposureObject;
     public ExposureHapticStylusDeltaTime exposureObject;
+    
     public PreExposureTOJ taskPreExposure; 
     //public ExposureHapticStylus ExposureScript; 
 
@@ -72,7 +74,8 @@ public class PostExposure2 : MonoBehaviour
     int correctResponse = 0;
 
     int blockrun = 0;
-    int blockCount = 8;// make it 36 x 3 
+    //int blockCount = 8;// make it 36 x 3 
+    int blockCount = 2; 
 
     double timeLapsed = 0.0f;
 
@@ -192,7 +195,7 @@ public class PostExposure2 : MonoBehaviour
 
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
         //read file and generate list 
-        List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJConditions.csv", 1));
+        List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJPracticeConditions.csv", 1));
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //shuffle 
@@ -233,7 +236,9 @@ public class PostExposure2 : MonoBehaviour
 
         //get exposure script 
         //var exposure = GameObject.Find("LEDCylinder");
+        TopUpexposureObject = GetComponent<TopUpExposure>();
         exposureObject = GetComponent<ExposureHapticStylusDeltaTime>();
+        
 
     }
 
@@ -244,7 +249,7 @@ public class PostExposure2 : MonoBehaviour
         {
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
           
-            if (m_startCoRoutine && exposureObject.m_start_TOJ && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
+            if (m_startCoRoutine && TopUpexposureObject.m_start_TOJ && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
                 {
@@ -397,12 +402,13 @@ public class PostExposure2 : MonoBehaviour
             else 
             {
                 //restart the exposure 
-                exposureObject.m_start_TOJ = false;
+                TopUpexposureObject.m_start_TOJ = false;
                 
                 if (exposureObject.m_CounterRepeatitionsExposureTOJ < exposureObject.m_repeatitionsExposureTOJ-1)
                 {
                     exposureObject.m_CounterRepeatitionsExposureTOJ++;
                     exposureObject.ResetBlockExposure();
+                    TopUpexposureObject.ResetBlockExposure(); 
                     ResetBlockTOJ(); // to run after exposure 
 
                     triggerMenuMsg.startExperiment = false;

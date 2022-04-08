@@ -31,16 +31,18 @@ public class RunMenu : MonoBehaviour
      public string[] instructions = new string[]
     {
         "Which has greater number of low intensity trials ?\n Buzzer (Left Key)     LED (Right Key)\n\nPress any arrow key to continue",
-        "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
+        "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue \n\n Buzzer (Left Key)     LED (Right Key)",
         "Which comes first ?\n\n\n\n Buzz (Left Key)    Light (Right Key)\n\n\n Press any arrow key to continue",
-        "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue",
+        "Look at your Finger \n \n throughout the experiment\n \n\n Press any arrow key to continue\n\n Buzzer (Left Key)     LED (Right Key)",
         "End of Block. \n You can take break \n \n Press any arrow key to continue" ,
         " \n\nLook at your Finger ",
         "Score is less than 80%. Try Again \n\n\n  Press any arrow key to continue",
         "Good Job!  \n\n\n Press any arrow key to continue ",
-        "Which of the two trials is low intensity ?\n\n First (Left Key)    Second (Right Key)\n\n Press any arrow key to continue",
+        "Which of the two trials is of lower intensity ?\n\n First (Left Key)    Second (Right Key)\n\n Press any arrow key to continue",
         "Good Job!  \n\n\n Press any arrow key to continue ",
-        "Good Job!  \n\n\n Press any arrow key to continue "
+        "Good Job!  \n\n\n Press any arrow key to continue ",
+        "You can take break \n \n Press any arrow key to continue" ,
+
     };
 
     void Start()
@@ -119,6 +121,11 @@ public class RunMenu : MonoBehaviour
                 break;
             case 10:
                 index = 2; //1
+                yield return new WaitForSecondsRealtime(2.0f);
+                runCoRoutine = true;
+                break;
+            case 11:
+                index = 0; //1
                 yield return new WaitForSecondsRealtime(2.0f);
                 runCoRoutine = true;
                 break;

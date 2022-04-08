@@ -8,7 +8,7 @@ using System.Linq;
 
 using Random = System.Random;
 
-public class ExposureHapticStylusDeltaTime : MonoBehaviour
+public class TopUpExposure : MonoBehaviour
 {
     int subjectNum = 34;
     string seq = "a";
@@ -19,7 +19,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     public int m_CounterRepeatitionsExposureTOJ = 0;
 
     bool m_ExperimentLEDDelay = false; // true, buzz first, false: LEd first
-    
+
     //public Material m_Material;
     bool firstTime = true;
     float prevTime = 0;
@@ -35,8 +35,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     int correctResponse = 0;
     [SerializeField] float stimulusDuration = 0.1f; // 100 ms
     int subjectResponse = 0;
-    //public bool m_Start_TOJ = false;
-    public bool m_Start_TopUP = false;
+    public bool m_Start_TOJ = false;
 
     [SerializeField] private XRBaseController controller;
     [SerializeField] float _mEmissionPower = 3.0f;
@@ -51,7 +50,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     [NonSerialized] public float magnitude = 1.2f;
     [NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
 
-    public bool m_start_TOJ = false; 
+    public bool m_start_TOJ = false;
 
     public RunMenu triggerMenuMsg;
     public GameObject MenuCanvas;
@@ -62,8 +61,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     int tempList = 0;
 
     // file input output 
-    public string filePath; 
-    string fileName = "Exposure.csv"; 
+    public string filePath;
+    string fileName = "ExposureTest.csv";
 
     int blockCount = 1; // could be 3 in original experiment (list has 6x6)
     int blockrun = 0;
@@ -101,9 +100,10 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 
     PostExposure2 TOJObject_post;
     PreExposureTOJ TOJObject_pre;
+    ExposureHapticStylusDeltaTime ExposureObj; 
 
 
-    int m_flashCount = 0 ; 
+    int m_flashCount = 0;
     List<int> generateRand(int numCount)
     {
         var rand = new Random();
@@ -175,10 +175,11 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         //get postExposure2 object 
         TOJObject_post = GetComponent<PostExposure2>();
         TOJObject_pre = GetComponent<PreExposureTOJ>();
+        ExposureObj = GetComponent<ExposureHapticStylusDeltaTime>(); 
 
         //file input output 
         FullFilePath = PathFolder + subjectNum + "_" + seq + "_";
-        filePath = FullFilePath + fileName; 
+        filePath = FullFilePath + fileName;
         //filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/MeghaPilotExposure.csv";
         writeToFile("AsynchronyVal, numVisLow, numTactLow, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration");
 
@@ -195,9 +196,9 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         if (m_ExperimentLEDDelay)
         {
             LEDDelay = 140.0f;
-            BuzzDelay = 0f; 
+            BuzzDelay = 0f;
         }
-        else 
+        else
         {
             LEDDelay = 0.0f;
             BuzzDelay = 140.0f;
@@ -207,7 +208,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         //LEDDelay = 0.0f;
         //BuzzDelay = 0f;
 
-        
+
     }
 
 
@@ -223,12 +224,12 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //}
 
 
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
-            //if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
-                {
-                timeLapsed = timeLapsed + Time.deltaTime*1000; 
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment)
+            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && ExposureObj.m_Start_TopUP)
+            {
+                timeLapsed = timeLapsed + Time.deltaTime * 1000;
 
-                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) 
+                if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop)
                 {
                     //Debug.Log("Timelapsed LED " + timeLapsed);
                     if (m_first_LED_loop) //runs only once 
@@ -313,18 +314,18 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                 // run it 8 times and add 
                 if (exitCoroutineLEDLoop && exitCoroutineBuzzLoop)
                 {
-                    if (loopCounter < loopNum-1)
+                    if (loopCounter < loopNum - 1)
                     {
                         m_startCoRoutine = false;
 
                         StartCoroutine(waitForSecondsAndReset(0.6f)); //original was 0.4
-                        
+
                     }
                     else
                     {
                         m_startCoRoutine = false;
                         StartCoroutine(WaitForKeyDown());
-                        
+
                     }
                 }
             }
@@ -398,7 +399,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         m_startCoRoutine = true;
         exitCoroutineLEDLoop = false;
         exitCoroutineBuzzLoop = false;
-        
+
         loopCounter++;
     }
 
@@ -447,7 +448,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
             loopCounter = 0; //reset loop counter
-            
+
             timeLapsed = 0; //reset clock 
             m_startCoRoutine = true;
             exitCoroutineLEDLoop = false;
@@ -474,34 +475,29 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
                 numbersRand_T = new List<int>(generateRand(8 - shuffledComb[tempList][1])); // idx of low intensity trials
 
                 loopCounter = 0; //reset loop counter
-                tempList = 0;   
+                tempList = 0;
                 timeLapsed = 0; //reset clock 
                 m_startCoRoutine = true;
                 exitCoroutineLEDLoop = false;
                 exitCoroutineBuzzLoop = false;
 
             }
-            else 
+            else
             {
-                ////start TOJ
-                //m_start_TOJ = true;
-                //triggerMenuMsg.startExperiment = false;
-                //triggerMenuMsg.index = 2 ;
-                //triggerMenuMsg.runCoRoutine = true;
-
-                //start top up
-                m_Start_TopUP = true; 
+                //start TOJ
+                ExposureObj.m_Start_TopUP = false; 
+                m_start_TOJ = true;
                 triggerMenuMsg.startExperiment = false;
-                triggerMenuMsg.index = 11;
+                triggerMenuMsg.index = 2;
                 triggerMenuMsg.runCoRoutine = true;
 
-                // Here it will be break msg and top up 
 
-
+                //yield return new WaitForSecondsRealtime(0.7f);
+                //wait for button press 
 
             }
-                //block logic 
-                //m_startCoRoutine = true;
+            //block logic 
+            //m_startCoRoutine = true;
         }
 
         //triggerMenuMsg.startExperiment = true; 
@@ -539,6 +535,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         exitCoroutineBuzzLoop = false;
 
     }
+
 
 
 }
