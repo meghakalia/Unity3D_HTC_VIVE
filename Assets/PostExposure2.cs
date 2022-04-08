@@ -78,7 +78,7 @@ public class PostExposure2 : MonoBehaviour
     //int blockCount = 1;  //test
 
     float _mIntensityLED = 1.8f;
-    float _mIntensityLEDLow = 0.5f;
+    float _mIntensityLEDLow = -0.1f;
 
     double timeLapsed = 0.0f;
 

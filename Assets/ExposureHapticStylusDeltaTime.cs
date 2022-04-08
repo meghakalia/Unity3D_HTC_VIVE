@@ -42,7 +42,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     [SerializeField] float _mEmissionPower = 3.0f;
     [SerializeField] float _mIntensityHaptic = 1.0f;
     float _mIntensityLED = 1.8f;
-    float _mIntensityLEDLow = 0.5f; 
+    float _mIntensityLEDLow = -0.1f; 
 
     //Touch haptic 
     public HapticPlugin HapticDevice = null;
@@ -67,7 +67,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     public string filePath; 
     string fileName = "Exposure.csv"; 
 
-    int blockCount = 3; // could be 3 in original experiment (list has 6x6)
+    int blockCount = 2; // could be 3 in original experiment (list has 6x6)
     //int blockCount = 1; // test
     int blockrun = 0;
 

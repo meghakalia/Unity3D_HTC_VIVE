@@ -38,7 +38,7 @@ public class PreExposureTOJ : MonoBehaviour
 
     //LED
     float _mIntensityLED = 1.8f;
-    float _mIntensityLEDLow = 0.5f;
+    float _mIntensityLEDLow = -0.1f;
 
     //public ExposureHapticStylus ExposureScript; 
 

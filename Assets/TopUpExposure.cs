@@ -42,7 +42,7 @@ public class TopUpExposure : MonoBehaviour
     [SerializeField] float _mIntensityHaptic = 1.0f;
 
     float _mIntensityLED = 1.8f;
-    float _mIntensityLEDLow = 0.5f;
+    float _mIntensityLEDLow = -0.1f;
 
     //Touch haptic 
     public HapticPlugin HapticDevice = null;

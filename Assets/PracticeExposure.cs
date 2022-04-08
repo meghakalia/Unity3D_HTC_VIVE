@@ -63,7 +63,7 @@ public class PracticeExposure : MonoBehaviour
     bool gameIsPaused = false;
 
     float _mIntensityLED = 1.8f;
-    float _mIntensityLEDLow = 0.5f;
+    float _mIntensityLEDLow = -0.1f;
 
     double LEDDelay = 0.0f;
     double BuzzDelay = 0.0f;
