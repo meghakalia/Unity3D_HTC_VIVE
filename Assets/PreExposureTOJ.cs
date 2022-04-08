@@ -9,7 +9,7 @@ using Random = System.Random;
 
 public class PreExposureTOJ : MonoBehaviour
 {
-    int subjectNum = 34;
+    int subjectNum = 1;
     string seq = "a";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
@@ -79,6 +79,7 @@ public class PreExposureTOJ : MonoBehaviour
 
     int blockrun = 0;
     int blockCount = 8;
+    //int blockCount = 1; //testing
 
     double timeLapsed = 0.0f;
 

@@ -9,7 +9,7 @@ using Random = System.Random;
 
 public class PostExposure2 : MonoBehaviour
 {
-    int subjectNum = 34;
+    int subjectNum = 1;
     string seq = "a";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
@@ -74,8 +74,8 @@ public class PostExposure2 : MonoBehaviour
     int correctResponse = 0;
 
     int blockrun = 0;
-    int blockCount = 2;// make it 36 x 3 
-                       //int blockCount = 2;  //debug
+    int blockCount = 8;// make it 36 x 3 // shouldn't this be 4 // check 
+    //int blockCount = 1;  //test
 
     float _mIntensityLED = 1.8f;
     float _mIntensityLEDLow = 0.5f;

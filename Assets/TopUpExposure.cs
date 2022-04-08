@@ -10,7 +10,7 @@ using Random = System.Random;
 
 public class TopUpExposure : MonoBehaviour
 {
-    int subjectNum = 34;
+    int subjectNum = 1;
     string seq = "a";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;

@@ -21,7 +21,7 @@ public class PracticeExposure : MonoBehaviour
     float timeParsed = 0;
     bool b_lightOn = true;
     public float timePause = 1.0f;
-    bool m_startCoRoutine = false;
+    bool m_startCoRoutine = true;
     float time_delay = 0f;
     List<List<int>> shuffledComb;
     int correctResponse = 0;
@@ -239,8 +239,8 @@ public class PracticeExposure : MonoBehaviour
             //    StartCoroutine(Example());
             //}
 
-            //if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskLowIntensityTactile.m_startPracticeExposure)
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment)
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskLowIntensityTactile.m_startPracticeExposure)
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment)
             {
                 timeLapsed = timeLapsed + Time.deltaTime * 1000;
 

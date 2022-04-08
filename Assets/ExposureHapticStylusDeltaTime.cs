@@ -10,7 +10,7 @@ using Random = System.Random;
 
 public class ExposureHapticStylusDeltaTime : MonoBehaviour
 {
-    int subjectNum = 34;
+    int subjectNum = 1;
     string seq = "a";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
@@ -68,6 +68,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     string fileName = "Exposure.csv"; 
 
     int blockCount = 3; // could be 3 in original experiment (list has 6x6)
+    //int blockCount = 1; // test
     int blockrun = 0;
 
     //key board control
