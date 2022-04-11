@@ -6,7 +6,7 @@ using Random = System.Random;
 public class practiveLowIntensityVision : MonoBehaviour
 {
     public int subjectNum = 34;
-    string seq = "a"; 
+    string seq = "b"; 
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
     public RunMenu triggerMenuMsg;

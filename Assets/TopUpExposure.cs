@@ -11,14 +11,14 @@ using Random = System.Random;
 public class TopUpExposure : MonoBehaviour
 {
     int subjectNum = 1;
-    string seq = "a";
+    string seq = "b";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
 
     public int m_repeatitionsExposureTOJ = 2;
     public int m_CounterRepeatitionsExposureTOJ = 0;
 
-    bool m_ExperimentLEDDelay = false; // true, buzz first, false: LEd first
+    bool m_ExperimentLEDDelay = true; // true, buzz first, false: LEd first
 
     //public Material m_Material;
     bool firstTime = true;
