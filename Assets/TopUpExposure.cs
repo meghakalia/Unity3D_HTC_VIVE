@@ -249,6 +249,7 @@ public class TopUpExposure : MonoBehaviour
                         if (numbersRand_V.Any(x => x == loopCounter)) // check whether current trial shoudl be low intensity
                         {
                             // low intensity visual
+                            
                             GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, _mIntensityLEDLow)); //To get HDR intensity is pow of 2
 
                             //GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", new Vector4(191.0f / 255f, 180f / 255f, 180f / 255f, 1f) * Mathf.Pow(2, 1.2f)); //To get HDR intensity is pow of 2

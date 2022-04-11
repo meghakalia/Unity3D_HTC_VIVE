@@ -1329,7 +1329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &601610925
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1621,7 +1621,6 @@ MonoBehaviour:
   controller: {fileID: 0}
   _mEmissionPower: 3
   _mIntensityHaptic: 1
-  _mIntensityLEDLow: 0.5
   HapticDevice: {fileID: 0}
   m_start_TOJ: 0
   triggerMenuMsg: {fileID: 0}
@@ -1721,7 +1720,6 @@ MonoBehaviour:
   triggerMenuMsg: {fileID: 0}
   MenuCanvas: {fileID: 0}
   m_startPracticeLowIntensityTactile: 0
-  _mIntensityLEDLow: 0.5
   beepsoundCorrect: {fileID: 8300000, guid: 00ad2591a7a46084abed2dde57e80f79, type: 3}
   beepsoundWrong: {fileID: 8300000, guid: f4af1a6cd846f2d4793ac669d3eceb03, type: 3}
   beep: {fileID: 1217360997}
@@ -2511,7 +2509,7 @@ PrefabInstance:
     - target: {fileID: 7856716547787428072, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9001862098026964122, guid: 22c63b3e3aa351946a7a26cb28f7ce6c, type: 3}
@@ -4208,7 +4206,7 @@ PrefabInstance:
     - target: {fileID: 7856716547787428072, guid: 22c63b3e3aa351946a7a26cb28f7ce6c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22c63b3e3aa351946a7a26cb28f7ce6c, type: 3}
