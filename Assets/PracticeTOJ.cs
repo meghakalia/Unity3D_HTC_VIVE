@@ -216,6 +216,7 @@ public class PracticeTOJ : MonoBehaviour
             timeLapsed = timeLapsed + Time.deltaTime * 1000.0f;
 
             if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskPracticeExposure.m_startPracticeTOJ) // if exposure script gives nod to run TOJ
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
             {
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
                 {

@@ -40,7 +40,8 @@ public class RunMenu : MonoBehaviour
         "Good Job!  \n\n\n Press any arrow key to continue ",
         "Which of the two trials is of lower intensity ?\n\n First (Left Key)    Second (Right Key)\n\n Press any arrow key to continue",
         "Good Job!  \n\n\n Press any arrow key to continue ",
-        "Good Job!  \n\n\n Press any arrow key to continue ",
+        "Good Job! \n\n End of Block \n\n You can take break \n\n Press any arrow key to continue ",
+        "You can take break \n \n Press any arrow key to continue" ,
         "You can take break \n \n Press any arrow key to continue" ,
 
     };
@@ -126,6 +127,11 @@ public class RunMenu : MonoBehaviour
                 break;
             case 11:
                 index = 0; //1
+                yield return new WaitForSecondsRealtime(2.0f);
+                runCoRoutine = true;
+                break;
+            case 12:
+                index = 2; //1
                 yield return new WaitForSecondsRealtime(2.0f);
                 runCoRoutine = true;
                 break;

@@ -419,7 +419,7 @@ public class PreExposureTOJ : MonoBehaviour
                     //display RunMenu Message 
                     // reset TOJ after button press 
                     triggerMenuMsg.startExperiment = false;
-                    triggerMenuMsg.index = 2;
+                    triggerMenuMsg.index = 12;
                     triggerMenuMsg.runCoRoutine = true;
                     ResetBlockTOJ(); // to run after exposure 
                 }
