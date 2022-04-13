@@ -10,7 +10,7 @@ using Random = System.Random;
 public class PreExposureTOJ : MonoBehaviour
 {
     int subjectNum = 1;
-    string seq = "b";
+    string seq = "a";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
 
@@ -27,7 +27,7 @@ public class PreExposureTOJ : MonoBehaviour
     [NonSerialized] public float gain = 1.5f;
     [NonSerialized] public float lowGain = 0.5f;
     [NonSerialized] public float magnitude = 1.2f;
-    public bool m_startExposure = false;
+    public bool m_startExposure = false; 
 
     //[NonSerialized] public double[] dir = { 1.0, 1.0, 1.0 };
     double[] dir = { 1.0, 1.0, 1.0 };

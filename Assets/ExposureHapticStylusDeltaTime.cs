@@ -11,14 +11,14 @@ using Random = System.Random;
 public class ExposureHapticStylusDeltaTime : MonoBehaviour
 {
     int subjectNum = 1;
-    string seq = "b";
+    string seq = "a";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
 
     public int m_repeatitionsExposureTOJ = 2;
     public int m_CounterRepeatitionsExposureTOJ = 0;
 
-    bool m_ExperimentLEDDelay = true; // true, buzz first, false: LEd first
+    bool m_ExperimentLEDDelay = false; // true, buzz first, false: LEd first
     
     //public Material m_Material;
     bool firstTime = true;
@@ -42,7 +42,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     [SerializeField] float _mEmissionPower = 3.0f;
     [SerializeField] float _mIntensityHaptic = 1.0f;
     float _mIntensityLED = 1.8f;
-    float _mIntensityLEDLow = -0.1f; 
+    float _mIntensityLEDLow = -0.2f; 
 
     //Touch haptic 
     public HapticPlugin HapticDevice = null;
@@ -67,7 +67,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     public string filePath; 
     string fileName = "Exposure.csv"; 
 
-    int blockCount = 2; // could be 3 in original experiment (list has 6x6)
+    int blockCount = 1; // could be 3 in original experiment (list has 6x6)
     //int blockCount = 1; // test
     int blockrun = 0;
 
@@ -80,8 +80,11 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     double LEDStartMillis = 0.0f;
     double BuzzStartMillis = 0.0f;
 
-    double LEDDuration = 80f; //even numbers 
+    double LEDDuration = 80f; //original numbers 
     double BuzzDuration = 80f;
+
+    //double LEDDuration = 60f; //even numbers 
+    //double BuzzDuration = 60f;
 
     bool m_first_LED_loop = true;
     bool m_first_buzz_loop = true;

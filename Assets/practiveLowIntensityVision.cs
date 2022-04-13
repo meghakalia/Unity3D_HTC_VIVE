@@ -17,7 +17,9 @@ public class practiveLowIntensityVision : MonoBehaviour
 
     int correctReponse;
 
-    float stimulusDuration = 0.1f;
+    //float stimulusDuration = 0.1f;
+
+    float stimulusDuration = 0.08f;
 
     int score = 0;
 
@@ -27,12 +29,12 @@ public class practiveLowIntensityVision : MonoBehaviour
     int requiredScore = 7;
     int subjectResponse;
 
-    bool m_startPracticeLowIntensityVision = true; 
+    bool m_startPracticeLowIntensityVision = true; //original is true
     public bool m_startPracticeLowIntensityTactile = false;
 
     //LED 
     float _mIntensityLED = 1.8f;
-    float _mIntensityLEDLow = -0.1f;
+    float _mIntensityLEDLow = -0.2f;
 
     //audio 
     [SerializeField] public AudioClip beepsoundCorrect;
@@ -53,10 +55,8 @@ public class practiveLowIntensityVision : MonoBehaviour
     {
         if (time_delay > 1.0f)
         {
-            //if (m_startCoRoutine && triggerMenuMsg.startExperiment)
-            //{
-            //    //StartCoroutine(Example());
-            //}
+        
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment && m_startPracticeLowIntensityVision)
             if (m_startCoRoutine && triggerMenuMsg.startExperiment && m_startPracticeLowIntensityVision)
             {
                 StartCoroutine(Example());

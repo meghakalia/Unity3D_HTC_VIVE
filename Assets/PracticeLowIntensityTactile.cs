@@ -17,7 +17,7 @@ public class PracticeLowIntensityTactile : MonoBehaviour
 
     int correctReponse;
 
-    float stimulusDuration = 0.1f;
+    float stimulusDuration = 0.08f;
 
     int score = 0;
 

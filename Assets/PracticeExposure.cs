@@ -63,7 +63,7 @@ public class PracticeExposure : MonoBehaviour
     bool gameIsPaused = false;
 
     float _mIntensityLED = 1.8f;
-    float _mIntensityLEDLow = -0.1f;
+    float _mIntensityLEDLow = -0.2f;
 
     double LEDDelay = 0.0f;
     double BuzzDelay = 0.0f;
@@ -71,8 +71,12 @@ public class PracticeExposure : MonoBehaviour
     double LEDStartMillis = 0.0f;
     double BuzzStartMillis = 0.0f;
 
+    //double LEDDuration = 80f; //even numbers 
+    //double BuzzDuration = 80f;
+
     double LEDDuration = 80f; //even numbers 
     double BuzzDuration = 80f;
+
 
     bool m_first_LED_loop = true;
     bool m_first_buzz_loop = true;
