@@ -58,7 +58,8 @@ public class PracticeExposure : MonoBehaviour
     int blockCount = 1; // could be 3 in original experiment (list has 6x6)
     int blockrun = 0;
 
-    int score = 0; 
+    int score = 0;
+    int required_score = 9; 
     //key board control
     bool gameIsPaused = false;
 
@@ -72,6 +73,7 @@ public class PracticeExposure : MonoBehaviour
     double BuzzStartMillis = 0.0f;
 
     //double LEDDuration = 80f; //even numbers 
+    //double BuzzDuration = 80f;
     //double BuzzDuration = 80f;
 
     double LEDDuration = 80f; //even numbers 
@@ -559,7 +561,7 @@ public class PracticeExposure : MonoBehaviour
             {
                 //display total score 
 
-                if (score < 9)
+                if (score < required_score)
                 {
                     ResetBlockExposure();
                     score = 0;
