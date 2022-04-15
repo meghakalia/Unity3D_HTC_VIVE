@@ -397,6 +397,22 @@ public class PostExposure2 : MonoBehaviour
 
                 tempList = 0;
 
+                //reset values
+                LEDDelay = 0;
+                BuzzDelay = 0;
+
+                //check if tempList is the end of hte list
+                if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
+                {
+                    LEDDelay = Mathf.Abs(shuffledComb[tempList]);
+                    correctResponse = 1; //tactile first 
+                }
+                else
+                {
+                    BuzzDelay = shuffledComb[tempList];
+                    correctResponse = 2; //vision first
+                }
+
                 timeLapsed = 0; //reset clock 
                 m_startCoRoutine = true;
 
@@ -436,6 +452,22 @@ public class PostExposure2 : MonoBehaviour
         shuffledComb = shuffledComb.OrderBy(a => rng.Next()).ToList();
 
         tempList = 0;
+
+        //reset values
+        LEDDelay = 0;
+        BuzzDelay = 0;
+
+        //check if tempList is the end of hte list
+        if (shuffledComb[tempList] < 0.0f) // negative means vision is delayed and tactile first 
+        {
+            LEDDelay = Mathf.Abs(shuffledComb[tempList]);
+            correctResponse = 1; //tactile first 
+        }
+        else
+        {
+            BuzzDelay = shuffledComb[tempList];
+            correctResponse = 2; //vision first
+        }
 
         timeLapsed = 0; //reset clock 
         m_startCoRoutine = true;
