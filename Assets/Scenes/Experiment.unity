@@ -1554,30 +1554,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1062184737}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &684425954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 684425947}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42bec3156d885bb49a5567db57f9a8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeDelay: 0
-  timePause: 1
-  stimulusDuration: 0.1
-  m_Start_TOJ: 0
-  controller: {fileID: 0}
-  _mEmissionPower: 3
-  _mIntensityHaptic: 1
-  HapticDevice: {fileID: 0}
-  triggerMenuMsg: {fileID: 0}
-  MenuCanvas: {fileID: 0}
-  postExposureObj: {fileID: 0}
-  filePath: MeghaData.csv
 --- !u!114 &684425963
 MonoBehaviour:
   m_ObjectHideFlags: 0

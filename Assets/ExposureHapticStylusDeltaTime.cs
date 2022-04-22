@@ -18,7 +18,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
     public int m_repeatitionsExposureTOJ = 2;
     public int m_CounterRepeatitionsExposureTOJ = 0;
 
-    bool m_ExperimentLEDDelay = false; // true, buzz first, false: LEd first
+    bool m_ExperimentLEDDelay = false; // true: buzz first (b), false: LEd first (a)
     
     //public Material m_Material;
     bool firstTime = true;

@@ -41,7 +41,7 @@ public class PreExposureTOJ : MonoBehaviour
     float _mIntensityLEDLow = -0.1f;
 
     //public ExposureHapticStylus ExposureScript; 
-
+   
     bool m_startCoRoutine = true;
 
     float time_delay = 0f;
@@ -258,7 +258,7 @@ public class PreExposureTOJ : MonoBehaviour
 
             if (m_startCoRoutine && triggerMenuMsg.startExperiment && taskPracticeTOJ.m_startPreExposureTOJ) // if exposure script gives nod to run TOJ
             //if (m_startCoRoutine && triggerMenuMsg.startExperiment) // if exposure script gives nod to run TOJ
-                {
+            {
                 //if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop && triggerMenuMsg.startExperiment) // problem in timing 
                 if (timeLapsed > LEDDelay && !exitCoroutineLEDLoop) // problem in timing 
                 {

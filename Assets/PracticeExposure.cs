@@ -59,7 +59,7 @@ public class PracticeExposure : MonoBehaviour
     int blockrun = 0;
 
     int score = 0;
-    int required_score = 9; 
+    int required_score = 13; // 80% of the 16
     //key board control
     bool gameIsPaused = false;
 
