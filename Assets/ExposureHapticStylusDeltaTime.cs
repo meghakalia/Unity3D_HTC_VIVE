@@ -11,14 +11,14 @@ using Random = System.Random;
 public class ExposureHapticStylusDeltaTime : MonoBehaviour
 {
     int subjectNum = 1;
-    string seq = "a";
+    string seq = "b";
     public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
     public string FullFilePath;
 
     public int m_repeatitionsExposureTOJ = 2;
     public int m_CounterRepeatitionsExposureTOJ = 0;
 
-    bool m_ExperimentLEDDelay = false; // true: buzz first (b), false: LEd first (a)
+    bool m_ExperimentLEDDelay = true; // true: buzz first (b), false: LEd first (a)
     
     //public Material m_Material;
     bool firstTime = true;
@@ -229,8 +229,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //}
 
 
-            //if (m_startCoRoutine && triggerMenuMsg.startExperiment) // debug
-            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
+            if (m_startCoRoutine && triggerMenuMsg.startExperiment) // debug
+            //if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
             {
                 timeLapsed = timeLapsed + Time.deltaTime*1000; 
 
