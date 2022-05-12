@@ -171,14 +171,14 @@ public class PracticeExposure : MonoBehaviour
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
         //read file and generate list 
-        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/dataExposurePractice.csv")); //predetermined pattern 
+        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/dataExposurePractice.csv")); //predetermined pattern 
         //shuffle 
         Random rng = new Random();
         shuffledComb = comb.OrderBy(a => rng.Next()).ToList();
         tempListCount = shuffledComb.Count;
 
         //file input output 
-        filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/PracticeExposure.csv";
+        filePath = "C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/Subjects/PracticeExposure.csv";
         writeToFile("AsynchronyVal, numVisLow, numTactLow, LEDDelay, BuzzDelay, correctResponse, subjectResponse, stimulusDuration");
 
         //haptic Touch 

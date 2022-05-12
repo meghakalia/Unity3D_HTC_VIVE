@@ -339,6 +339,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217, type: 3}
+--- !u!114 &95180522 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114312932697678990, guid: 7cdb4dbd1f8f22a4a9a363f1a23b8217,
+    type: 3}
+  m_PrefabInstance: {fileID: 95180521}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2307560af17f8c64dba01b84045f565f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &123104207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,10 +1578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846ac5628a56a9c47a21c882c50a9407, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PathFolder: C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/
-  FullFilePath: 
-  HapticDevice: {fileID: 0}
-  triggerMenuMsg: {fileID: 0}
+  HapticDevice: {fileID: 95180522}
+  triggerMenuMsg: {fileID: 19164397}
   TopUpexposureObject: {fileID: 0}
   exposureObject: {fileID: 0}
   taskPreExposure: {fileID: 0}
@@ -1586,8 +1596,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2db12936059eed548ba221d14125b227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PathFolder: C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/
-  FullFilePath: 
   m_repeatitionsExposureTOJ: 2
   m_CounterRepeatitionsExposureTOJ: 0
   timeDelay: 0
@@ -1615,11 +1623,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3375f7e4b5538e4995904a4a7cde354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PathFolder: C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/
-  FullFilePath: 
-  HapticDevice: {fileID: 0}
+  HapticDevice: {fileID: 95180522}
   m_startExposure: 0
-  triggerMenuMsg: {fileID: 0}
+  triggerMenuMsg: {fileID: 19164397}
   exposureObject: {fileID: 0}
   taskPracticeTOJ: {fileID: 0}
   timePeriod: 1
@@ -1645,10 +1651,10 @@ MonoBehaviour:
   timePause: 1
   stimulusDuration: 0.1
   m_Start_TOJ: 0
-  controller: {fileID: 0}
+  controller: {fileID: 2026198350}
   _mEmissionPower: 3
   _mIntensityHaptic: 1
-  HapticDevice: {fileID: 0}
+  HapticDevice: {fileID: 95180522}
   m_start_TOJ: 0
   triggerMenuMsg: {fileID: 0}
   MenuCanvas: {fileID: 0}
@@ -1670,8 +1676,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36e0a4507710a844afc31a1e0b66f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HapticDevice: {fileID: 0}
-  triggerMenuMsg: {fileID: 0}
+  HapticDevice: {fileID: 95180522}
+  triggerMenuMsg: {fileID: 19164397}
   exposureObject: {fileID: 0}
   timePeriod: 1
   m_startPreExposureTOJ: 0
@@ -1693,7 +1699,7 @@ MonoBehaviour:
   subjectNum: 1
   PathFolder: C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/
   FullFilePath: 
-  triggerMenuMsg: {fileID: 0}
+  triggerMenuMsg: {fileID: 19164397}
   MenuCanvas: {fileID: 0}
   m_startPracticeLowIntensityTactile: 0
   beepsoundCorrect: {fileID: 8300000, guid: 00ad2591a7a46084abed2dde57e80f79, type: 3}
@@ -1731,20 +1737,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a6121e9f6783640add280a963a98d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PathFolder: C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/
-  FullFilePath: 
   m_repeatitionsExposureTOJ: 2
   m_CounterRepeatitionsExposureTOJ: 0
   timeDelay: 0
   timePause: 1
   stimulusDuration: 0.1
   m_Start_TOJ: 0
-  controller: {fileID: 0}
+  controller: {fileID: 2026198350}
   _mEmissionPower: 3
   _mIntensityHaptic: 1
-  HapticDevice: {fileID: 0}
+  HapticDevice: {fileID: 95180522}
   m_start_TOJ: 0
-  triggerMenuMsg: {fileID: 0}
+  triggerMenuMsg: {fileID: 19164397}
   MenuCanvas: {fileID: 0}
   postExposureObj: {fileID: 0}
   filePath: 

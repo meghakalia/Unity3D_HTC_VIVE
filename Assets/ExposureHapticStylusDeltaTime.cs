@@ -12,8 +12,10 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
 {
     int subjectNum = 1;
     string seq = "b";
-    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
-    public string FullFilePath;
+
+
+    [NonSerialized] public string PathFolder = "C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/Subjects/";
+    [NonSerialized] public string FullFilePath;
 
     public int m_repeatitionsExposureTOJ = 2;
     public int m_CounterRepeatitionsExposureTOJ = 0;
@@ -172,7 +174,7 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
         //read file and generate list 
-        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/dataTest.csv")); //predetermined pattern 
+        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/dataTest.csv")); //predetermined pattern 
         //shuffle 
         Random rng = new Random();
         shuffledComb = comb.OrderBy(a => rng.Next()).ToList();
@@ -229,8 +231,8 @@ public class ExposureHapticStylusDeltaTime : MonoBehaviour
             //}
 
 
-            if (m_startCoRoutine && triggerMenuMsg.startExperiment) // debug
-            //if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
+            //if (m_startCoRoutine && triggerMenuMsg.startExperiment) // debug
+            if (m_startCoRoutine && TOJObject_post && triggerMenuMsg.startExperiment && TOJObject_pre.m_startExposure)
             {
                 timeLapsed = timeLapsed + Time.deltaTime*1000; 
 

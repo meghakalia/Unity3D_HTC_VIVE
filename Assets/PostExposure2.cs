@@ -11,8 +11,9 @@ public class PostExposure2 : MonoBehaviour
 {
     int subjectNum = 1;
     string seq = "a";
-    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
-    public string FullFilePath;
+
+    [NonSerialized] public string PathFolder = "C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/Subjects/";
+    [NonSerialized]  public string FullFilePath;
 
     List<int> shuffledComb;
     //string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/TestingTOJ.csv";
@@ -198,7 +199,7 @@ public class PostExposure2 : MonoBehaviour
 
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
         //read file and generate list 
-        List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJConditions.csv", 1));
+        List<int> comb = new List<int>(listFromFile("C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/TOJConditions.csv", 1));
         //Debug.Log("testTOJ " + " -- " + (new System.Diagnostics.StackFrame(0, true)).GetFileLineNumber());
 
         //shuffle 

@@ -12,8 +12,8 @@ public class TopUpExposure : MonoBehaviour
 {
     int subjectNum = 1;
     string seq = "b";
-    public string PathFolder = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/";
-    public string FullFilePath;
+    [NonSerialized] public string PathFolder = "C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/Subjects/";
+    [NonSerialized] public string FullFilePath;
 
     public int m_repeatitionsExposureTOJ = 2;
     public int m_CounterRepeatitionsExposureTOJ = 0;
@@ -172,7 +172,7 @@ public class TopUpExposure : MonoBehaviour
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
         //read file and generate list 
-        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/dataExposurePractice.csv")); //predetermined pattern 
+        List<List<int>> comb = new List<List<int>>(listFromFile("C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/dataExposurePractice.csv")); //predetermined pattern 
         //shuffle 
         Random rng = new Random();
         shuffledComb = comb.OrderBy(a => rng.Next()).ToList();

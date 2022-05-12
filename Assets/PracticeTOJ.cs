@@ -10,7 +10,7 @@ using Random = System.Random;
 public class PracticeTOJ : MonoBehaviour
 {
     List<int> shuffledComb;
-    string filePath = "C:/Users/megha/Documents/Unity/visualTactile/Data/Subjects/TOJPracticeOutput.csv";
+    string filePath = "C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/Subjects/TOJPracticeOutput.csv";
 
     //Touch haptic 
     public HapticPlugin HapticDevice = null;
@@ -174,7 +174,7 @@ public class PracticeTOJ : MonoBehaviour
         triggerMenuMsg = canvas.GetComponent<RunMenu>();
 
         //read file and generate list 
-        List<int> comb = new List<int>(listFromFile("C:/Users/megha/Documents/Unity/visualTactile/Data/TOJPracticeConditions.csv", 1));
+        List<int> comb = new List<int>(listFromFile("C:/Users/dailyuser/Documents/Megha/repos/VisualTactileUnity/UnityTactileVisual/Data/TOJPracticeConditions.csv", 1));
 
         //shuffle 
         Random rng = new Random();
