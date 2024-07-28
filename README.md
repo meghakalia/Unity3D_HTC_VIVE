@@ -9,13 +9,21 @@ This project aims to find what is the threshold of this visual-tactial latency t
 ## Description
 The project uses HTC vive for VR display and 3D Sense Touch Haptic device. 
 
-<video width="550" height="400" src="https://github.com/user-attachments/assets/1c7e1948-45c9-4f31-b486-89c200bfdefe"></video>
+<p align="center">
+<img src="https://github.com/user-attachments/assets/bd885606-5672-478f-93c1-3620f0c61a3b" />
+</p>
+
 
 The subject wore the head set while placing their finger under the 3D Sense Touch Haptic device.
 
-<img src="https://github.com/user-attachments/assets/335aac82-d378-4664-a639-5e9521f26820" alt="image113" width="550" height="400">
+<p align="center">
+<img src="https://github.com/user-attachments/assets/335aac82-d378-4664-a639-5e9521f26820" width="250*3" height="250" />
+</p>
 
-<img src="https://github.com/user-attachments/assets/3d10b672-4f2e-4b63-8782-8f6cced03b5e" alt="image113"  width="550" height="400">
+<p align="center">
+<img src="https://github.com/user-attachments/assets/3d10b672-4f2e-4b63-8782-8f6cced03b5e" width="300*3" height="300" />
+</p>
+
 
 
 
